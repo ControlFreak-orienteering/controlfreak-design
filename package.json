@@ -1,7 +1,7 @@
 {
   "name": "controlfreak-design",
-  "version": "0.2.0",
-  "description": "Shared look for the ControlFreak family of orienteering apps: colour tokens, Tailwind theme, font, logo and icons.",
+  "version": "0.3.0",
+  "description": "Shared look for the ControlFreak family of orienteering apps: colour tokens, Tailwind theme, font, logo, icons and the start screen.",
   "license": "MIT",
   "author": "Henrik Flordal",
   "repository": {
@@ -12,6 +12,7 @@
     "css",
     "assets",
     "scripts",
+    "dist",
     "icons.js",
     "icons.d.ts",
     "README.md",
@@ -21,10 +22,15 @@
     "./tokens.css": "./css/tokens.css",
     "./theme.css": "./css/theme.css",
     "./fonts.css": "./css/fonts.css",
+    "./splash.css": "./css/splash.css",
     "./assets/*": "./assets/*",
     "./icons": {
       "types": "./icons.d.ts",
       "default": "./icons.js"
+    },
+    "./splash": {
+      "types": "./dist/splash/index.d.ts",
+      "default": "./dist/splash/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -33,7 +39,17 @@
     "@fontsource-variable/nunito-sans": "^5.3.0"
   },
   "scripts": {
-    "test": "node --test test/*.test.mjs"
+    "build": "tsc -p .",
+    "test": "npm run build && node --test test/*.test.mjs"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  }
 }

@@ -7,15 +7,15 @@ The shared look of the ControlFreak family of orienteering apps under controlfre
 - later others, e.g. live results
 
 It holds only what the apps should share to look like one family: colour tokens, the
-Tailwind v4 theme that maps them to utility classes, the font, and the logo and icons.
-Components, layouts and texts stay in each app.
+Tailwind v4 theme that maps them to utility classes, the font, the logo and icons, and the
+start screen. Other components, layouts and texts stay in each app.
 
 ## Use
 
 Depend on a tagged version, never on a branch:
 
 ```json
-"controlfreak-design": "github:HenrikF/controlfreak-design#v0.2.0"
+"controlfreak-design": "github:HenrikF/controlfreak-design#v0.3.0"
 ```
 
 In the app's main stylesheet, after Tailwind:
@@ -25,6 +25,7 @@ In the app's main stylesheet, after Tailwind:
 @import "controlfreak-design/fonts.css";
 @import "controlfreak-design/tokens.css";
 @import "controlfreak-design/theme.css";
+@import "controlfreak-design/splash.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -80,12 +81,40 @@ export const Route = createFileRoute("/favicon.ico")({
 `?inline` makes Vite put the file in the server bundle as a data URL, and `iconResponse`
 answers with the bytes, the right content type and a day's caching.
 
+## Start screen
+
+Every app opens with the same start screen: a map in perspective where a course is set
+out control by control, the ControlFreak logo, and under it the name of the app.
+
+```tsx
+import { StartScreen } from "controlfreak-design/splash";
+
+<StartScreen
+  app="Tävlingsadministration"
+  alt="CompetitionFreak – kontroller sätts ut i terrängen"
+  caption="2 tävlingar sparade i webbläsaren"
+  enterLabel="Kom igång"
+  onDismiss={() => setSplashOpen(false)}
+/>;
+```
+
+- The animation plays to the end, then the row with the caption and the button fades in
+  and the button takes focus. With reduced motion everything shows at once.
+- `className` adds classes to the screen, e.g. one that keeps it light in a dark theme.
+- `FamilySplash` is the image alone (for a landing page): `app`, `caption`, `course`,
+  `showBackground`, `onDone`.
+- The screen's look is plain CSS in `css/splash.css`, using the tokens; import it in the
+  app's stylesheet. An app's Tailwind does not scan this package.
+- The source is TypeScript in `src/splash/`; `npm run build` writes `dist/`, which is
+  committed, so the apps need no build step for it. React is a peer dependency.
+
 ## Changing the package
 
 - Versions follow semver. A changed colour is a minor version; a removed or renamed token
   is a major version, since the apps use the names.
 - Every release is tagged (`v0.2.0`), and the apps upgrade the tag on their own branch.
-- Run `npm test` before every commit. It checks that the light and dark palettes, in hex
+- Run `npm test` before every commit; it builds `dist/` first. Commit `dist/` with the
+  source. It checks that the light and dark palettes, in hex
   and oklch, have the same colours, that every colour the theme maps exists, that the
   icons are there, and that `iconResponse` gives back the files.
 - Lovable cannot change this repository: it only sees each app's repository. Try a

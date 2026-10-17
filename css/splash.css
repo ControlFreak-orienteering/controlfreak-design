@@ -1,0 +1,97 @@
+/*
+ * The look of the shared start screen (StartScreen in controlfreak-design/splash). Plain
+ * CSS with the family's tokens, since an app's Tailwind does not scan this package.
+ */
+
+.cf-start {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 0 1.5rem;
+  background: var(--background);
+  color: var(--foreground);
+  transition: opacity 300ms;
+}
+
+.cf-start--leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cf-start__inner {
+  display: flex;
+  width: 100%;
+  max-width: 48rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cf-start__image {
+  width: 100%;
+}
+
+/* The row stands plumb with the image: the caption under the logo (14.7 % in), the
+   button under the map's right tip (2.9 % in). On the narrowest screens it gets the full
+   width instead. */
+.cf-start__row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: opacity 500ms;
+}
+
+@media (min-width: 640px) {
+  .cf-start__row {
+    padding-left: 14.7%;
+    padding-right: 2.9%;
+  }
+}
+
+.cf-start__row--hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.cf-start__caption {
+  min-width: 0;
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.cf-start__enter {
+  flex-shrink: 0;
+  border: 0;
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  cursor: pointer;
+}
+
+.cf-start__enter:hover {
+  background: var(--primary-hover);
+}
+
+.cf-start__enter:active {
+  background: var(--primary-active);
+}
+
+.cf-start__enter:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-start,
+  .cf-start__row {
+    transition: none;
+  }
+}
