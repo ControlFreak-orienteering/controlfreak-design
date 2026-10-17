@@ -4,4 +4,5 @@
  * look.
  */
 export { DEFAULT_COURSE, FamilySplash, project, type CoursePoint, } from "./family-splash.js";
+export { FamilyTitle } from "./family-title.js";
 export { StartScreen } from "./start-screen.js";

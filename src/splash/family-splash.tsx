@@ -1,5 +1,7 @@
 import { useEffect, type CSSProperties } from "react";
 
+import { FamilyTitle } from "./family-title.js";
+
 /** A point on the course, in the map's own coordinates (-250..250, origin in the middle). */
 export type CoursePoint = {
   x: number;
@@ -193,10 +195,10 @@ const ROBOT_LEAD = 0.2;
  * so that it arrives just before the control drops (see `Marker`'s delays). It stays at
  * the finish when done. Without motion it stands at the finish from the start.
  */
-function robotCss(course: CoursePoint[], total: number): string {
+function robotCss(course: CoursePoint[], total: number, start: number): string {
   const stops = course.map((point, i) => {
     const [sx, sy] = project(point.x, point.y);
-    const at = Math.max(0, FIRST_DELAY + i * STEP - ROBOT_LEAD);
+    const at = Math.max(0, start + FIRST_DELAY + i * STEP - ROBOT_LEAD);
     const percent = ((at / total) * 100).toFixed(2);
     return `${percent}%{transform:translate(${(sx + ROBOT_OFFSET_X).toFixed(1)}px,${sy.toFixed(1)}px)}`;
   });
@@ -307,6 +309,93 @@ function Robot() {
         />
         <circle cx="0" cy="-51.5" r="2.5" fill={COLORS.flagOrange} />
       </g>
+    </g>
+  );
+}
+
+/** How long the prompt takes to be typed before the course is set out, in seconds. */
+const PROMPT_TIME = 1.4;
+
+/** The CSS for the chat: the prompt typed letter by letter, the reply fading in. */
+function chatCss(replyAt: number): string {
+  return (
+    `.cf-type{transform-box:fill-box;transform-origin:left;transform:scaleX(0);` +
+    `animation:cf-type 1s steps(20,end) .2s forwards}` +
+    `@keyframes cf-type{to{transform:scaleX(1)}}` +
+    `.cf-reply{opacity:0;animation:cf-in .6s ease-out ${replyAt.toFixed(2)}s forwards}` +
+    `@media (prefers-reduced-motion: reduce){.cf-type{transform:none;animation:none}` +
+    `.cf-reply{opacity:1;animation:none}}`
+  );
+}
+
+/**
+ * A chat with the AI assistant, above the map's right corner: the user's prompt, typed
+ * out at the start, and the assistant's reply when the course is done (MCP Freak).
+ */
+function Chat({ prompt, reply }: { prompt: string; reply: string | null }) {
+  // Wide enough for the text at 13 units per letter-ish, but never past the image.
+  const promptWidth = Math.min(200, 24 + prompt.length * 7.2);
+  const replyWidth = reply ? Math.min(180, 24 + reply.length * 6.8) : 0;
+  return (
+    <g fontSize="13">
+      <defs>
+        <clipPath id="cf-typed">
+          <rect
+            className="cf-type"
+            x={650 - promptWidth}
+            y="74"
+            width={promptWidth}
+            height="34"
+          />
+        </clipPath>
+      </defs>
+      {/* The user's prompt, with its tail at the bottom right. */}
+      <rect
+        x={650 - promptWidth}
+        y="74"
+        width={promptWidth}
+        height="32"
+        rx="10"
+        fill={COLORS.paper}
+        stroke={COLORS.edge}
+        strokeWidth="1.5"
+      />
+      <path
+        d="M628 105 L648 116 L640 104 Z"
+        fill={COLORS.paper}
+        stroke={COLORS.edge}
+        strokeWidth="1.5"
+      />
+      <text
+        x={650 - promptWidth + 12}
+        y="95"
+        fill={COLORS.ink}
+        clipPath="url(#cf-typed)"
+      >
+        {prompt}
+      </text>
+      {reply && (
+        <g className="cf-reply">
+          {/* The assistant's reply, in the brand's purple, with the tail down to the map. */}
+          <rect
+            x={650 - replyWidth}
+            y="120"
+            width={replyWidth}
+            height="30"
+            rx="10"
+            fill={COLORS.purple}
+          />
+          <path d="M600 148 L594 160 L610 148 Z" fill={COLORS.purple} />
+          <text
+            x={650 - replyWidth + 12}
+            y="140"
+            fill="#FFFFFF"
+            fontWeight="600"
+          >
+            {reply}
+          </text>
+        </g>
+      )}
     </g>
   );
 }
@@ -423,6 +512,8 @@ function Terrain() {
 export function FamilySplash({
   app = null,
   robot = false,
+  prompt = null,
+  reply = null,
   course = DEFAULT_COURSE,
   caption = "7 kontroller utsatta · 4,3 km",
   showBackground = true,
@@ -435,6 +526,13 @@ export function FamilySplash({
   app?: string | null;
   /** Shows a robot walking the course and setting out the controls (MCP Freak). */
   robot?: boolean;
+  /**
+   * A request to the AI assistant, typed out in a chat bubble before the course is set
+   * out (MCP Freak), e.g. "Lägg en bana på 4 km". Null for none.
+   */
+  prompt?: string | null;
+  /** The assistant's reply, shown when the course is done, e.g. "Klart! 7 kontroller". */
+  reply?: string | null;
   /** The course to set out; a default course otherwise. */
   course?: CoursePoint[];
   /** The text under the image. An empty string or null hides it. */
@@ -450,7 +548,9 @@ export function FamilySplash({
   className?: string;
   style?: CSSProperties;
 }) {
-  const lastDelay = FIRST_DELAY + (course.length - 1) * STEP + 0.6;
+  // With a prompt, everything waits for it to be typed.
+  const start = prompt ? PROMPT_TIME : 0;
+  const lastDelay = start + FIRST_DELAY + (course.length - 1) * STEP + 0.6;
 
   /**
    * The image's box.
@@ -496,7 +596,11 @@ export function FamilySplash({
           <rect x="-250" y="-250" width="500" height="500" rx="8" />
         </clipPath>
       </defs>
-      <style>{robot ? css + robotCss(course, lastDelay) : css}</style>
+      <style>
+        {css +
+          (robot ? robotCss(course, lastDelay, start) : "") +
+          (prompt ? chatCss(lastDelay - 0.4) : "")}
+      </style>
 
       {showBackground && (
         <rect
@@ -512,6 +616,8 @@ export function FamilySplash({
 
       <path
         className="cf-course"
+        // The course is drawn as the controls drop, so it waits for a prompt too.
+        style={start ? { animationDelay: `${0.5 + start}s` } : undefined}
         d={path}
         fill="none"
         stroke={COLORS.purple}
@@ -521,7 +627,7 @@ export function FamilySplash({
       />
 
       {course.map((p, i) => (
-        <Marker key={i} point={p} delay={FIRST_DELAY + i * STEP} />
+        <Marker key={i} point={p} delay={start + FIRST_DELAY + i * STEP} />
       ))}
 
       {robot && (
@@ -534,47 +640,9 @@ export function FamilySplash({
           (20, 215) to (489, 130), a slope of -10.3 degrees. Moved down and left, the whole
           lockup stays inside the edge, the space narrowing to the right along the
           diagonal. The app's name is the second line, under the wordmark. */}
-      <g transform="translate(-152, 36)">
-        <rect
-          x="252"
-          y="46"
-          width="52"
-          height="52"
-          rx="13"
-          fill={COLORS.purple}
-        />
-        <circle
-          cx="278"
-          cy="72"
-          r="16"
-          fill="none"
-          stroke="#FFFFFF"
-          strokeWidth="4"
-        />
-        <path
-          d="M270 78 L278 70 L286 78"
-          fill="none"
-          stroke="#FFFFFF"
-          strokeWidth="4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <text x="318" y="81" fontSize="34" fontWeight="500" fill={COLORS.ink}>
-          Control
-          <tspan fill={COLORS.purple}>Freak</tspan>
-        </text>
-        {app && (
-          <text
-            x="320"
-            y="104"
-            fontSize="16"
-            fontWeight="600"
-            fill={COLORS.muted}
-          >
-            {app}
-          </text>
-        )}
-      </g>
+      <FamilyTitle x={100} y={82} app={app} />
+
+      {prompt && <Chat prompt={prompt} reply={reply} />}
 
       {caption && (
         <text

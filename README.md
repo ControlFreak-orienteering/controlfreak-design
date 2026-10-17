@@ -15,7 +15,7 @@ start screen. Other components, layouts and texts stay in each app.
 Depend on a tagged version, never on a branch:
 
 ```json
-"controlfreak-design": "github:HenrikF/controlfreak-design#v0.4.0"
+"controlfreak-design": "github:HenrikF/controlfreak-design#v0.5.0"
 ```
 
 In the app's main stylesheet, after Tailwind:
@@ -83,8 +83,9 @@ answers with the bytes, the right content type and a day's caching.
 
 ## Start screen
 
-Every app opens with the same start screen: a map in perspective where a course is set
-out control by control, the ControlFreak logo, and under it the name of the app.
+Every app opens the same way, on the same theme: a picture on the app's own background,
+titled with the ControlFreak logo and, under it, the name of the app. The picture may be
+the app's own (CompetitionFreak shows a race); the title and the behaviour are shared.
 
 ```tsx
 import { StartScreen } from "controlfreak-design/splash";
@@ -101,9 +102,13 @@ import { StartScreen } from "controlfreak-design/splash";
 - The animation plays to the end, then the row with the caption and the button fades in
   and the button takes focus. With reduced motion everything shows at once.
 - `className` adds classes to the screen, e.g. one that keeps it light in a dark theme.
-- `FamilySplash` is the image alone (for a landing page): `app`, `caption`, `course`,
-  `showBackground`, `onDone`, and `robot`, which shows a small robot walking the course
-  and setting out each control just before it appears (MCP Freak, the AI assistant's app).
+- `renderImage` gives the screen the app's own picture. It gets `onDone` (call it when the
+  animation is over, at once with reduced motion), `alt` and `className`, and should draw
+  the title with `FamilyTitle` (`x`, `y`, `scale`, `app`).
+- `FamilySplash` is the family's picture, a course being set out on a map: `app`,
+  `caption`, `course`, `showBackground`, `onDone`, and for MCP Freak `robot` (a robot
+  sets out the controls), `prompt` (a request typed into a chat bubble first) and `reply`
+  (the assistant's answer when the course is done).
 - The screen's look is plain CSS in `css/splash.css`, using the tokens; import it in the
   app's stylesheet. An app's Tailwind does not scan this package.
 - The source is TypeScript in `src/splash/`; `npm run build` writes `dist/`, which is

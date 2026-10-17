@@ -5,7 +5,11 @@ import assert from "node:assert/strict";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import { FamilySplash, StartScreen } from "../dist/splash/index.js";
+import {
+  FamilySplash,
+  FamilyTitle,
+  StartScreen,
+} from "../dist/splash/index.js";
 
 test("the start image has ControlFreak as the first line and the app as the second", () => {
   const html = renderToStaticMarkup(
@@ -47,4 +51,43 @@ test("the robot walks the course only when asked for", () => {
     createElement(FamilySplash, { app: "Banläggning" }),
   );
   assert.doesNotMatch(without, /cf-robot/);
+});
+
+test("an app can give the start screen its own image, with the family's title", () => {
+  const html = renderToStaticMarkup(
+    createElement(StartScreen, {
+      app: "Tävlingsadministration",
+      alt: "CompetitionFreak",
+      caption: "",
+      enterLabel: "Kom igång",
+      onDismiss: () => {},
+      renderImage: ({ className }) =>
+        createElement(
+          "svg",
+          { className, "data-own": "yes" },
+          createElement(FamilyTitle, {
+            app: "Tävlingsadministration",
+            scale: 0.75,
+          }),
+        ),
+    }),
+  );
+  assert.match(html, /data-own="yes"/);
+  assert.match(html, /Control<tspan[^>]*>Freak<\/tspan>/);
+  assert.match(html, />Tävlingsadministration</);
+  assert.doesNotMatch(html, /cf-course/);
+});
+
+test("with a prompt, the chat shows and the course waits for it", () => {
+  const html = renderToStaticMarkup(
+    createElement(FamilySplash, {
+      app: "MCP Freak",
+      robot: true,
+      prompt: "Lägg en bana på 4 km",
+      reply: "Klart! 7 kontroller",
+    }),
+  );
+  assert.match(html, />Lägg en bana på 4 km</);
+  assert.match(html, />Klart! 7 kontroller</);
+  assert.match(html, /animation-delay:1.9s/);
 });

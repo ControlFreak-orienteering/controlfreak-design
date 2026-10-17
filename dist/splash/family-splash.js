@@ -1,5 +1,6 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect } from "react";
+import { FamilyTitle } from "./family-title.js";
 /**
  * The family's start image: a map tilted in perspective where a course is set out control
  * by control, with the ControlFreak logo and, under it, the name of the app.
@@ -79,10 +80,10 @@ const ROBOT_LEAD = 0.2;
  * so that it arrives just before the control drops (see `Marker`'s delays). It stays at
  * the finish when done. Without motion it stands at the finish from the start.
  */
-function robotCss(course, total) {
+function robotCss(course, total, start) {
     const stops = course.map((point, i) => {
         const [sx, sy] = project(point.x, point.y);
-        const at = Math.max(0, FIRST_DELAY + i * STEP - ROBOT_LEAD);
+        const at = Math.max(0, start + FIRST_DELAY + i * STEP - ROBOT_LEAD);
         const percent = ((at / total) * 100).toFixed(2);
         return `${percent}%{transform:translate(${(sx + ROBOT_OFFSET_X).toFixed(1)}px,${sy.toFixed(1)}px)}`;
     });
@@ -104,6 +105,27 @@ function Robot() {
     // A third larger than drawn, so it reads as a figure next to the flags.
     _jsx("g", { className: "cf-robot-bob", children: _jsxs("g", { transform: "scale(1.3)", children: [_jsx("line", { x1: "-5", y1: "0", x2: "-5", y2: "-9", stroke: COLORS.ink, strokeWidth: "3", strokeLinecap: "round" }), _jsx("line", { x1: "5", y1: "0", x2: "5", y2: "-9", stroke: COLORS.ink, strokeWidth: "3", strokeLinecap: "round" }), _jsx("rect", { x: "-11", y: "-29", width: "22", height: "21", rx: "5", fill: COLORS.purple }), _jsx("circle", { cx: "0", cy: "-18.5", r: "5", fill: "none", stroke: "#FFFFFF", strokeWidth: "1.6" }), _jsx("path", { d: "M-2.6 -17 L0 -19.6 L2.6 -17", fill: "none", stroke: "#FFFFFF", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "11", y1: "-22", x2: "20", y2: "-28", stroke: COLORS.ink, strokeWidth: "2.5", strokeLinecap: "round" }), _jsx("line", { x1: "-11", y1: "-22", x2: "-16", y2: "-15", stroke: COLORS.ink, strokeWidth: "2.5", strokeLinecap: "round" }), _jsx("rect", { x: "-9", y: "-44", width: "18", height: "13", rx: "4", fill: COLORS.paper, stroke: COLORS.ink, strokeWidth: "2" }), _jsx("circle", { cx: "-3.5", cy: "-37.5", r: "1.8", fill: COLORS.ink }), _jsx("circle", { cx: "3.5", cy: "-37.5", r: "1.8", fill: COLORS.ink }), _jsx("line", { x1: "0", y1: "-44", x2: "0", y2: "-50", stroke: COLORS.ink, strokeWidth: "2" }), _jsx("circle", { cx: "0", cy: "-51.5", r: "2.5", fill: COLORS.flagOrange })] }) }));
 }
+/** How long the prompt takes to be typed before the course is set out, in seconds. */
+const PROMPT_TIME = 1.4;
+/** The CSS for the chat: the prompt typed letter by letter, the reply fading in. */
+function chatCss(replyAt) {
+    return (`.cf-type{transform-box:fill-box;transform-origin:left;transform:scaleX(0);` +
+        `animation:cf-type 1s steps(20,end) .2s forwards}` +
+        `@keyframes cf-type{to{transform:scaleX(1)}}` +
+        `.cf-reply{opacity:0;animation:cf-in .6s ease-out ${replyAt.toFixed(2)}s forwards}` +
+        `@media (prefers-reduced-motion: reduce){.cf-type{transform:none;animation:none}` +
+        `.cf-reply{opacity:1;animation:none}}`);
+}
+/**
+ * A chat with the AI assistant, above the map's right corner: the user's prompt, typed
+ * out at the start, and the assistant's reply when the course is done (MCP Freak).
+ */
+function Chat({ prompt, reply }) {
+    // Wide enough for the text at 13 units per letter-ish, but never past the image.
+    const promptWidth = Math.min(200, 24 + prompt.length * 7.2);
+    const replyWidth = reply ? Math.min(180, 24 + reply.length * 6.8) : 0;
+    return (_jsxs("g", { fontSize: "13", children: [_jsx("defs", { children: _jsx("clipPath", { id: "cf-typed", children: _jsx("rect", { className: "cf-type", x: 650 - promptWidth, y: "74", width: promptWidth, height: "34" }) }) }), _jsx("rect", { x: 650 - promptWidth, y: "74", width: promptWidth, height: "32", rx: "10", fill: COLORS.paper, stroke: COLORS.edge, strokeWidth: "1.5" }), _jsx("path", { d: "M628 105 L648 116 L640 104 Z", fill: COLORS.paper, stroke: COLORS.edge, strokeWidth: "1.5" }), _jsx("text", { x: 650 - promptWidth + 12, y: "95", fill: COLORS.ink, clipPath: "url(#cf-typed)", children: prompt }), reply && (_jsxs("g", { className: "cf-reply", children: [_jsx("rect", { x: 650 - replyWidth, y: "120", width: replyWidth, height: "30", rx: "10", fill: COLORS.purple }), _jsx("path", { d: "M600 148 L594 160 L610 148 Z", fill: COLORS.purple }), _jsx("text", { x: 650 - replyWidth + 12, y: "140", fill: "#FFFFFF", fontWeight: "600", children: reply })] }))] }));
+}
 function Terrain() {
     const contour = {
         fill: "none",
@@ -116,8 +138,10 @@ function Terrain() {
 /**
  * The start image. See the module comment.
  */
-export function FamilySplash({ app = null, robot = false, course = DEFAULT_COURSE, caption = "7 kontroller utsatta · 4,3 km", showBackground = true, alt = "ControlFreak — kontroller sätts ut i terrängen", onDone, className, style, }) {
-    const lastDelay = FIRST_DELAY + (course.length - 1) * STEP + 0.6;
+export function FamilySplash({ app = null, robot = false, prompt = null, reply = null, course = DEFAULT_COURSE, caption = "7 kontroller utsatta · 4,3 km", showBackground = true, alt = "ControlFreak — kontroller sätts ut i terrängen", onDone, className, style, }) {
+    // With a prompt, everything waits for it to be typed.
+    const start = prompt ? PROMPT_TIME : 0;
+    const lastDelay = start + FIRST_DELAY + (course.length - 1) * STEP + 0.6;
     /**
      * The image's box.
      *
@@ -144,5 +168,9 @@ export function FamilySplash({ app = null, robot = false, course = DEFAULT_COURS
         return `${i === 0 ? "M" : "L"}${sx.toFixed(1)} ${sy.toFixed(1)}`;
     })
         .join(" ");
-    return (_jsxs("svg", { viewBox: `0 ${view.top} 680 ${view.height}`, width: "100%", role: "img", "aria-label": alt, className: className, style: style, xmlns: "http://www.w3.org/2000/svg", children: [_jsx("defs", { children: _jsx("clipPath", { id: "cf-mapclip", children: _jsx("rect", { x: "-250", y: "-250", width: "500", height: "500", rx: "8" }) }) }), _jsx("style", { children: robot ? css + robotCss(course, lastDelay) : css }), showBackground && (_jsx("rect", { x: "0", y: view.top, width: "680", height: view.height, fill: COLORS.page })), _jsx(Terrain, {}), _jsx("path", { className: "cf-course", d: path, fill: "none", stroke: COLORS.purple, strokeWidth: "3", strokeLinejoin: "round", strokeLinecap: "round" }), course.map((p, i) => (_jsx(Marker, { point: p, delay: FIRST_DELAY + i * STEP }, i))), robot && (_jsx("g", { className: "cf-robot", children: _jsx(Robot, {}) })), _jsxs("g", { transform: "translate(-152, 36)", children: [_jsx("rect", { x: "252", y: "46", width: "52", height: "52", rx: "13", fill: COLORS.purple }), _jsx("circle", { cx: "278", cy: "72", r: "16", fill: "none", stroke: "#FFFFFF", strokeWidth: "4" }), _jsx("path", { d: "M270 78 L278 70 L286 78", fill: "none", stroke: "#FFFFFF", strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" }), _jsxs("text", { x: "318", y: "81", fontSize: "34", fontWeight: "500", fill: COLORS.ink, children: ["Control", _jsx("tspan", { fill: COLORS.purple, children: "Freak" })] }), app && (_jsx("text", { x: "320", y: "104", fontSize: "16", fontWeight: "600", fill: COLORS.muted, children: app }))] }), caption && (_jsx("text", { className: "cf-fade", style: { animationDelay: `${lastDelay - 0.3}s` }, x: "340", y: "474", textAnchor: "middle", fontSize: "14", fill: COLORS.muted, children: caption }))] }));
+    return (_jsxs("svg", { viewBox: `0 ${view.top} 680 ${view.height}`, width: "100%", role: "img", "aria-label": alt, className: className, style: style, xmlns: "http://www.w3.org/2000/svg", children: [_jsx("defs", { children: _jsx("clipPath", { id: "cf-mapclip", children: _jsx("rect", { x: "-250", y: "-250", width: "500", height: "500", rx: "8" }) }) }), _jsx("style", { children: css +
+                    (robot ? robotCss(course, lastDelay, start) : "") +
+                    (prompt ? chatCss(lastDelay - 0.4) : "") }), showBackground && (_jsx("rect", { x: "0", y: view.top, width: "680", height: view.height, fill: COLORS.page })), _jsx(Terrain, {}), _jsx("path", { className: "cf-course", 
+                // The course is drawn as the controls drop, so it waits for a prompt too.
+                style: start ? { animationDelay: `${0.5 + start}s` } : undefined, d: path, fill: "none", stroke: COLORS.purple, strokeWidth: "3", strokeLinejoin: "round", strokeLinecap: "round" }), course.map((p, i) => (_jsx(Marker, { point: p, delay: start + FIRST_DELAY + i * STEP }, i))), robot && (_jsx("g", { className: "cf-robot", children: _jsx(Robot, {}) })), _jsx(FamilyTitle, { x: 100, y: 82, app: app }), prompt && _jsx(Chat, { prompt: prompt, reply: reply }), caption && (_jsx("text", { className: "cf-fade", style: { animationDelay: `${lastDelay - 0.3}s` }, x: "340", y: "474", textAnchor: "middle", fontSize: "14", fill: COLORS.muted, children: caption }))] }));
 }

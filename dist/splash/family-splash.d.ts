@@ -11,11 +11,18 @@ export declare const DEFAULT_COURSE: CoursePoint[];
 /**
  * The start image. See the module comment.
  */
-export declare function FamilySplash({ app, robot, course, caption, showBackground, alt, onDone, className, style, }: {
+export declare function FamilySplash({ app, robot, prompt, reply, course, caption, showBackground, alt, onDone, className, style, }: {
     /** The app's name, the second title line under "ControlFreak"; null for none. */
     app?: string | null;
     /** Shows a robot walking the course and setting out the controls (MCP Freak). */
     robot?: boolean;
+    /**
+     * A request to the AI assistant, typed out in a chat bubble before the course is set
+     * out (MCP Freak), e.g. "Lägg en bana på 4 km". Null for none.
+     */
+    prompt?: string | null;
+    /** The assistant's reply, shown when the course is done, e.g. "Klart! 7 kontroller". */
+    reply?: string | null;
     /** The course to set out; a default course otherwise. */
     course?: CoursePoint[];
     /** The text under the image. An empty string or null hides it. */

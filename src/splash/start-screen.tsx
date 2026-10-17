@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 
 import { FamilySplash } from "./family-splash.js";
 
@@ -6,8 +12,9 @@ import { FamilySplash } from "./family-splash.js";
 const FADE_MS = 350;
 
 /**
- * The start screen every app in the family shows when it opens: the start image
- * (`FamilySplash`) on the app's own background, and under it a row with a caption on the
+ * The start screen every app in the family shows when it opens: the start image (the
+ * family's `FamilySplash`, or the app's own through `renderImage`) on the app's own
+ * background, and under it a row with a caption on the
  * left and the button that enters the app on the right.
  *
  * It never closes by itself. The animation plays to the end, then the row fades in and
@@ -22,6 +29,7 @@ export function StartScreen({
   enterLabel,
   onDismiss,
   className = "",
+  renderImage,
 }: {
   /** The app's name, the second title line under "ControlFreak", e.g. "Banläggning". */
   app: string | null;
@@ -35,6 +43,17 @@ export function StartScreen({
   onDismiss: () => void;
   /** Extra class names for the screen, e.g. one that keeps it light in a dark theme. */
   className?: string;
+  /**
+   * The app's own start image, when it has one (e.g. a race in CompetitionFreak). It must
+   * call `onDone` when its animation is over, at once with reduced motion, and should show
+   * the family's title with `FamilyTitle`. Without it, the family's image (`FamilySplash`)
+   * with `app` as its second title line is shown.
+   */
+  renderImage?: (image: {
+    onDone: () => void;
+    alt: string;
+    className: string;
+  }) => ReactNode;
 }) {
   const [ready, setReady] = useState(false);
   const [leaving, setLeaving] = useState(false);
@@ -63,14 +82,18 @@ export function StartScreen({
       <div className="cf-start__inner">
         {/* No page colour of its own, and no caption inside the image: the screen's
             background is the same colour, and the caption stands in the row below. */}
-        <FamilySplash
-          app={app}
-          showBackground={false}
-          caption={null}
-          alt={alt}
-          onDone={handleDone}
-          className="cf-start__image"
-        />
+        {renderImage ? (
+          renderImage({ onDone: handleDone, alt, className: "cf-start__image" })
+        ) : (
+          <FamilySplash
+            app={app}
+            showBackground={false}
+            caption={null}
+            alt={alt}
+            onDone={handleDone}
+            className="cf-start__image"
+          />
+        )}
         {/* Both take their room from the start and are only hidden, so the centred column
             does not jump when they appear. */}
         <div
