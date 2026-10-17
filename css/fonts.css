@@ -1,0 +1,6 @@
+/*
+ * The family's font, Nunito Sans (SIL Open Font License), bundled through npm rather than
+ * fetched from Google Fonts, so it is part of each app's build and works offline. The
+ * "opsz" file has both axes the design uses: optical size and weight.
+ */
+@import "@fontsource-variable/nunito-sans/opsz.css";

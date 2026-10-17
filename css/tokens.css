@@ -1,0 +1,204 @@
+/*
+ * The colours of the ControlFreak family, as CSS custom properties.
+ *
+ * The names follow shadcn/ui (--background, --primary …), which both apps use, so an app's
+ * components keep working when the values come from here. The palette is ControlFreak's:
+ * a warm page (#f4efe6), paper for surfaces (#fdfaf2), near-black ink (#2c2c2a), a beige
+ * edge (#d8cdba) and the purple of the logo (#a6248f).
+ *
+ * - `:root` and `.cf-light`: the light palette. `.cf-light` puts it back on one element
+ *   inside a dark page, e.g. a map that must be drawn on paper whatever the theme.
+ * - `.dark`: the dark palette, derived from the same colours with the relation reversed:
+ *   paper becomes the text on a warm near-black, and the purple is lightened so it still
+ *   carries.
+ * - The corner radius (--radius) is NOT set here: each app chooses its own.
+ *
+ * Every colour is given twice: first as sRGB hex, then, for browsers that understand it,
+ * as the exact oklch value. Browsers without oklch (e.g. Chrome 101 on Android 9 tablets,
+ * which competition officials use) would otherwise treat every colour as invalid.
+ *
+ * To add a colour: add it to both palettes, in both forms, and map it in theme.css.
+ * `npm test` checks that the palettes match.
+ */
+
+/* The brand's own colours, for logos, splash screens and illustrations. */
+:root {
+  --cf-purple: #a6248f;
+  --cf-purple-dark: #7a1a69;
+  --cf-purple-tint: #f3dcee;
+  --cf-ink: #2c2c2a;
+  --cf-muted: #6b6a64;
+  --cf-page: #f4efe6;
+  --cf-paper: #fdfaf2;
+  --cf-edge: #d8cdba;
+  --cf-map-open: #fbf0b4;
+  --cf-map-forest: #a9d89a;
+  --cf-map-forest-dense: #7cc06b;
+  --cf-map-water: #8fc9ea;
+  --cf-map-contour: #c4834c;
+  --cf-flag-orange: #f07f2a;
+  --cf-post: #6b6a64;
+}
+
+:root,
+.cf-light {
+  --background: #f4efe6;
+  --foreground: #2c2c2a;
+  --card: #fdfaf2;
+  --card-foreground: #2c2c2a;
+  --popover: #faf6ed;
+  --popover-foreground: #2c2c2a;
+  --primary: #a6248f;
+  /* Hover and press go one shade darker rather than lowering the opacity: transparency
+     lets the background through and washes the label out instead of looking pressed. */
+  --primary-hover: #8f1f7c;
+  --primary-active: #7a1a69;
+  --primary-foreground: #fdfaf2;
+  --secondary: #eae3d5;
+  --secondary-foreground: #2c2c2a;
+  --muted: #eae3d5;
+  /* A little darker than the brand's --cf-muted, so small text stays readable. */
+  --muted-foreground: #5f5e58;
+  --accent: #f3dcee;
+  --accent-active: #e9c9e2;
+  --accent-foreground: #5a1a4e;
+  --destructive: #a3271d;
+  --destructive-foreground: #fdfaf2;
+  --border: #d8cdba;
+  --input: #d8cdba;
+  --ring: #a6248f;
+  /* Chart colours are the brand's map colours. */
+  --chart-1: #a6248f;
+  --chart-2: #c4834c;
+  --chart-3: #7cc06b;
+  --chart-4: #8fc9ea;
+  --chart-5: #f07f2a;
+  --sidebar: #f4efe6;
+  --sidebar-foreground: #2c2c2a;
+  --sidebar-primary: #a6248f;
+  --sidebar-primary-foreground: #fdfaf2;
+  --sidebar-accent: #f3dcee;
+  --sidebar-accent-foreground: #5a1a4e;
+  --sidebar-border: #d8cdba;
+  --sidebar-ring: #a6248f;
+  color-scheme: light;
+}
+
+.dark {
+  --background: #1a1a18;
+  --foreground: #fdfaf2;
+  --card: #232320;
+  --card-foreground: #fdfaf2;
+  --popover: #2a2a26;
+  --popover-foreground: #fdfaf2;
+  --primary: #d873c4;
+  --primary-hover: #e28ed3;
+  --primary-active: #eaa8df;
+  --primary-foreground: #1a1a18;
+  --secondary: #302f2b;
+  --secondary-foreground: #fdfaf2;
+  --muted: #302f2b;
+  --muted-foreground: #a9a79d;
+  --accent: #352b33;
+  --accent-active: #403543;
+  --accent-foreground: #fdfaf2;
+  --destructive: #e8796b;
+  --destructive-foreground: #1a1a18;
+  /* Paper at 14 % and 18 %. */
+  --border: #fdfaf224;
+  --input: #fdfaf22e;
+  --ring: #d873c4;
+  --chart-1: #d873c4;
+  --chart-2: #d99a68;
+  --chart-3: #8fce7f;
+  --chart-4: #9fd3f0;
+  --chart-5: #f5974d;
+  --sidebar: #232320;
+  --sidebar-foreground: #fdfaf2;
+  --sidebar-primary: #d873c4;
+  --sidebar-primary-foreground: #1a1a18;
+  --sidebar-accent: #352b33;
+  --sidebar-accent-foreground: #fdfaf2;
+  --sidebar-border: #fdfaf224;
+  --sidebar-ring: #d873c4;
+  color-scheme: dark;
+}
+
+@supports (color: oklch(0 0 0)) {
+  :root,
+  .cf-light {
+    --background: oklch(0.954 0.013 82.4);
+    --foreground: oklch(0.292 0.004 106.6);
+    --card: oklch(0.985 0.011 89.7);
+    --card-foreground: oklch(0.292 0.004 106.6);
+    --popover: oklch(0.974 0.013 86.8);
+    --popover-foreground: oklch(0.292 0.004 106.6);
+    --primary: oklch(0.511 0.198 336.5);
+    --primary-hover: oklch(0.459 0.177 336.1);
+    --primary-active: oklch(0.41 0.156 336.4);
+    --primary-foreground: oklch(0.985 0.011 89.7);
+    --secondary: oklch(0.918 0.02 84.6);
+    --secondary-foreground: oklch(0.292 0.004 106.6);
+    --muted: oklch(0.918 0.02 84.6);
+    --muted-foreground: oklch(0.481 0.01 99);
+    --accent: oklch(0.918 0.035 333.2);
+    --accent-active: oklch(0.87 0.049 333.5);
+    --accent-foreground: oklch(0.341 0.114 336.1);
+    --destructive: oklch(0.473 0.162 29.2);
+    --destructive-foreground: oklch(0.985 0.011 89.7);
+    --border: oklch(0.852 0.029 81.5);
+    --input: oklch(0.852 0.029 81.5);
+    --ring: oklch(0.511 0.198 336.5);
+    --chart-1: oklch(0.511 0.198 336.5);
+    --chart-2: oklch(0.665 0.107 59.6);
+    --chart-3: oklch(0.742 0.136 139.5);
+    --chart-4: oklch(0.808 0.076 233.9);
+    --chart-5: oklch(0.711 0.166 52.2);
+    --sidebar: oklch(0.954 0.013 82.4);
+    --sidebar-foreground: oklch(0.292 0.004 106.6);
+    --sidebar-primary: oklch(0.511 0.198 336.5);
+    --sidebar-primary-foreground: oklch(0.985 0.011 89.7);
+    --sidebar-accent: oklch(0.918 0.035 333.2);
+    --sidebar-accent-foreground: oklch(0.341 0.114 336.1);
+    --sidebar-border: oklch(0.852 0.029 81.5);
+    --sidebar-ring: oklch(0.511 0.198 336.5);
+  }
+
+  .dark {
+    --background: oklch(0.217 0.004 106.7);
+    --foreground: oklch(0.985 0.011 89.7);
+    --card: oklch(0.255 0.006 106.8);
+    --card-foreground: oklch(0.985 0.011 89.7);
+    --popover: oklch(0.284 0.007 106.8);
+    --popover-foreground: oklch(0.985 0.011 89.7);
+    --primary: oklch(0.696 0.16 335.1);
+    --primary-hover: oklch(0.755 0.134 333.5);
+    --primary-active: oklch(0.811 0.105 332.5);
+    --primary-foreground: oklch(0.217 0.004 106.7);
+    --secondary: oklch(0.305 0.007 95.3);
+    --secondary-foreground: oklch(0.985 0.011 89.7);
+    --muted: oklch(0.305 0.007 95.3);
+    --muted-foreground: oklch(0.727 0.014 97.5);
+    --accent: oklch(0.303 0.02 333);
+    --accent-active: oklch(0.346 0.028 318.9);
+    --accent-foreground: oklch(0.985 0.011 89.7);
+    --destructive: oklch(0.699 0.14 28.6);
+    --destructive-foreground: oklch(0.217 0.004 106.7);
+    --border: oklch(0.985 0.011 89.7 / 14%);
+    --input: oklch(0.985 0.011 89.7 / 18%);
+    --ring: oklch(0.696 0.16 335.1);
+    --chart-1: oklch(0.696 0.16 335.1);
+    --chart-2: oklch(0.736 0.1 58.8);
+    --chart-3: oklch(0.789 0.126 139.4);
+    --chart-4: oklch(0.841 0.067 233);
+    --chart-5: oklch(0.76 0.143 56.4);
+    --sidebar: oklch(0.255 0.006 106.8);
+    --sidebar-foreground: oklch(0.985 0.011 89.7);
+    --sidebar-primary: oklch(0.696 0.16 335.1);
+    --sidebar-primary-foreground: oklch(0.217 0.004 106.7);
+    --sidebar-accent: oklch(0.303 0.02 333);
+    --sidebar-accent-foreground: oklch(0.985 0.011 89.7);
+    --sidebar-border: oklch(0.985 0.011 89.7 / 14%);
+    --sidebar-ring: oklch(0.696 0.16 335.1);
+  }
+}
