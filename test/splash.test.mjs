@@ -35,3 +35,16 @@ test("the start screen has the image, the caption and the button, hidden until r
   assert.match(html, /cf-start__row--hidden/);
   assert.match(html, /<button[^>]*tabindex="-1"[^>]*>Kom igång<\/button>/);
 });
+
+test("the robot walks the course only when asked for", () => {
+  const withRobot = renderToStaticMarkup(
+    createElement(FamilySplash, { app: "MCP Freak", robot: true }),
+  );
+  assert.match(withRobot, /class="cf-robot"/);
+  assert.match(withRobot, /@keyframes cf-robot-walk/);
+  assert.match(withRobot, /prefers-reduced-motion: reduce\)\{\.cf-robot/);
+  const without = renderToStaticMarkup(
+    createElement(FamilySplash, { app: "Banläggning" }),
+  );
+  assert.doesNotMatch(without, /cf-robot/);
+});

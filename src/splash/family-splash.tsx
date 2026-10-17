@@ -179,6 +179,138 @@ function Marker({ point, delay }: { point: CoursePoint; delay: number }) {
   );
 }
 
+/**
+ * How far to the left of a control the robot stands, so that it does not hide the flag
+ * it has just set out.
+ */
+const ROBOT_OFFSET_X = -34;
+
+/** How long before a control drops the robot arrives at it, in seconds. */
+const ROBOT_LEAD = 0.2;
+
+/**
+ * The CSS that walks the robot from control to control: one keyframe per control, timed
+ * so that it arrives just before the control drops (see `Marker`'s delays). It stays at
+ * the finish when done. Without motion it stands at the finish from the start.
+ */
+function robotCss(course: CoursePoint[], total: number): string {
+  const stops = course.map((point, i) => {
+    const [sx, sy] = project(point.x, point.y);
+    const at = Math.max(0, FIRST_DELAY + i * STEP - ROBOT_LEAD);
+    const percent = ((at / total) * 100).toFixed(2);
+    return `${percent}%{transform:translate(${(sx + ROBOT_OFFSET_X).toFixed(1)}px,${sy.toFixed(1)}px)}`;
+  });
+  const last = course[course.length - 1]!;
+  const [lx, ly] = project(last.x, last.y);
+  const end = `translate(${(lx + ROBOT_OFFSET_X).toFixed(1)}px,${ly.toFixed(1)}px)`;
+  return (
+    `.cf-robot{transform:${end};animation:cf-robot-walk ${total}s ease-in-out forwards}` +
+    `@keyframes cf-robot-walk{${stops.join("")}100%{transform:${end}}}` +
+    `.cf-robot-bob{animation:cf-robot-bob .35s ease-in-out ${Math.ceil(total / 0.7)} alternate}` +
+    `@keyframes cf-robot-bob{to{transform:translateY(-4px)}}` +
+    `@media (prefers-reduced-motion: reduce){.cf-robot,.cf-robot-bob{animation:none}}`
+  );
+}
+
+/**
+ * A small robot standing on the map, its feet at (0, 0): the AI assistant setting out the
+ * course (MCP Freak). Drawn upright, like the flags, and in the brand's colours.
+ */
+function Robot() {
+  return (
+    // A third larger than drawn, so it reads as a figure next to the flags.
+    <g className="cf-robot-bob">
+      <g transform="scale(1.3)">
+        {/* Legs. */}
+        <line
+          x1="-5"
+          y1="0"
+          x2="-5"
+          y2="-9"
+          stroke={COLORS.ink}
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+        <line
+          x1="5"
+          y1="0"
+          x2="5"
+          y2="-9"
+          stroke={COLORS.ink}
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+        {/* Body, with the logo's ring and chevron. */}
+        <rect
+          x="-11"
+          y="-29"
+          width="22"
+          height="21"
+          rx="5"
+          fill={COLORS.purple}
+        />
+        <circle
+          cx="0"
+          cy="-18.5"
+          r="5"
+          fill="none"
+          stroke="#FFFFFF"
+          strokeWidth="1.6"
+        />
+        <path
+          d="M-2.6 -17 L0 -19.6 L2.6 -17"
+          fill="none"
+          stroke="#FFFFFF"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {/* Arm reaching out towards the flag it sets out. */}
+        <line
+          x1="11"
+          y1="-22"
+          x2="20"
+          y2="-28"
+          stroke={COLORS.ink}
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+        <line
+          x1="-11"
+          y1="-22"
+          x2="-16"
+          y2="-15"
+          stroke={COLORS.ink}
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+        {/* Head, eyes and antenna. */}
+        <rect
+          x="-9"
+          y="-44"
+          width="18"
+          height="13"
+          rx="4"
+          fill={COLORS.paper}
+          stroke={COLORS.ink}
+          strokeWidth="2"
+        />
+        <circle cx="-3.5" cy="-37.5" r="1.8" fill={COLORS.ink} />
+        <circle cx="3.5" cy="-37.5" r="1.8" fill={COLORS.ink} />
+        <line
+          x1="0"
+          y1="-44"
+          x2="0"
+          y2="-50"
+          stroke={COLORS.ink}
+          strokeWidth="2"
+        />
+        <circle cx="0" cy="-51.5" r="2.5" fill={COLORS.flagOrange} />
+      </g>
+    </g>
+  );
+}
+
 function Terrain() {
   const contour = {
     fill: "none",
@@ -290,6 +422,7 @@ function Terrain() {
  */
 export function FamilySplash({
   app = null,
+  robot = false,
   course = DEFAULT_COURSE,
   caption = "7 kontroller utsatta · 4,3 km",
   showBackground = true,
@@ -300,6 +433,8 @@ export function FamilySplash({
 }: {
   /** The app's name, the second title line under "ControlFreak"; null for none. */
   app?: string | null;
+  /** Shows a robot walking the course and setting out the controls (MCP Freak). */
+  robot?: boolean;
   /** The course to set out; a default course otherwise. */
   course?: CoursePoint[];
   /** The text under the image. An empty string or null hides it. */
@@ -361,7 +496,7 @@ export function FamilySplash({
           <rect x="-250" y="-250" width="500" height="500" rx="8" />
         </clipPath>
       </defs>
-      <style>{css}</style>
+      <style>{robot ? css + robotCss(course, lastDelay) : css}</style>
 
       {showBackground && (
         <rect
@@ -388,6 +523,12 @@ export function FamilySplash({
       {course.map((p, i) => (
         <Marker key={i} point={p} delay={FIRST_DELAY + i * STEP} />
       ))}
+
+      {robot && (
+        <g className="cf-robot">
+          <Robot />
+        </g>
+      )}
 
       {/* The logo sits in the wedge above the map's upper left edge, which runs from
           (20, 215) to (489, 130), a slope of -10.3 degrees. Moved down and left, the whole

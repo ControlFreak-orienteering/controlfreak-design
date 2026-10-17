@@ -15,7 +15,7 @@ start screen. Other components, layouts and texts stay in each app.
 Depend on a tagged version, never on a branch:
 
 ```json
-"controlfreak-design": "github:HenrikF/controlfreak-design#v0.3.0"
+"controlfreak-design": "github:HenrikF/controlfreak-design#v0.4.0"
 ```
 
 In the app's main stylesheet, after Tailwind:
@@ -102,7 +102,8 @@ import { StartScreen } from "controlfreak-design/splash";
   and the button takes focus. With reduced motion everything shows at once.
 - `className` adds classes to the screen, e.g. one that keeps it light in a dark theme.
 - `FamilySplash` is the image alone (for a landing page): `app`, `caption`, `course`,
-  `showBackground`, `onDone`.
+  `showBackground`, `onDone`, and `robot`, which shows a small robot walking the course
+  and setting out each control just before it appears (MCP Freak, the AI assistant's app).
 - The screen's look is plain CSS in `css/splash.css`, using the tokens; import it in the
   app's stylesheet. An app's Tailwind does not scan this package.
 - The source is TypeScript in `src/splash/`; `npm run build` writes `dist/`, which is

@@ -11,9 +11,11 @@ export declare const DEFAULT_COURSE: CoursePoint[];
 /**
  * The start image. See the module comment.
  */
-export declare function FamilySplash({ app, course, caption, showBackground, alt, onDone, className, style, }: {
+export declare function FamilySplash({ app, robot, course, caption, showBackground, alt, onDone, className, style, }: {
     /** The app's name, the second title line under "ControlFreak"; null for none. */
     app?: string | null;
+    /** Shows a robot walking the course and setting out the controls (MCP Freak). */
+    robot?: boolean;
     /** The course to set out; a default course otherwise. */
     course?: CoursePoint[];
     /** The text under the image. An empty string or null hides it. */

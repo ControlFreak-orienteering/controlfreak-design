@@ -67,6 +67,43 @@ function Marker({ point, delay }) {
     const style = { animationDelay: `${delay}s` };
     return (_jsxs("g", { className: "cf-ctrl", style: style, children: [point.kind !== "start" && (_jsx("ellipse", { className: "cf-pulse", cx: sx, cy: sy, rx: point.kind === "finish" ? 20 : 16, ry: point.kind === "finish" ? 10 : 8, fill: "none", stroke: COLORS.purple, strokeWidth: "2", style: style })), point.kind === "start" && (_jsx("polygon", { points: `${sx},${sy - 10} ${sx + 14},${sy + 7} ${sx - 14},${sy + 7}`, fill: "none", stroke: COLORS.purple, strokeWidth: "3" })), point.kind === "control" && (_jsx("ellipse", { cx: sx, cy: sy, rx: "15", ry: "7.5", fill: "none", stroke: COLORS.purple, strokeWidth: "3" })), point.kind === "finish" && (_jsxs(_Fragment, { children: [_jsx("ellipse", { cx: sx, cy: sy, rx: "19", ry: "9.5", fill: "none", stroke: COLORS.purple, strokeWidth: "3" }), _jsx("ellipse", { cx: sx, cy: sy, rx: "12", ry: "6", fill: "none", stroke: COLORS.purple, strokeWidth: "3" })] })), _jsx(Flag, { sx: sx, sy: sy }), point.label && (_jsx("text", { x: sx + 16, y: sy - 30, fontSize: "12", fontWeight: "500", fill: COLORS.purpleDark, children: point.label }))] }));
 }
+/**
+ * How far to the left of a control the robot stands, so that it does not hide the flag
+ * it has just set out.
+ */
+const ROBOT_OFFSET_X = -34;
+/** How long before a control drops the robot arrives at it, in seconds. */
+const ROBOT_LEAD = 0.2;
+/**
+ * The CSS that walks the robot from control to control: one keyframe per control, timed
+ * so that it arrives just before the control drops (see `Marker`'s delays). It stays at
+ * the finish when done. Without motion it stands at the finish from the start.
+ */
+function robotCss(course, total) {
+    const stops = course.map((point, i) => {
+        const [sx, sy] = project(point.x, point.y);
+        const at = Math.max(0, FIRST_DELAY + i * STEP - ROBOT_LEAD);
+        const percent = ((at / total) * 100).toFixed(2);
+        return `${percent}%{transform:translate(${(sx + ROBOT_OFFSET_X).toFixed(1)}px,${sy.toFixed(1)}px)}`;
+    });
+    const last = course[course.length - 1];
+    const [lx, ly] = project(last.x, last.y);
+    const end = `translate(${(lx + ROBOT_OFFSET_X).toFixed(1)}px,${ly.toFixed(1)}px)`;
+    return (`.cf-robot{transform:${end};animation:cf-robot-walk ${total}s ease-in-out forwards}` +
+        `@keyframes cf-robot-walk{${stops.join("")}100%{transform:${end}}}` +
+        `.cf-robot-bob{animation:cf-robot-bob .35s ease-in-out ${Math.ceil(total / 0.7)} alternate}` +
+        `@keyframes cf-robot-bob{to{transform:translateY(-4px)}}` +
+        `@media (prefers-reduced-motion: reduce){.cf-robot,.cf-robot-bob{animation:none}}`);
+}
+/**
+ * A small robot standing on the map, its feet at (0, 0): the AI assistant setting out the
+ * course (MCP Freak). Drawn upright, like the flags, and in the brand's colours.
+ */
+function Robot() {
+    return (
+    // A third larger than drawn, so it reads as a figure next to the flags.
+    _jsx("g", { className: "cf-robot-bob", children: _jsxs("g", { transform: "scale(1.3)", children: [_jsx("line", { x1: "-5", y1: "0", x2: "-5", y2: "-9", stroke: COLORS.ink, strokeWidth: "3", strokeLinecap: "round" }), _jsx("line", { x1: "5", y1: "0", x2: "5", y2: "-9", stroke: COLORS.ink, strokeWidth: "3", strokeLinecap: "round" }), _jsx("rect", { x: "-11", y: "-29", width: "22", height: "21", rx: "5", fill: COLORS.purple }), _jsx("circle", { cx: "0", cy: "-18.5", r: "5", fill: "none", stroke: "#FFFFFF", strokeWidth: "1.6" }), _jsx("path", { d: "M-2.6 -17 L0 -19.6 L2.6 -17", fill: "none", stroke: "#FFFFFF", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round" }), _jsx("line", { x1: "11", y1: "-22", x2: "20", y2: "-28", stroke: COLORS.ink, strokeWidth: "2.5", strokeLinecap: "round" }), _jsx("line", { x1: "-11", y1: "-22", x2: "-16", y2: "-15", stroke: COLORS.ink, strokeWidth: "2.5", strokeLinecap: "round" }), _jsx("rect", { x: "-9", y: "-44", width: "18", height: "13", rx: "4", fill: COLORS.paper, stroke: COLORS.ink, strokeWidth: "2" }), _jsx("circle", { cx: "-3.5", cy: "-37.5", r: "1.8", fill: COLORS.ink }), _jsx("circle", { cx: "3.5", cy: "-37.5", r: "1.8", fill: COLORS.ink }), _jsx("line", { x1: "0", y1: "-44", x2: "0", y2: "-50", stroke: COLORS.ink, strokeWidth: "2" }), _jsx("circle", { cx: "0", cy: "-51.5", r: "2.5", fill: COLORS.flagOrange })] }) }));
+}
 function Terrain() {
     const contour = {
         fill: "none",
@@ -79,7 +116,7 @@ function Terrain() {
 /**
  * The start image. See the module comment.
  */
-export function FamilySplash({ app = null, course = DEFAULT_COURSE, caption = "7 kontroller utsatta · 4,3 km", showBackground = true, alt = "ControlFreak — kontroller sätts ut i terrängen", onDone, className, style, }) {
+export function FamilySplash({ app = null, robot = false, course = DEFAULT_COURSE, caption = "7 kontroller utsatta · 4,3 km", showBackground = true, alt = "ControlFreak — kontroller sätts ut i terrängen", onDone, className, style, }) {
     const lastDelay = FIRST_DELAY + (course.length - 1) * STEP + 0.6;
     /**
      * The image's box.
@@ -107,5 +144,5 @@ export function FamilySplash({ app = null, course = DEFAULT_COURSE, caption = "7
         return `${i === 0 ? "M" : "L"}${sx.toFixed(1)} ${sy.toFixed(1)}`;
     })
         .join(" ");
-    return (_jsxs("svg", { viewBox: `0 ${view.top} 680 ${view.height}`, width: "100%", role: "img", "aria-label": alt, className: className, style: style, xmlns: "http://www.w3.org/2000/svg", children: [_jsx("defs", { children: _jsx("clipPath", { id: "cf-mapclip", children: _jsx("rect", { x: "-250", y: "-250", width: "500", height: "500", rx: "8" }) }) }), _jsx("style", { children: css }), showBackground && (_jsx("rect", { x: "0", y: view.top, width: "680", height: view.height, fill: COLORS.page })), _jsx(Terrain, {}), _jsx("path", { className: "cf-course", d: path, fill: "none", stroke: COLORS.purple, strokeWidth: "3", strokeLinejoin: "round", strokeLinecap: "round" }), course.map((p, i) => (_jsx(Marker, { point: p, delay: FIRST_DELAY + i * STEP }, i))), _jsxs("g", { transform: "translate(-152, 36)", children: [_jsx("rect", { x: "252", y: "46", width: "52", height: "52", rx: "13", fill: COLORS.purple }), _jsx("circle", { cx: "278", cy: "72", r: "16", fill: "none", stroke: "#FFFFFF", strokeWidth: "4" }), _jsx("path", { d: "M270 78 L278 70 L286 78", fill: "none", stroke: "#FFFFFF", strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" }), _jsxs("text", { x: "318", y: "81", fontSize: "34", fontWeight: "500", fill: COLORS.ink, children: ["Control", _jsx("tspan", { fill: COLORS.purple, children: "Freak" })] }), app && (_jsx("text", { x: "320", y: "104", fontSize: "16", fontWeight: "600", fill: COLORS.muted, children: app }))] }), caption && (_jsx("text", { className: "cf-fade", style: { animationDelay: `${lastDelay - 0.3}s` }, x: "340", y: "474", textAnchor: "middle", fontSize: "14", fill: COLORS.muted, children: caption }))] }));
+    return (_jsxs("svg", { viewBox: `0 ${view.top} 680 ${view.height}`, width: "100%", role: "img", "aria-label": alt, className: className, style: style, xmlns: "http://www.w3.org/2000/svg", children: [_jsx("defs", { children: _jsx("clipPath", { id: "cf-mapclip", children: _jsx("rect", { x: "-250", y: "-250", width: "500", height: "500", rx: "8" }) }) }), _jsx("style", { children: robot ? css + robotCss(course, lastDelay) : css }), showBackground && (_jsx("rect", { x: "0", y: view.top, width: "680", height: view.height, fill: COLORS.page })), _jsx(Terrain, {}), _jsx("path", { className: "cf-course", d: path, fill: "none", stroke: COLORS.purple, strokeWidth: "3", strokeLinejoin: "round", strokeLinecap: "round" }), course.map((p, i) => (_jsx(Marker, { point: p, delay: FIRST_DELAY + i * STEP }, i))), robot && (_jsx("g", { className: "cf-robot", children: _jsx(Robot, {}) })), _jsxs("g", { transform: "translate(-152, 36)", children: [_jsx("rect", { x: "252", y: "46", width: "52", height: "52", rx: "13", fill: COLORS.purple }), _jsx("circle", { cx: "278", cy: "72", r: "16", fill: "none", stroke: "#FFFFFF", strokeWidth: "4" }), _jsx("path", { d: "M270 78 L278 70 L286 78", fill: "none", stroke: "#FFFFFF", strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" }), _jsxs("text", { x: "318", y: "81", fontSize: "34", fontWeight: "500", fill: COLORS.ink, children: ["Control", _jsx("tspan", { fill: COLORS.purple, children: "Freak" })] }), app && (_jsx("text", { x: "320", y: "104", fontSize: "16", fontWeight: "600", fill: COLORS.muted, children: app }))] }), caption && (_jsx("text", { className: "cf-fade", style: { animationDelay: `${lastDelay - 0.3}s` }, x: "340", y: "474", textAnchor: "middle", fontSize: "14", fill: COLORS.muted, children: caption }))] }));
 }
