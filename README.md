@@ -8,7 +8,8 @@ The shared look of the ControlFreak family of orienteering apps under controlfre
 
 It holds only what the apps should share to look like one family: colour tokens, the
 Tailwind v4 theme that maps them to utility classes, the font, the logo and icons, and the
-start screen. Other components, layouts and texts stay in each app.
+start screen, and the credit with the authors. Other components, layouts and texts stay in
+each app.
 
 ## Use
 
@@ -126,7 +127,26 @@ import { StartScreen } from "controlfreak-design/splash";
 - Lovable cannot change this repository: it only sees each app's repository. Try a
   change in an app first (by overriding the token there), then move it here.
 
+## Credit
+
+Every app shows who makes it: "Gjord av" and a GitHub mark for each author, linking to
+their profile, with the name in the link's label and tooltip.
+
+```tsx
+import { MadeBy } from "controlfreak-design/credits";
+
+<MadeBy lang="en" className="text-xs text-muted-foreground" />;
+```
+
+- `lang` is one of the family's languages, `sv` (the default), `en`, `no`, `fi` or `cs`;
+  the texts are in the package.
+- It takes the colour and size of the surrounding text; `className` styles it.
+- `AUTHORS` is the list of names and GitHub accounts, for an app that needs them
+  elsewhere.
+
 ## License
 
 MIT, see [LICENSE](LICENSE). Nunito Sans is under the SIL Open Font License and comes
 from [@fontsource-variable/nunito-sans](https://www.npmjs.com/package/@fontsource-variable/nunito-sans).
+The GitHub mark in the credit is from [Octicons](https://github.com/primer/octicons)
+(MIT, © GitHub Inc.).
