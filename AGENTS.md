@@ -5,8 +5,10 @@ This repository is **public**. Never commit secrets, keys or user data.
 - It holds the look the ControlFreak family shares: colour tokens, the Tailwind theme, the
   font, and the logo and icons (`assets/`, drawn by `scripts/gen-app-icons.py`).
   Components, layouts, texts and app logic stay in the apps.
-- The start screen (`src/splash/`, TypeScript and React) is built to `dist/`, which is
-  committed. React is a peer dependency only.
+- Two exceptions, both shown in every app: the start screen (`src/splash/`) and the
+  credit with the authors' GitHub links (`src/credits/`, with its texts in the family's five
+  languages). Both are TypeScript and React, built to `dist/`, which is committed. React
+  is a peer dependency only.
 - `icons.js` is a dependency-free helper the apps' servers use to serve the
   icons at fixed paths. Keep it plain JavaScript with its types in `icons.d.ts`.
 - Both developers (HenrikF and proverhugo) use it from their apps. A change of a colour,
