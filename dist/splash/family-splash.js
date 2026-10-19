@@ -17,6 +17,19 @@ export function project(x, y) {
     return [340 + 0.94 * x + 0.342 * y, 290 - 0.171 * x + 0.47 * y];
 }
 export const DEFAULT_COURSE = [
+    { x: -150, y: 120, kind: "start" },
+    { x: -40, y: 60, kind: "control", label: "1" },
+    { x: 60, y: 130, kind: "control", label: "2" },
+    { x: 140, y: -20, kind: "control", label: "3" },
+    { x: 10, y: -90, kind: "control", label: "4" },
+    { x: -110, y: -50, kind: "control", label: "5" },
+    { x: -180, y: 10, kind: "finish" },
+];
+/**
+ * MCP Freak's course: seven controls, matching the reply "Klart! 7 kontroller" and the
+ * caption "7 kontroller utsatta". The default when the robot is shown.
+ */
+export const MCP_COURSE = [
     { x: -160, y: 135, kind: "start" },
     { x: -75, y: 85, kind: "control", label: "1" },
     { x: 25, y: 150, kind: "control", label: "2" },
@@ -140,7 +153,8 @@ function Terrain() {
 /**
  * The start image. See the module comment.
  */
-export function FamilySplash({ app = null, robot = false, prompt = null, reply = null, course = DEFAULT_COURSE, caption = "7 kontroller utsatta · 4,3 km", showBackground = true, alt = "ControlFreak — kontroller sätts ut i terrängen", onDone, className, style, }) {
+export function FamilySplash({ app = null, robot = false, prompt = null, reply = null, course: courseProp, caption = "7 kontroller utsatta · 4,3 km", showBackground = true, alt = "ControlFreak — kontroller sätts ut i terrängen", onDone, className, style, }) {
+    const course = courseProp ?? (robot ? MCP_COURSE : DEFAULT_COURSE);
     // With a prompt, everything waits for it to be typed.
     const start = prompt ? PROMPT_TIME : 0;
     const lastDelay = start + FIRST_DELAY + (course.length - 1) * STEP + 0.6;

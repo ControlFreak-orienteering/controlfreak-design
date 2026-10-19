@@ -6,6 +6,7 @@
 export {
   DEFAULT_COURSE,
   FamilySplash,
+  MCP_COURSE,
   project,
   type CoursePoint,
 } from "./family-splash.js";
