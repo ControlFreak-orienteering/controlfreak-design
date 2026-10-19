@@ -28,7 +28,7 @@ test("the start screen has the image, the caption and the button, hidden until r
   const html = renderToStaticMarkup(
     createElement(StartScreen, {
       app: "Tävlingsadministration",
-      alt: "CompetitionFreak",
+      alt: "ControlFreak Event",
       caption: "2 tävlingar sparade i webbläsaren",
       enterLabel: "Kom igång",
       onDismiss: () => {},
@@ -57,7 +57,7 @@ test("an app can give the start screen its own image, with the family's title", 
   const html = renderToStaticMarkup(
     createElement(StartScreen, {
       app: "Tävlingsadministration",
-      alt: "CompetitionFreak",
+      alt: "ControlFreak Event",
       caption: "",
       enterLabel: "Kom igång",
       onDismiss: () => {},

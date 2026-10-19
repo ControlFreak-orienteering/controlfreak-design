@@ -24,7 +24,7 @@ export declare function StartScreen({ app, alt, caption, enterLabel, onDismiss, 
     /** Extra class names for the screen, e.g. one that keeps it light in a dark theme. */
     className?: string;
     /**
-     * The app's own start image, when it has one (e.g. a race in CompetitionFreak). It must
+     * The app's own start image, when it has one (e.g. a race in ControlFreak Event). It must
      * call `onDone` when its animation is over, at once with reduced motion, and should show
      * the family's title with `FamilyTitle`. Without it, the family's image (`FamilySplash`)
      * with `app` as its second title line is shown.
