@@ -3,8 +3,15 @@
 The shared look of the ControlFreak family of orienteering apps under controlfreak.se:
 
 - **ControlFreak** (course setting)
-- **CompetitionFreak** (competition administration)
-- later others, e.g. live results
+- **ControlFreak Event** (competition administration)
+- **ControlFreak Run** (virtual controls)
+- **MCP Freak** (the AI assistant's connection to ControlFreak)
+
+**App names** are written the same way in every app: in Nunito Sans, bold, "ControlFreak"
+in the text colour and the app's own word after it in the app's accent colour (Event in
+the brand's purple, Run in the orienteering orange), kept as one text so screen readers
+read the whole name. ControlFreak itself is just "ControlFreak". The names are never
+translated.
 
 It holds only what the apps should share to look like one family: colour tokens, the
 Tailwind v4 theme that maps them to utility classes, the font, the logo and icons, and the
@@ -86,14 +93,14 @@ answers with the bytes, the right content type and a day's caching.
 
 Every app opens the same way, on the same theme: a picture on the app's own background,
 titled with the ControlFreak logo and, under it, the name of the app. The picture may be
-the app's own (CompetitionFreak shows a race); the title and the behaviour are shared.
+the app's own (ControlFreak Event shows a race); the title and the behaviour are shared.
 
 ```tsx
 import { StartScreen } from "controlfreak-design/splash";
 
 <StartScreen
   app="Tävlingsadministration"
-  alt="CompetitionFreak – kontroller sätts ut i terrängen"
+  alt="ControlFreak Event – kontroller sätts ut i terrängen"
   caption="2 tävlingar sparade i webbläsaren"
   enterLabel="Kom igång"
   onDismiss={() => setSplashOpen(false)}
