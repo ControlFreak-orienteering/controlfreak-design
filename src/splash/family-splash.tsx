@@ -29,6 +29,20 @@ export function project(x: number, y: number): [number, number] {
 }
 
 export const DEFAULT_COURSE: CoursePoint[] = [
+  { x: -150, y: 120, kind: "start" },
+  { x: -40, y: 60, kind: "control", label: "1" },
+  { x: 60, y: 130, kind: "control", label: "2" },
+  { x: 140, y: -20, kind: "control", label: "3" },
+  { x: 10, y: -90, kind: "control", label: "4" },
+  { x: -110, y: -50, kind: "control", label: "5" },
+  { x: -180, y: 10, kind: "finish" },
+];
+
+/**
+ * MCP Freak's course: seven controls, matching the reply "Klart! 7 kontroller" and the
+ * caption "7 kontroller utsatta". The default when the robot is shown.
+ */
+export const MCP_COURSE: CoursePoint[] = [
   { x: -160, y: 135, kind: "start" },
   { x: -75, y: 85, kind: "control", label: "1" },
   { x: 25, y: 150, kind: "control", label: "2" },
@@ -516,7 +530,7 @@ export function FamilySplash({
   robot = false,
   prompt = null,
   reply = null,
-  course = DEFAULT_COURSE,
+  course: courseProp,
   caption = "7 kontroller utsatta · 4,3 km",
   showBackground = true,
   alt = "ControlFreak — kontroller sätts ut i terrängen",
@@ -535,7 +549,7 @@ export function FamilySplash({
   prompt?: string | null;
   /** The assistant's reply, shown when the course is done, e.g. "Klart! 7 kontroller". */
   reply?: string | null;
-  /** The course to set out; a default course otherwise. */
+  /** The course to set out; otherwise `MCP_COURSE` with the robot, else `DEFAULT_COURSE`. */
   course?: CoursePoint[];
   /** The text under the image. An empty string or null hides it. */
   caption?: string | null;
@@ -550,6 +564,7 @@ export function FamilySplash({
   className?: string;
   style?: CSSProperties;
 }) {
+  const course = courseProp ?? (robot ? MCP_COURSE : DEFAULT_COURSE);
   // With a prompt, everything waits for it to be typed.
   const start = prompt ? PROMPT_TIME : 0;
   const lastDelay = start + FIRST_DELAY + (course.length - 1) * STEP + 0.6;

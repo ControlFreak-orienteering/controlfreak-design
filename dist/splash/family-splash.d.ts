@@ -9,9 +9,14 @@ export type CoursePoint = {
 export declare function project(x: number, y: number): [number, number];
 export declare const DEFAULT_COURSE: CoursePoint[];
 /**
+ * MCP Freak's course: seven controls, matching the reply "Klart! 7 kontroller" and the
+ * caption "7 kontroller utsatta". The default when the robot is shown.
+ */
+export declare const MCP_COURSE: CoursePoint[];
+/**
  * The start image. See the module comment.
  */
-export declare function FamilySplash({ app, robot, prompt, reply, course, caption, showBackground, alt, onDone, className, style, }: {
+export declare function FamilySplash({ app, robot, prompt, reply, course: courseProp, caption, showBackground, alt, onDone, className, style, }: {
     /** The app's name, the second title line under "ControlFreak"; null for none. */
     app?: string | null;
     /** Shows a robot walking the course and setting out the controls (MCP Freak). */
@@ -23,7 +28,7 @@ export declare function FamilySplash({ app, robot, prompt, reply, course, captio
     prompt?: string | null;
     /** The assistant's reply, shown when the course is done, e.g. "Klart! 7 kontroller". */
     reply?: string | null;
-    /** The course to set out; a default course otherwise. */
+    /** The course to set out; otherwise `MCP_COURSE` with the robot, else `DEFAULT_COURSE`. */
     course?: CoursePoint[];
     /** The text under the image. An empty string or null hides it. */
     caption?: string | null;
