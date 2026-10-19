@@ -29,13 +29,15 @@ export function project(x: number, y: number): [number, number] {
 }
 
 export const DEFAULT_COURSE: CoursePoint[] = [
-  { x: -150, y: 120, kind: "start" },
-  { x: -40, y: 60, kind: "control", label: "1" },
-  { x: 60, y: 130, kind: "control", label: "2" },
-  { x: 140, y: -20, kind: "control", label: "3" },
-  { x: 10, y: -90, kind: "control", label: "4" },
-  { x: -110, y: -50, kind: "control", label: "5" },
-  { x: -180, y: 10, kind: "finish" },
+  { x: -160, y: 135, kind: "start" },
+  { x: -75, y: 85, kind: "control", label: "1" },
+  { x: 25, y: 150, kind: "control", label: "2" },
+  { x: 140, y: 105, kind: "control", label: "3" },
+  { x: 175, y: -10, kind: "control", label: "4" },
+  { x: 70, y: -55, kind: "control", label: "5" },
+  { x: -25, y: -125, kind: "control", label: "6" },
+  { x: -135, y: -70, kind: "control", label: "7" },
+  { x: -190, y: 20, kind: "finish" },
 ];
 
 const FIRST_DELAY = 0.45;

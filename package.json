@@ -1,6 +1,6 @@
 {
   "name": "controlfreak-design",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Shared look for the ControlFreak family of orienteering apps: colour tokens, Tailwind theme, font, logo, icons, the start screen and the credit with the authors.",
   "license": "MIT",
   "author": "Henrik Flordal",
