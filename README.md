@@ -23,7 +23,7 @@ each app.
 Depend on a tagged version, never on a branch:
 
 ```json
-"controlfreak-design": "github:HenrikF/controlfreak-design#v0.8.3"
+"controlfreak-design": "github:HenrikF/controlfreak-design#v0.8.4"
 ```
 
 In the app's main stylesheet, after Tailwind:

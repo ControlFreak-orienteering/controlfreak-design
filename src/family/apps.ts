@@ -21,7 +21,7 @@ export type FamilyApp = {
   url: string;
   /** The whole name, for places that cannot colour the app's word. */
   name: string;
-  /** The first part of the name, in the text colour; "" for Startklocka and MCP Freak. */
+  /** The first part of the name, in the text colour; "" for MCP Freak. */
   base: string;
   /** The app's own word, in `accent`; "" when the name has no accent part. */
   word: string;
@@ -63,10 +63,11 @@ export const FAMILY_APPS: readonly FamilyApp[] = [
   },
   {
     id: "startklocka",
-    url: "https://startklocka.flordal.se",
-    name: "Startklocka",
-    base: "",
-    word: "Startklocka",
+    url: "https://start.controlfreak.se",
+    name: "ControlFreak Start",
+    base: "ControlFreak",
+    word: "Start",
+    accent: "purple",
     what: {
       sv: "Startklocka: visar starttiden, piper inför varje start och läser upp vem som startar.",
       en: "Start clock: shows the start time, beeps before every start and reads out who starts.",

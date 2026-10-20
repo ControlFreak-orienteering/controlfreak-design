@@ -39,10 +39,11 @@ export const FAMILY_APPS = [
     },
     {
         id: "startklocka",
-        url: "https://startklocka.flordal.se",
-        name: "Startklocka",
-        base: "",
-        word: "Startklocka",
+        url: "https://start.controlfreak.se",
+        name: "ControlFreak Start",
+        base: "ControlFreak",
+        word: "Start",
+        accent: "purple",
         what: {
             sv: "Startklocka: visar starttiden, piper inför varje start och läser upp vem som startar.",
             en: "Start clock: shows the start time, beeps before every start and reads out who starts.",

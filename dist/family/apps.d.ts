@@ -17,7 +17,7 @@ export type FamilyApp = {
     url: string;
     /** The whole name, for places that cannot colour the app's word. */
     name: string;
-    /** The first part of the name, in the text colour; "" for Startklocka and MCP Freak. */
+    /** The first part of the name, in the text colour; "" for MCP Freak. */
     base: string;
     /** The app's own word, in `accent`; "" when the name has no accent part. */
     word: string;
