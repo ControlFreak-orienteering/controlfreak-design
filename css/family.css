@@ -102,7 +102,11 @@
   text-transform: none;
 }
 
-/* The menus */
+/* The menus: in the page even when closed, shown by the hidden attribute. */
+.cf-family-header [hidden] {
+  display: none !important;
+}
+
 .cf-family-pop {
   position: absolute;
   top: calc(100% - 2px);

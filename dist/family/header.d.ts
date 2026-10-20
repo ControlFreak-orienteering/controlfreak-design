@@ -56,6 +56,8 @@ export type FamilyHeaderProps = {
     children?: ReactNode;
     /** Phone layout: the tools fold into a sheet behind one menu button. */
     compact?: boolean;
+    /** The app switcher; `false` on a page that lists the apps itself, as the hub does. */
+    showApps?: boolean;
     className?: string;
 };
-export declare function FamilyHeader({ app, lang, langHref, onLangChange, theme, manualHref, onManual, manualNewTab, onFeedback, homeHref, children, compact, className, }: FamilyHeaderProps): import("react").JSX.Element;
+export declare function FamilyHeader({ app, lang, langHref, onLangChange, theme, manualHref, onManual, manualNewTab, onFeedback, homeHref, children, compact, showApps, className, }: FamilyHeaderProps): import("react").JSX.Element;

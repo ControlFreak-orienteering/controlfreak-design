@@ -80,6 +80,8 @@ export type FamilyHeaderProps = {
   children?: ReactNode;
   /** Phone layout: the tools fold into a sheet behind one menu button. */
   compact?: boolean;
+  /** The app switcher; `false` on a page that lists the apps itself, as the hub does. */
+  showApps?: boolean;
   className?: string;
 };
 
@@ -117,6 +119,7 @@ export function FamilyHeader({
   homeHref,
   children,
   compact = false,
+  showApps = app !== "hub",
   className = "",
 }: FamilyHeaderProps) {
   const t = TEXTS[lang];
@@ -283,18 +286,20 @@ export function FamilyHeader({
         </div>
       ) : (
         <div className="cf-family-tools">
-          <button
-            type="button"
-            className={`cf-family-tool${menu === "apps" ? " cf-family-on" : ""}`}
-            aria-expanded={menu === "apps"}
-            aria-controls={appsId}
-            aria-haspopup="menu"
-            aria-label={t.apps}
-            title={t.apps}
-            onClick={() => setMenu(menu === "apps" ? null : "apps")}
-          >
-            <AppsIcon />
-          </button>
+          {showApps && (
+            <button
+              type="button"
+              className={`cf-family-tool${menu === "apps" ? " cf-family-on" : ""}`}
+              aria-expanded={menu === "apps"}
+              aria-controls={appsId}
+              aria-haspopup="menu"
+              aria-label={t.apps}
+              title={t.apps}
+              onClick={() => setMenu(menu === "apps" ? null : "apps")}
+            >
+              <AppsIcon />
+            </button>
+          )}
           {hasLang && (
             <button
               type="button"
@@ -315,19 +320,33 @@ export function FamilyHeader({
           {feedbackButton}
         </div>
       )}
-      {menu === "apps" && (
-        <div id={appsId} role="menu" aria-label={t.apps} className="cf-family-pop cf-family-apps">
+      {/* The menus are in the page even when closed, so that the links to the apps
+          and to the other languages are there for search engines; `hidden` shows one. */}
+      {showApps && !compact && (
+        <div
+          id={appsId}
+          role="menu"
+          aria-label={t.apps}
+          className="cf-family-pop cf-family-apps"
+          hidden={menu !== "apps"}
+        >
           <div className="cf-family-pop-head">{t.apps}</div>
           {appItems}
         </div>
       )}
-      {menu === "lang" && (
-        <div id={langId} role="menu" aria-label={t.language} className="cf-family-pop cf-family-langs">
+      {hasLang && !compact && (
+        <div
+          id={langId}
+          role="menu"
+          aria-label={t.language}
+          className="cf-family-pop cf-family-langs"
+          hidden={menu !== "lang"}
+        >
           {langItems}
         </div>
       )}
-      {menu === "sheet" && (
-        <div id={sheetId} className="cf-family-sheet">
+      {compact && (
+        <div id={sheetId} className="cf-family-sheet" hidden={menu !== "sheet"}>
           {hasLang && (
             <div className="cf-family-sheet-row">
               <GlobeIcon />
@@ -340,10 +359,14 @@ export function FamilyHeader({
           {themeButton}
           {manualLink}
           {feedbackButton}
-          <div className="cf-family-pop-head">{t.apps}</div>
-          <div role="menu" aria-label={t.apps} className="cf-family-sheet-apps">
-            {appItems}
-          </div>
+          {showApps && (
+            <>
+              <div className="cf-family-pop-head">{t.apps}</div>
+              <div role="menu" aria-label={t.apps} className="cf-family-sheet-apps">
+                {appItems}
+              </div>
+            </>
+          )}
         </div>
       )}
     </header>
