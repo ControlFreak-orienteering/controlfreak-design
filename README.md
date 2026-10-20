@@ -23,7 +23,7 @@ each app.
 Depend on a tagged version, never on a branch:
 
 ```json
-"controlfreak-design": "github:HenrikF/controlfreak-design#v0.7.0"
+"controlfreak-design": "github:HenrikF/controlfreak-design#v0.8.0"
 ```
 
 In the app's main stylesheet, after Tailwind:
@@ -170,6 +170,43 @@ langPath("en", "help"); // "/en/help"; Swedish is the start page, "/help"
 - `isLang`, `langPath`, `langForPath`, `matchBrowserLang`, `browserLanguages` and
   `resolveLang` (a stored choice wins, then the browser's list in order, then a fallback
   that is Swedish unless the app says otherwise).
+
+## Family header and footer
+
+Every app opens with the same first row: the mark and the app's name on the left, what
+the app has open in the middle, and the family's tools on the right (the app switcher,
+the language menu, the theme button, the user guide and feedback). The footer has the
+credit, the hub, the licences and the version.
+
+```css
+@import "controlfreak-design/family.css";
+```
+
+```tsx
+import { FamilyFooter, FamilyHeader, FamilyName } from "controlfreak-design/family";
+
+<FamilyHeader
+  app="event"
+  lang={lang}
+  langHref={(l) => LANG_PATHS[l]}          // links; or onLangChange for buttons
+  theme={{ dark, onToggle }}                 // leave out for an app without a choice
+  manualHref="/manual"                       // or onManual for a page inside the app
+  onFeedback={() => setFeedbackOpen(true)}   // leave out for an app without a dialog
+>
+  {competition.name}
+</FamilyHeader>
+
+<FamilyFooter lang={lang} licensesHref="/THIRD-PARTY-NOTICES.md" version="2026-10-20" />
+```
+
+- `app` is `controlfreak`, `event`, `startklocka`, `run`, `mcp` or `hub`; the name is
+  drawn from it, and the switcher marks it. `FamilyName` draws a name on its own.
+- Every tool is optional: what the app does not pass is not shown. `compact` folds the
+  tools into one menu button for a phone; `stacked` on the footer suits a sidebar.
+- The look is plain CSS on the apps' own tokens (`--card`, `--foreground`, `--border`,
+  `--muted`, `--primary`, `--accent`), so it follows the app's palette, light or dark.
+- `FAMILY_APPS` is the list the switcher shows, with each app's address and one-line
+  description in the five languages; `familyHubUrl(lang)` is the hub's page.
 
 ## License
 
