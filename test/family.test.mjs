@@ -60,6 +60,15 @@ test("the links to the apps and the languages are in the page even with the menu
   assert.match(hub, />controlfreak.se</);
 });
 
+test("an app can give the header another name than the family list's", () => {
+  const html = renderToStaticMarkup(
+    createElement(FamilyHeader, { app: "startklocka", lang: "sv", name: { base: "ControlFreak", word: "Start", accent: "purple" } }),
+  );
+  assert.match(html, /cf-family-home[^>]*>.*ControlFreak <span class="cf-family-accent-purple">Start</);
+  // The switcher still lists the app under the family's name.
+  assert.match(html, /cf-family-app-title"><span class="cf-family-name"><span>Startklocka</);
+});
+
 test("the switcher lists every app and the hub", () => {
   assert.deepEqual(
     FAMILY_APPS.map((a) => a.id),

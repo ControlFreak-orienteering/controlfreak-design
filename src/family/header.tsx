@@ -76,6 +76,11 @@ export type FamilyHeaderProps = {
   onFeedback?: () => void;
   /** Where the mark and name lead; the app's start page when left out. */
   homeHref?: string;
+  /**
+   * A name other than the app's own in the family list, for an app whose name depends
+   * on where it is served (the start clock on its old and its family address).
+   */
+  name?: { base: string; word: string; accent?: FamilyAccent };
   /** The app's own middle: what is open. */
   children?: ReactNode;
   /** Phone layout: the tools fold into a sheet behind one menu button. */
@@ -117,6 +122,7 @@ export function FamilyHeader({
   manualNewTab,
   onFeedback,
   homeHref,
+  name,
   children,
   compact = false,
   showApps = app !== "hub",
@@ -265,7 +271,7 @@ export function FamilyHeader({
         {app === "hub" ? (
           <span className="cf-family-name">controlfreak.se</span>
         ) : (
-          <FamilyName app={app} />
+          <FamilyName app={name ?? app} />
         )}
       </a>
       {children !== undefined && children !== null && (
