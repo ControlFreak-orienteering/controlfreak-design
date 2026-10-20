@@ -52,7 +52,8 @@ test("the links to the apps and the languages are in the page even with the menu
   );
   assert.match(html, /<div[^>]*class="cf-family-pop cf-family-apps" hidden=""/);
   assert.match(html, /href="https:\/\/run.controlfreak.se"/);
-  assert.match(html, /href="\/fi" hreflang="fi" lang="fi"/);
+  // React writes the attribute as hrefLang; browsers read it case-insensitively.
+  assert.match(html, /href="\/fi" hrefLang="fi" lang="fi"/);
   // The hub lists the apps itself and gets no switcher.
   const hub = renderToStaticMarkup(createElement(FamilyHeader, { app: "hub", lang: "sv" }));
   assert.doesNotMatch(hub, /cf-family-apps/);
