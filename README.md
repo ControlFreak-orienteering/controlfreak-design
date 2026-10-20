@@ -23,7 +23,7 @@ each app.
 Depend on a tagged version, never on a branch:
 
 ```json
-"controlfreak-design": "github:HenrikF/controlfreak-design#v0.5.0"
+"controlfreak-design": "github:HenrikF/controlfreak-design#v0.7.0"
 ```
 
 In the app's main stylesheet, after Tailwind:
@@ -150,6 +150,26 @@ import { MadeBy } from "controlfreak-design/credits";
 - It takes the colour and size of the surrounding text; `className` styles it.
 - `AUTHORS` is the list of names and GitHub accounts, for an app that needs them
   elsewhere.
+
+## Languages
+
+The family's five languages, so every app says the same codes, names and tags and
+matches a browser's language list the same way. Each app keeps its own texts.
+
+```ts
+import { LANGS, LANG_LABELS, HTML_LANG, langPath, resolveLang } from "controlfreak-design/i18n";
+
+const lang = resolveLang(navigator.languages, localStorage.getItem("lang")); // "sv" | "en" | "no" | "fi" | "cs"
+langPath("en", "help"); // "/en/help"; Swedish is the start page, "/help"
+```
+
+- `Lang`, `LANGS` (in picker order, Swedish first) and `SOURCE_LANG` (`sv`).
+- `LANG_LABELS` (each name in its own language), `HTML_LANG` (`<html lang>` and
+  `hreflang`; Norwegian is `nb`), `LOCALE_TAG` (`Intl`), `OG_LOCALE` (Open Graph) and
+  `LANG_PATHS` (`/`, `/en`, `/no`, `/fi`, `/cs`).
+- `isLang`, `langPath`, `langForPath`, `matchBrowserLang`, `browserLanguages` and
+  `resolveLang` (a stored choice wins, then the browser's list in order, then a fallback
+  that is Swedish unless the app says otherwise).
 
 ## License
 
