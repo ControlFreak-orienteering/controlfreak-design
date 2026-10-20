@@ -14,7 +14,7 @@ test("the name is the family's way: ControlFreak and the app's word in its accen
   );
   assert.match(renderToStaticMarkup(createElement(FamilyName, { app: "run" })), /cf-family-accent-orange">Run</);
   assert.equal(renderToStaticMarkup(createElement(FamilyName, { app: "controlfreak" })), '<span class="cf-family-name">ControlFreak</span>');
-  assert.match(renderToStaticMarkup(createElement(FamilyName, { app: "startklocka" })), />Startklocka</);
+  assert.match(renderToStaticMarkup(createElement(FamilyName, { app: "startklocka" })), /ControlFreak <span class="cf-family-accent-purple">Start</);
 });
 
 test("the header shows the tools it is given, in the language it is given", () => {
@@ -62,11 +62,11 @@ test("the links to the apps and the languages are in the page even with the menu
 
 test("an app can give the header another name than the family list's", () => {
   const html = renderToStaticMarkup(
-    createElement(FamilyHeader, { app: "startklocka", lang: "sv", name: { base: "ControlFreak", word: "Start", accent: "purple" } }),
+    createElement(FamilyHeader, { app: "startklocka", lang: "sv", name: { base: "Startklocka", word: "", accent: "purple" } }),
   );
-  assert.match(html, /cf-family-home[^>]*>.*ControlFreak <span class="cf-family-accent-purple">Start</);
+  assert.match(html, /cf-family-home[^>]*>.*<span class="cf-family-name">Startklocka</);
   // The switcher still lists the app under the family's name.
-  assert.match(html, /cf-family-app-title"><span class="cf-family-name"><span>Startklocka</);
+  assert.match(html, /cf-family-app-title"><span class="cf-family-name">ControlFreak <span class="cf-family-accent-purple">Start</);
 });
 
 test("the switcher lists every app and the hub", () => {
