@@ -1,7 +1,7 @@
 {
   "name": "controlfreak-design",
-  "version": "0.7.0",
-  "description": "Shared look for the ControlFreak family of orienteering apps: colour tokens, Tailwind theme, font, logo, icons, the start screen, the credit with the authors, and the family's languages.",
+  "version": "0.8.0",
+  "description": "Shared look for the ControlFreak family of orienteering apps: colour tokens, Tailwind theme, font, logo, icons, the start screen, the credit with the authors, the family's languages, and the family header and footer.",
   "license": "MIT",
   "author": "Henrik Flordal",
   "repository": {
@@ -40,6 +40,11 @@
       "types": "./dist/i18n/index.d.ts",
       "default": "./dist/i18n/index.js"
     },
+    "./family": {
+      "types": "./dist/family/index.d.ts",
+      "default": "./dist/family/index.js"
+    },
+    "./family.css": "./css/family.css",
     "./package.json": "./package.json"
   },
   "style": "./css/tokens.css",

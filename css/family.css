@@ -1,0 +1,317 @@
+/*
+ * The family header and footer (controlfreak-design/family), on the apps' tokens: the
+ * shadcn names every app has (--card, --foreground, --border, --muted, --primary …), so
+ * the look follows the app's palette, light or dark. Run's accent is the family's
+ * orienteering orange, with a fallback for an app without the family's tokens.
+ */
+
+.cf-family-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 14px;
+  background: var(--card);
+  color: var(--card-foreground, var(--foreground));
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-sans, inherit);
+  z-index: 30;
+}
+.cf-family-compact {
+  height: 44px;
+  padding: 0 10px;
+}
+.cf-family-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+  flex: none;
+}
+.cf-family-home svg {
+  flex: none;
+}
+.cf-family-name {
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.cf-family-accent-purple {
+  color: var(--primary);
+}
+.cf-family-accent-orange {
+  color: var(--cf-flag-orange, #f07f2a);
+}
+.cf-family-middle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.cf-family-middle::before {
+  content: "|";
+  color: var(--border);
+}
+.cf-family-tools {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+  flex: none;
+}
+.cf-family-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  min-width: 34px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted-foreground);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+}
+.cf-family-tool:hover,
+.cf-family-on {
+  background: var(--muted);
+  color: var(--foreground);
+}
+.cf-family-on {
+  border-color: var(--border);
+}
+.cf-family-tool:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.cf-family-lang {
+  text-transform: none;
+}
+
+/* The menus */
+.cf-family-pop {
+  position: absolute;
+  top: calc(100% - 2px);
+  right: 10px;
+  width: 300px;
+  max-width: calc(100vw - 20px);
+  background: var(--card);
+  color: var(--card-foreground, var(--foreground));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  padding: 6px;
+  z-index: 40;
+}
+.cf-family-langs {
+  width: 170px;
+}
+.cf-family-pop-head {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  padding: 8px 10px 4px;
+}
+.cf-family-pop a,
+.cf-family-pop button,
+.cf-family-sheet-langs a,
+.cf-family-sheet-langs button,
+.cf-family-sheet-apps a {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.cf-family-pop a:hover,
+.cf-family-pop button:hover,
+.cf-family-sheet-langs a:hover,
+.cf-family-sheet-langs button:hover,
+.cf-family-sheet-apps a:hover {
+  background: var(--muted);
+}
+.cf-family-current {
+  background: var(--accent) !important;
+}
+.cf-family-langs a,
+.cf-family-langs button {
+  font-weight: 600;
+  padding: 7px 10px;
+}
+.cf-family-langs .cf-family-current::after,
+.cf-family-sheet-langs .cf-family-current::after {
+  content: "✓";
+  margin-left: auto;
+  color: var(--primary);
+}
+.cf-family-pop svg {
+  flex: none;
+}
+.cf-family-app-title {
+  display: block;
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+.cf-family-app-what {
+  display: block;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: var(--muted-foreground);
+}
+.cf-family-hub {
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 8px 8px !important;
+  margin-top: 4px;
+  padding-top: 10px !important;
+  flex-direction: column;
+  align-items: flex-start !important;
+  gap: 2px !important;
+}
+.cf-family-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The phone sheet */
+.cf-family-sheet {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--card);
+  color: var(--card-foreground, var(--foreground));
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  padding: 8px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 40;
+  max-height: calc(100vh - 44px);
+  overflow-y: auto;
+}
+.cf-family-sheet .cf-family-tool {
+  justify-content: flex-start;
+  height: 42px;
+  padding: 0 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+.cf-family-sheet-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  color: var(--muted-foreground);
+  flex-wrap: wrap;
+}
+.cf-family-sheet-label {
+  font-weight: 600;
+  color: var(--foreground);
+  font-size: 0.95rem;
+}
+.cf-family-sheet-langs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 100%;
+  margin-top: 4px;
+}
+.cf-family-sheet-langs a,
+.cf-family-sheet-langs button {
+  width: auto;
+  padding: 6px 10px;
+  font-weight: 600;
+  background: var(--muted);
+}
+.cf-family-sheet-apps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.cf-family-sheet-apps a {
+  background: var(--muted);
+  padding: 8px;
+  gap: 6px;
+}
+.cf-family-sheet-apps .cf-family-app-what {
+  display: none;
+}
+.cf-family-sheet-apps .cf-family-hub {
+  grid-column: 1 / -1;
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 8px !important;
+}
+
+/* The footer */
+.cf-family-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: 0.8rem;
+}
+.cf-family-footer-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-left: auto;
+}
+.cf-family-footer a,
+.cf-family-footer button {
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cf-family-footer a:hover,
+.cf-family-footer button:hover {
+  color: var(--foreground);
+}
+.cf-family-stacked {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 12px 0 0;
+}
+.cf-family-stacked .cf-family-footer-links {
+  margin-left: 0;
+}
