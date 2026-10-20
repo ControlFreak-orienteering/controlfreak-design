@@ -23,7 +23,7 @@ each app.
 Depend on a tagged version, never on a branch:
 
 ```json
-"controlfreak-design": "github:HenrikF/controlfreak-design#v0.8.0"
+"controlfreak-design": "github:HenrikF/controlfreak-design#v0.8.1"
 ```
 
 In the app's main stylesheet, after Tailwind:
@@ -202,7 +202,9 @@ import { FamilyFooter, FamilyHeader, FamilyName } from "controlfreak-design/fami
 - `app` is `controlfreak`, `event`, `startklocka`, `run`, `mcp` or `hub`; the name is
   drawn from it, and the switcher marks it. `FamilyName` draws a name on its own.
 - Every tool is optional: what the app does not pass is not shown. `compact` folds the
-  tools into one menu button for a phone; `stacked` on the footer suits a sidebar.
+  tools into one menu button for a phone; `stacked` on the footer suits a sidebar. The
+  menus are in the page even when closed, so search engines see the links to the apps
+  and the languages; the hub (`app="hub"`) gets no switcher, since it lists the apps.
 - The look is plain CSS on the apps' own tokens (`--card`, `--foreground`, `--border`,
   `--muted`, `--primary`, `--accent`), so it follows the app's palette, light or dark.
 - `FAMILY_APPS` is the list the switcher shows, with each app's address and one-line
