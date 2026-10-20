@@ -1,5 +1,5 @@
-/** The family's languages; the same codes the apps use (see docs/orienteering-terms.md). */
-export type Lang = "sv" | "en" | "no" | "fi" | "cs";
+import type { Lang } from "../i18n/index.js";
+export type { Lang };
 /** The people who make the apps, in the order they are shown. */
 export declare const AUTHORS: readonly [{
     readonly name: "Henrik Flordal";
