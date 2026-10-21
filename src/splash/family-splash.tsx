@@ -39,7 +39,7 @@ export const DEFAULT_COURSE: CoursePoint[] = [
 ];
 
 /**
- * MCP Freak's course: seven controls, matching the reply "Klart! 7 kontroller" and the
+ * ControlFreak MCP's course: seven controls, matching the reply "Klart! 7 kontroller" and the
  * caption "7 kontroller utsatta". The default when the robot is shown.
  */
 export const MCP_COURSE: CoursePoint[] = [
@@ -232,7 +232,7 @@ function robotCss(course: CoursePoint[], total: number, start: number): string {
 
 /**
  * A small robot standing on the map, its feet at (0, 0): the AI assistant setting out the
- * course (MCP Freak). Drawn upright, like the flags, and in the brand's colours.
+ * course (ControlFreak MCP). Drawn upright, like the flags, and in the brand's colours.
  */
 function Robot() {
   return (
@@ -346,7 +346,7 @@ function chatCss(replyAt: number): string {
 
 /**
  * A chat with the AI assistant, above the map's right corner: the user's prompt, typed
- * out at the start, and the assistant's reply when the course is done (MCP Freak).
+ * out at the start, and the assistant's reply when the course is done (ControlFreak MCP).
  */
 function Chat({ prompt, reply }: { prompt: string; reply: string | null }) {
   // Wide enough for the text at 13 units per letter-ish, but never past the image.
@@ -540,11 +540,11 @@ export function FamilySplash({
 }: {
   /** The app's name, the second title line under "ControlFreak"; null for none. */
   app?: string | null;
-  /** Shows a robot walking the course and setting out the controls (MCP Freak). */
+  /** Shows a robot walking the course and setting out the controls (ControlFreak MCP). */
   robot?: boolean;
   /**
    * A request to the AI assistant, typed out in a chat bubble before the course is set
-   * out (MCP Freak), e.g. "Lägg en bana på 4 km". Null for none.
+   * out (ControlFreak MCP), e.g. "Lägg en bana på 4 km". Null for none.
    */
   prompt?: string | null;
   /** The assistant's reply, shown when the course is done, e.g. "Klart! 7 kontroller". */

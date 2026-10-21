@@ -1,7 +1,7 @@
 # Orienteering terms in the family's five languages
 
 The apps under controlfreak.se (ControlFreak, ControlFreak Event, ControlFreak Run,
-Startklocka, MCP Freak, controlfreak.se) speak Swedish, English, Norwegian (bokmål), Finnish and Czech. Swedish is
+ControlFreak Start, ControlFreak MCP, controlfreak.se) speak Swedish, English, Norwegian (bokmål), Finnish and Czech. Swedish is
 the source language: every text is written in Swedish first and translated from it.
 
 This list is the shared vocabulary. When a term below is translated differently in an app,
@@ -19,7 +19,7 @@ Suomi, Čeština.
 
 ## Names that are never translated
 
-ControlFreak, ControlFreak Event, ControlFreak Run, Startklocka, MCP Freak, Eventor, ORIS, IRMA, SportIdent
+ControlFreak, ControlFreak Event, ControlFreak Run, ControlFreak Start, ControlFreak MCP, Eventor, ORIS, IRMA, SportIdent
 (SI), Emit, IOF, IOF XML, ISOM, ISSprOM, OCAD, Open Orienteering Mapper, Purple Pen,
 Condes, Hittaut (a Swedish recreational event; stays "Hittaut" in every language), Swish,
 OResults, Liveresultat, GoatCounter, Cloudflare.

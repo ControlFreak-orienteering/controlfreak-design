@@ -42,7 +42,7 @@ test("the start screen has the image, the caption and the button, hidden until r
 
 test("the robot walks the course only when asked for", () => {
   const withRobot = renderToStaticMarkup(
-    createElement(FamilySplash, { app: "MCP Freak", robot: true }),
+    createElement(FamilySplash, { app: "MCP", robot: true }),
   );
   assert.match(withRobot, /class="cf-robot"/);
   assert.match(withRobot, /@keyframes cf-robot-walk/);
@@ -81,7 +81,7 @@ test("an app can give the start screen its own image, with the family's title", 
 test("with a prompt, the chat shows and the course waits for it", () => {
   const html = renderToStaticMarkup(
     createElement(FamilySplash, {
-      app: "MCP Freak",
+      app: "MCP",
       robot: true,
       prompt: "Lägg en bana på 4 km",
       reply: "Klart! 7 kontroller",

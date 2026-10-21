@@ -21,7 +21,7 @@ export type FamilyApp = {
   url: string;
   /** The whole name, for places that cannot colour the app's word. */
   name: string;
-  /** The first part of the name, in the text colour; "" for MCP Freak. */
+  /** The first part of the name, in the text colour; "" for none. */
   base: string;
   /** The app's own word, in `accent`; "" when the name has no accent part. */
   word: string;
@@ -94,9 +94,10 @@ export const FAMILY_APPS: readonly FamilyApp[] = [
   {
     id: "mcp",
     url: "https://mcp.controlfreak.se",
-    name: "MCP Freak",
-    base: "",
-    word: "MCP Freak",
+    name: "ControlFreak MCP",
+    base: "ControlFreak",
+    word: "MCP",
+    accent: "purple",
     what: {
       sv: "Låt en AI-assistent lägga kontroller och banor i ControlFreak.",
       en: "Let an AI assistant place controls and courses in ControlFreak.",
