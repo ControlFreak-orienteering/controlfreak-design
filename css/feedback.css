@@ -1,0 +1,84 @@
+/*
+ * The feedback form (controlfreak-design/feedback), on the apps' tokens like the family
+ * header: the shadcn names every app has (--foreground, --border, --muted-foreground,
+ * --primary …), so it follows the app's palette, light or dark, inside the app's own
+ * dialog.
+ */
+
+.cf-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: var(--font-sans, inherit);
+  color: var(--foreground);
+}
+.cf-feedback-intro {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+}
+.cf-feedback-thanks {
+  margin: 0;
+  font-size: 0.9rem;
+}
+.cf-feedback-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+.cf-feedback-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid var(--input, var(--border));
+  border-radius: calc(var(--radius, 0.5rem) - 2px);
+  background: var(--background);
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.875rem;
+}
+.cf-feedback-input:focus-visible {
+  outline: 2px solid var(--ring, var(--primary));
+  outline-offset: 1px;
+}
+textarea.cf-feedback-input {
+  resize: vertical;
+}
+.cf-feedback-error {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--destructive);
+}
+.cf-feedback-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.cf-feedback-button {
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius, 0.5rem) - 2px);
+  background: transparent;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cf-feedback-button:hover {
+  background: var(--accent, var(--muted));
+}
+.cf-feedback-primary {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.cf-feedback-primary:hover {
+  background: var(--primary-hover, var(--primary));
+}
+.cf-feedback-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
