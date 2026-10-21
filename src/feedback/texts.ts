@@ -1,0 +1,95 @@
+/** The feedback form's texts, in the family's five languages. */
+
+import type { Lang } from "../i18n/index.js";
+
+export type FeedbackTexts = {
+  /** The dialog's title and the header button's label. */
+  title: string;
+  /**
+   * What the form is for and what is sent. The default says nothing about the app's own
+   * data; an app may pass its own (e.g. "never anything about your events").
+   */
+  intro: string;
+  message: string;
+  name: string;
+  email: string;
+  cancel: string;
+  send: string;
+  sending: string;
+  thanks: string;
+  close: string;
+  failed: string;
+};
+
+export const FEEDBACK_TEXTS: Record<Lang, FeedbackTexts> = {
+  sv: {
+    title: "Skicka feedback",
+    intro:
+      "Berätta vad som krånglar, vad du saknar eller vad du gillar. Bara det du skriver här skickas.",
+    message: "Meddelande",
+    name: "Namn (valfritt)",
+    email: "E-post (valfritt, om du vill ha svar)",
+    cancel: "Avbryt",
+    send: "Skicka",
+    sending: "Skickar…",
+    thanks: "Tack! Vi har fått din feedback.",
+    close: "Stäng",
+    failed: "Feedbacken kunde inte skickas. Kontrollera nätet och försök igen.",
+  },
+  en: {
+    title: "Send feedback",
+    intro:
+      "Tell us what is causing trouble, what you miss or what you like. Only what you write here is sent.",
+    message: "Message",
+    name: "Name (optional)",
+    email: "Email (optional, if you want a reply)",
+    cancel: "Cancel",
+    send: "Send",
+    sending: "Sending…",
+    thanks: "Thank you! We have received your feedback.",
+    close: "Close",
+    failed: "The feedback could not be sent. Check your connection and try again.",
+  },
+  no: {
+    title: "Send tilbakemelding",
+    intro:
+      "Fortell hva som krøller seg, hva du savner eller hva du liker. Bare det du skriver her sendes.",
+    message: "Melding",
+    name: "Navn (valgfritt)",
+    email: "E-post (valgfritt, hvis du vil ha svar)",
+    cancel: "Avbryt",
+    send: "Send",
+    sending: "Sender…",
+    thanks: "Takk! Vi har mottatt tilbakemeldingen din.",
+    close: "Lukk",
+    failed: "Tilbakemeldingen kunne ikke sendes. Sjekk nettet og prøv igjen.",
+  },
+  fi: {
+    title: "Lähetä palautetta",
+    intro:
+      "Kerro, mikä takkuaa, mitä kaipaat tai mistä pidät. Vain tähän kirjoittamasi teksti lähetetään.",
+    message: "Viesti",
+    name: "Nimi (vapaaehtoinen)",
+    email: "Sähköposti (vapaaehtoinen, jos haluat vastauksen)",
+    cancel: "Peruuta",
+    send: "Lähetä",
+    sending: "Lähetetään…",
+    thanks: "Kiitos! Olemme saaneet palautteesi.",
+    close: "Sulje",
+    failed: "Palautetta ei voitu lähettää. Tarkista verkkoyhteys ja yritä uudelleen.",
+  },
+  cs: {
+    title: "Poslat zpětnou vazbu",
+    intro:
+      "Napište nám, co nefunguje, co vám chybí nebo co se vám líbí. Odešle se jen to, co sem napíšete.",
+    message: "Zpráva",
+    name: "Jméno (nepovinné)",
+    email: "E-mail (nepovinný, pokud chcete odpověď)",
+    cancel: "Zrušit",
+    send: "Odeslat",
+    sending: "Odesílá se…",
+    thanks: "Děkujeme! Vaši zpětnou vazbu jsme obdrželi.",
+    close: "Zavřít",
+    failed: "Zpětnou vazbu se nepodařilo odeslat. Zkontrolujte připojení a zkuste to znovu.",
+  },
+};

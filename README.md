@@ -23,7 +23,7 @@ each app.
 Depend on a tagged version, never on a branch:
 
 ```json
-"controlfreak-design": "github:HenrikF/controlfreak-design#v0.8.5"
+"controlfreak-design": "github:HenrikF/controlfreak-design#v0.9.0"
 ```
 
 In the app's main stylesheet, after Tailwind:
@@ -211,6 +211,35 @@ import { FamilyFooter, FamilyHeader, FamilyName } from "controlfreak-design/fami
   `--muted`, `--primary`, `--accent`), so it follows the app's palette, light or dark.
 - `FAMILY_APPS` is the list the switcher shows, with each app's address and one-line
   description in the five languages; `familyHubUrl(lang)` is the hub's page.
+
+## Feedback
+
+`controlfreak-design/feedback` is the form every app shows behind the header's feedback
+button, with `controlfreak-design/feedback.css` for its look (on the app's tokens).
+
+- `FeedbackForm({ app, lang, open, onClose, intro? })`: the message (required), name and
+  email, send and cancel, then a thank-you. Only the form: put it in the app's own dialog,
+  titled `FEEDBACK_TEXTS[lang].title`, so it looks like the app's other dialogs. `app` is
+  the app's id at the feedback page (`controlfreak`, `competitionfreak`, `run`,
+  `startklocka`, `mcpfreak`), an identifier that stays when the app is renamed. `intro`
+  replaces the default text, e.g. to say what the app never sends.
+- `sendFeedback(app, feedback)` posts to the family's feedback page
+  (`FEEDBACK_ENDPOINT`); `feedbackBody` is the request body.
+- `FEEDBACK_TEXTS` has the form's texts in the five languages.
+
+## QR camera
+
+`controlfreak-design/qr-camera` reads QR codes with the camera, for the apps' own
+scanners. Each app keeps its `<video>`, layout and what it does with a code.
+
+- `useQrCamera({ onCode, loadJsQr, intervalMs?, active?, maxReadWidth? })` gives `video`
+  (for a `<video muted playsInline>`) and `problem`. It uses the browser's own
+  `BarcodeDetector` where it reads QR codes, and otherwise jsQR, which the app passes:
+  `loadJsQr: () => import("jsqr").then((m) => m.default)`, so the package has no
+  dependency on it. `onCode(text, capturedAt)` returns `true` to stop; `capturedAt` is
+  when the picture was taken.
+- `CameraProblem`, `cameraAvailability`, `cameraProblemFrom` and `CAMERA_PROBLEM_TEXTS`
+  say why the camera could not be used, in the five languages.
 
 ## License
 
