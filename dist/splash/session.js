@@ -23,6 +23,13 @@ function seen(app) {
     }
 }
 /**
+ * Whether the start screen should be open once the page runs in the browser: wanted on
+ * this page and not yet seen in this tab.
+ */
+export function startScreenDue(app, wanted = true) {
+    return wanted && !seen(app);
+}
+/**
  * A small script for the document's `<head>`, run before the first paint: when the start
  * screen has been seen in this tab, it marks `<html>` so the screen is never shown.
  *
@@ -37,15 +44,14 @@ export function startScreenSeenScript(app) {
  *
  * @param app - The app's id, the same as given to `startScreenSeenScript`.
  * @param wanted - Whether this page shows a start screen at all (e.g. not on the start
- *   clock's own address); true by default.
+ *   clock's own address); true by default. It may turn true after the first render.
  */
 export function useStartScreen(app, wanted = true) {
     const [open, setOpen] = useState(wanted);
+    // Also opens it when `wanted` turns true after the first render, as when the page can
+    // only tell from its address in the browser whether it shows a start screen.
     useEffect(() => {
-        if (!wanted)
-            return setOpen(false);
-        if (seen(app))
-            setOpen(false);
+        setOpen(startScreenDue(app, wanted));
     }, [app, wanted]);
     const dismiss = useCallback(() => {
         try {

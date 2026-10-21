@@ -12,4 +12,4 @@ export {
 } from "./family-splash.js";
 export { FamilyTitle } from "./family-title.js";
 export { StartScreen } from "./start-screen.js";
-export { START_SEEN_CLASS, startScreenSeenScript, useStartScreen } from "./session.js";
+export { START_SEEN_CLASS, startScreenDue, startScreenSeenScript, useStartScreen } from "./session.js";
