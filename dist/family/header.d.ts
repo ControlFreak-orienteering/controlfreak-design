@@ -14,10 +14,6 @@
 import { type MouseEvent, type ReactNode } from "react";
 import { type Lang } from "../i18n/index.js";
 import { type FamilyAccent, type FamilyAppId } from "./apps.js";
-/**
- * An app's name written the family's way: "ControlFreak" in the text colour and the
- * app's own word in its accent, as one text so screen readers read the whole name.
- */
 export declare function FamilyName({ app, className, }: {
     app: Exclude<FamilyAppId, "hub"> | {
         base: string;

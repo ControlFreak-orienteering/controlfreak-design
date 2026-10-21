@@ -1,4 +1,4 @@
-import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 /**
  * The family header: the same first row in every app under controlfreak.se.
  *
@@ -18,12 +18,19 @@ import { FAMILY_APPS, familyApp, familyHubUrl } from "./apps.js";
 import { AppsIcon, BookIcon, ChevronIcon, CloseIcon, FeedbackIcon, GlobeIcon, Mark, MenuIcon, MoonIcon, SunIcon, } from "./icons.js";
 import { TEXTS } from "./texts.js";
 /**
- * An app's name written the family's way: "ControlFreak" in the text colour and the
- * app's own word in its accent, as one text so screen readers read the whole name.
+ * An app's name written the family's way: "Control" in the text colour, "Freak" in the
+ * family's purple (as in the logo), and the app's own word in its accent, as one text so
+ * screen readers read the whole name.
  */
+/** "ControlFreak" with "Freak" in purple; any other base as it is. */
+function FreakName({ base }) {
+    if (!base.endsWith("Freak"))
+        return _jsx(_Fragment, { children: base });
+    return (_jsxs(_Fragment, { children: [base.slice(0, -"Freak".length), _jsx("span", { className: "cf-family-freak", children: "Freak" })] }));
+}
 export function FamilyName({ app, className = "", }) {
     const a = typeof app === "string" ? familyApp(app) : app;
-    return (_jsxs("span", { className: `cf-family-name ${className}`.trim(), children: [a.base, a.base && a.word ? " " : "", a.word && (_jsx("span", { className: a.accent ? `cf-family-accent-${a.accent}` : undefined, children: a.word }))] }));
+    return (_jsxs("span", { className: `cf-family-name ${className}`.trim(), children: [_jsx(FreakName, { base: a.base }), a.base && a.word ? " " : "", a.word && (_jsx("span", { className: a.accent ? `cf-family-accent-${a.accent}` : undefined, children: a.word }))] }));
 }
 /** Closes the open menu on a click outside it or on Escape. */
 function useCloseMenu(open, close, ref) {
