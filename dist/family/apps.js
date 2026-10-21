@@ -70,9 +70,10 @@ export const FAMILY_APPS = [
     {
         id: "mcp",
         url: "https://mcp.controlfreak.se",
-        name: "MCP Freak",
-        base: "",
-        word: "MCP Freak",
+        name: "ControlFreak MCP",
+        base: "ControlFreak",
+        word: "MCP",
+        accent: "purple",
         what: {
             sv: "Låt en AI-assistent lägga kontroller och banor i ControlFreak.",
             en: "Let an AI assistant place controls and courses in ControlFreak.",

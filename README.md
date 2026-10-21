@@ -5,7 +5,7 @@ The shared look of the ControlFreak family of orienteering apps under controlfre
 - **ControlFreak** (course setting)
 - **ControlFreak Event** (competition administration)
 - **ControlFreak Run** (virtual controls)
-- **MCP Freak** (the AI assistant's connection to ControlFreak)
+- **ControlFreak MCP** (the AI assistant's connection to ControlFreak)
 
 **App names** are written the same way in every app: in Nunito Sans, bold, "ControlFreak"
 in the text colour and the app's own word after it in the app's accent colour (Event in
@@ -23,7 +23,7 @@ each app.
 Depend on a tagged version, never on a branch:
 
 ```json
-"controlfreak-design": "github:HenrikF/controlfreak-design#v0.8.4"
+"controlfreak-design": "github:HenrikF/controlfreak-design#v0.8.5"
 ```
 
 In the app's main stylesheet, after Tailwind:
@@ -114,7 +114,7 @@ import { StartScreen } from "controlfreak-design/splash";
   animation is over, at once with reduced motion), `alt` and `className`, and should draw
   the title with `FamilyTitle` (`x`, `y`, `scale`, `app`).
 - `FamilySplash` is the family's picture, a course being set out on a map: `app`,
-  `caption`, `course`, `showBackground`, `onDone`, and for MCP Freak `robot` (a robot
+  `caption`, `course`, `showBackground`, `onDone`, and for ControlFreak MCP `robot` (a robot
   sets out the controls), `prompt` (a request typed into a chat bubble first) and `reply`
   (the assistant's answer when the course is done).
 - The screen's look is plain CSS in `css/splash.css`, using the tokens; import it in the

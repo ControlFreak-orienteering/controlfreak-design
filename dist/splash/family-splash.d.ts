@@ -9,7 +9,7 @@ export type CoursePoint = {
 export declare function project(x: number, y: number): [number, number];
 export declare const DEFAULT_COURSE: CoursePoint[];
 /**
- * MCP Freak's course: seven controls, matching the reply "Klart! 7 kontroller" and the
+ * ControlFreak MCP's course: seven controls, matching the reply "Klart! 7 kontroller" and the
  * caption "7 kontroller utsatta". The default when the robot is shown.
  */
 export declare const MCP_COURSE: CoursePoint[];
@@ -19,11 +19,11 @@ export declare const MCP_COURSE: CoursePoint[];
 export declare function FamilySplash({ app, robot, prompt, reply, course: courseProp, caption, showBackground, alt, onDone, className, style, }: {
     /** The app's name, the second title line under "ControlFreak"; null for none. */
     app?: string | null;
-    /** Shows a robot walking the course and setting out the controls (MCP Freak). */
+    /** Shows a robot walking the course and setting out the controls (ControlFreak MCP). */
     robot?: boolean;
     /**
      * A request to the AI assistant, typed out in a chat bubble before the course is set
-     * out (MCP Freak), e.g. "Lägg en bana på 4 km". Null for none.
+     * out (ControlFreak MCP), e.g. "Lägg en bana på 4 km". Null for none.
      */
     prompt?: string | null;
     /** The assistant's reply, shown when the course is done, e.g. "Klart! 7 kontroller". */
