@@ -28,7 +28,7 @@ export const FAMILY_APPS = [
         name: "ControlFreak Event",
         base: "ControlFreak",
         word: "Event",
-        accent: "purple",
+        accent: "orange",
         what: {
             sv: "Anmälningar, lottning, brickavläsning och resultat.",
             en: "Entries, start draw, card readout and results.",
@@ -43,7 +43,7 @@ export const FAMILY_APPS = [
         name: "ControlFreak Start",
         base: "ControlFreak",
         word: "Start",
-        accent: "purple",
+        accent: "orange",
         what: {
             sv: "Startklocka: visar starttiden, piper inför varje start och läser upp vem som startar.",
             en: "Start clock: shows the start time, beeps before every start and reads out who starts.",
@@ -73,7 +73,7 @@ export const FAMILY_APPS = [
         name: "ControlFreak MCP",
         base: "ControlFreak",
         word: "MCP",
-        accent: "purple",
+        accent: "orange",
         what: {
             sv: "Låt en AI-assistent lägga kontroller och banor i ControlFreak.",
             en: "Let an AI assistant place controls and courses in ControlFreak.",

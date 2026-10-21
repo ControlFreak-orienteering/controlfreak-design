@@ -9,7 +9,7 @@ The shared look of the ControlFreak family of orienteering apps under controlfre
 
 **App names** are written the same way in every app: in Nunito Sans, bold, "Control" in
 the text colour and "Freak" in the brand's purple, as in the logo, then the app's own word
-in the app's accent colour (Event in the brand's purple, Run in the orienteering orange),
+in the orienteering orange (Event, Start, Run, MCP),
 kept as one text so screen readers read the whole name. ControlFreak itself is just
 "ControlFreak". The names are never translated.
 
