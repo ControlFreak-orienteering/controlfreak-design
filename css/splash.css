@@ -95,3 +95,9 @@
     transition: none;
   }
 }
+
+/* Seen in this tab already (startScreenSeenScript in the document's <head>): never shown,
+   not even for the moment before the page notices. */
+.cf-start-seen .cf-start {
+  display: none;
+}
