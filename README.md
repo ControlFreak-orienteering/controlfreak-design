@@ -23,7 +23,7 @@ each app.
 Depend on a tagged version, never on a branch:
 
 ```json
-"controlfreak-design": "github:HenrikF/controlfreak-design#v0.9.0"
+"controlfreak-design": "github:HenrikF/controlfreak-design#v0.10.0"
 ```
 
 In the app's main stylesheet, after Tailwind:
@@ -117,6 +117,12 @@ import { StartScreen } from "controlfreak-design/splash";
   `caption`, `course`, `showBackground`, `onDone`, and for ControlFreak MCP `robot` (a robot
   sets out the controls), `prompt` (a request typed into a chat bubble first) and `reply`
   (the assistant's answer when the course is done).
+- Once per session: `useStartScreen(app)` gives `open` and a stable `dismiss` (pass it as
+  `onDismiss`). The screen shows the first time the app is opened in a tab, not again after
+  the manual, a change of language or a reload in that tab. Put
+  `startScreenSeenScript(app)` in an inline `<script>` in the document's `<head>`, so a
+  screen already seen never flashes up while the server-rendered page loads (it marks
+  `<html>` with `cf-start-seen`, which `splash.css` hides the screen under).
 - The screen's look is plain CSS in `css/splash.css`, using the tokens; import it in the
   app's stylesheet. An app's Tailwind does not scan this package.
 - The source is TypeScript in `src/splash/`; `npm run build` writes `dist/`, which is

@@ -24,11 +24,15 @@ export function StartScreen({ app, alt, caption, enterLabel, onDismiss, classNam
         if (ready)
             enterRef.current?.focus();
     }, [ready]);
+    // The latest `onDismiss`, so that a new function from an app that re-renders often (the
+    // start clock ticks ten times a second) does not restart the fade-out for ever.
+    const dismissRef = useRef(onDismiss);
+    dismissRef.current = onDismiss;
     useEffect(() => {
         if (!leaving)
             return;
-        const timer = setTimeout(onDismiss, FADE_MS);
+        const timer = setTimeout(() => dismissRef.current(), FADE_MS);
         return () => clearTimeout(timer);
-    }, [leaving, onDismiss]);
+    }, [leaving]);
     return (_jsx("div", { role: "dialog", "aria-modal": "true", "aria-label": alt, className: `cf-start ${leaving ? "cf-start--leaving" : ""} ${className}`, children: _jsxs("div", { className: "cf-start__inner", children: [renderImage ? (renderImage({ onDone: handleDone, alt, className: "cf-start__image" })) : (_jsx(FamilySplash, { app: app, showBackground: false, caption: null, alt: alt, onDone: handleDone, className: "cf-start__image" })), _jsxs("div", { className: `cf-start__row ${ready ? "" : "cf-start__row--hidden"}`, children: [_jsx("p", { className: "cf-start__caption", children: caption }), _jsx("button", { ref: enterRef, type: "button", className: "cf-start__enter", "aria-hidden": !ready, tabIndex: ready ? undefined : -1, onClick: () => setLeaving(true), children: enterLabel })] })] }) }));
 }

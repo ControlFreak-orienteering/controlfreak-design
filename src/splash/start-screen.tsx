@@ -66,11 +66,15 @@ export function StartScreen({
     if (ready) enterRef.current?.focus();
   }, [ready]);
 
+  // The latest `onDismiss`, so that a new function from an app that re-renders often (the
+  // start clock ticks ten times a second) does not restart the fade-out for ever.
+  const dismissRef = useRef(onDismiss);
+  dismissRef.current = onDismiss;
   useEffect(() => {
     if (!leaving) return;
-    const timer = setTimeout(onDismiss, FADE_MS);
+    const timer = setTimeout(() => dismissRef.current(), FADE_MS);
     return () => clearTimeout(timer);
-  }, [leaving, onDismiss]);
+  }, [leaving]);
 
   return (
     <div

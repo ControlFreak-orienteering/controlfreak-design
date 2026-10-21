@@ -6,3 +6,4 @@
 export { DEFAULT_COURSE, FamilySplash, MCP_COURSE, project, } from "./family-splash.js";
 export { FamilyTitle } from "./family-title.js";
 export { StartScreen } from "./start-screen.js";
+export { START_SEEN_CLASS, startScreenSeenScript, useStartScreen } from "./session.js";
