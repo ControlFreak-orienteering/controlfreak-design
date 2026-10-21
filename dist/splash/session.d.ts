@@ -12,6 +12,11 @@
 /** The class `startScreenSeenScript` puts on `<html>`; `splash.css` hides the screen under it. */
 export declare const START_SEEN_CLASS = "cf-start-seen";
 /**
+ * Whether the start screen should be open once the page runs in the browser: wanted on
+ * this page and not yet seen in this tab.
+ */
+export declare function startScreenDue(app: string, wanted?: boolean): boolean;
+/**
  * A small script for the document's `<head>`, run before the first paint: when the start
  * screen has been seen in this tab, it marks `<html>` so the screen is never shown.
  *
@@ -24,7 +29,7 @@ export declare function startScreenSeenScript(app: string): string;
  *
  * @param app - The app's id, the same as given to `startScreenSeenScript`.
  * @param wanted - Whether this page shows a start screen at all (e.g. not on the start
- *   clock's own address); true by default.
+ *   clock's own address); true by default. It may turn true after the first render.
  */
 export declare function useStartScreen(app: string, wanted?: boolean): {
     open: boolean;

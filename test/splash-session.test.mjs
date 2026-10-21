@@ -2,7 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { START_SEEN_CLASS, startScreenSeenScript } from "../dist/splash/index.js";
+import { START_SEEN_CLASS, startScreenDue, startScreenSeenScript } from "../dist/splash/index.js";
 
 /** Runs the head script against a fake document and storage. */
 function runScript(app, stored) {
@@ -26,4 +26,18 @@ test("the head script survives blocked storage", () => {
   const document = { documentElement: { classList: { add: (c) => classes.add(c) } } };
   new Function("sessionStorage", "document", startScreenSeenScript("run"))(blocked, document);
   assert.equal(classes.size, 0);
+});
+
+test("the start screen is due when wanted and not seen in this tab", () => {
+  const stored = {};
+  globalThis.window = { sessionStorage: { getItem: (key) => stored[key] ?? null } };
+  try {
+    assert.equal(startScreenDue("run"), true);
+    assert.equal(startScreenDue("run", false), false);
+    stored["cf-start-seen:run"] = "1";
+    assert.equal(startScreenDue("run"), false);
+    assert.equal(startScreenDue("event"), true);
+  } finally {
+    delete globalThis.window;
+  }
 });
