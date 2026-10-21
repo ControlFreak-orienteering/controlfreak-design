@@ -31,9 +31,21 @@ import {
 import { TEXTS } from "./texts.js";
 
 /**
- * An app's name written the family's way: "ControlFreak" in the text colour and the
- * app's own word in its accent, as one text so screen readers read the whole name.
+ * An app's name written the family's way: "Control" in the text colour, "Freak" in the
+ * family's purple (as in the logo), and the app's own word in its accent, as one text so
+ * screen readers read the whole name.
  */
+/** "ControlFreak" with "Freak" in purple; any other base as it is. */
+function FreakName({ base }: { base: string }) {
+  if (!base.endsWith("Freak")) return <>{base}</>;
+  return (
+    <>
+      {base.slice(0, -"Freak".length)}
+      <span className="cf-family-freak">Freak</span>
+    </>
+  );
+}
+
 export function FamilyName({
   app,
   className = "",
@@ -44,7 +56,7 @@ export function FamilyName({
   const a = typeof app === "string" ? familyApp(app) : app;
   return (
     <span className={`cf-family-name ${className}`.trim()}>
-      {a.base}
+      <FreakName base={a.base} />
       {a.base && a.word ? " " : ""}
       {a.word && (
         <span className={a.accent ? `cf-family-accent-${a.accent}` : undefined}>{a.word}</span>

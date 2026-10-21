@@ -7,11 +7,11 @@ The shared look of the ControlFreak family of orienteering apps under controlfre
 - **ControlFreak Run** (virtual controls)
 - **ControlFreak MCP** (the AI assistant's connection to ControlFreak)
 
-**App names** are written the same way in every app: in Nunito Sans, bold, "ControlFreak"
-in the text colour and the app's own word after it in the app's accent colour (Event in
-the brand's purple, Run in the orienteering orange), kept as one text so screen readers
-read the whole name. ControlFreak itself is just "ControlFreak". The names are never
-translated.
+**App names** are written the same way in every app: in Nunito Sans, bold, "Control" in
+the text colour and "Freak" in the brand's purple, as in the logo, then the app's own word
+in the app's accent colour (Event in the brand's purple, Run in the orienteering orange),
+kept as one text so screen readers read the whole name. ControlFreak itself is just
+"ControlFreak". The names are never translated.
 
 It holds only what the apps should share to look like one family: colour tokens, the
 Tailwind v4 theme that maps them to utility classes, the font, the logo and icons, and the

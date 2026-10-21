@@ -7,14 +7,14 @@ import { renderToStaticMarkup } from "react-dom/server";
 
 import { FAMILY_APPS, FamilyFooter, FamilyHeader, FamilyName, familyHubUrl } from "../dist/family/index.js";
 
-test("the name is the family's way: ControlFreak and the app's word in its accent", () => {
+test("the name is the family's way: Control, Freak in purple and the app's word in its accent", () => {
   assert.equal(
     renderToStaticMarkup(createElement(FamilyName, { app: "event" })),
-    '<span class="cf-family-name">ControlFreak <span class="cf-family-accent-purple">Event</span></span>',
+    '<span class="cf-family-name">Control<span class="cf-family-freak">Freak</span> <span class="cf-family-accent-purple">Event</span></span>',
   );
   assert.match(renderToStaticMarkup(createElement(FamilyName, { app: "run" })), /cf-family-accent-orange">Run</);
-  assert.equal(renderToStaticMarkup(createElement(FamilyName, { app: "controlfreak" })), '<span class="cf-family-name">ControlFreak</span>');
-  assert.match(renderToStaticMarkup(createElement(FamilyName, { app: "startklocka" })), /ControlFreak <span class="cf-family-accent-purple">Start</);
+  assert.equal(renderToStaticMarkup(createElement(FamilyName, { app: "controlfreak" })), '<span class="cf-family-name">Control<span class="cf-family-freak">Freak</span></span>');
+  assert.match(renderToStaticMarkup(createElement(FamilyName, { app: "startklocka" })), /Control<span class="cf-family-freak">Freak<\/span> <span class="cf-family-accent-purple">Start</);
 });
 
 test("the header shows the tools it is given, in the language it is given", () => {
@@ -66,7 +66,7 @@ test("an app can give the header another name than the family list's", () => {
   );
   assert.match(html, /cf-family-home[^>]*>.*<span class="cf-family-name">Startklocka</);
   // The switcher still lists the app under the family's name.
-  assert.match(html, /cf-family-app-title"><span class="cf-family-name">ControlFreak <span class="cf-family-accent-purple">Start</);
+  assert.match(html, /cf-family-app-title"><span class="cf-family-name">Control<span class="cf-family-freak">Freak<\/span> <span class="cf-family-accent-purple">Start</);
 });
 
 test("the switcher lists every app and the hub", () => {

@@ -39,6 +39,10 @@
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
+/* "Freak" in every app's name, as in the logo. */
+.cf-family-freak {
+  color: var(--primary);
+}
 .cf-family-accent-purple {
   color: var(--primary);
 }
