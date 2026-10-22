@@ -79,6 +79,12 @@ OResults, Liveresultat, GoatCounter, Cloudflare.
 | sprint                              | sprint                               | sprint                           | sprintti                            | sprint                                  |
 | stafett                             | relay                                | stafett                          | viesti                              | štafeta                                 |
 | sträcka (i stafett)                 | leg (relay)                          | etappe                           | osuus                               | úsek                                    |
+| lag (i stafett eller patrull)       | team                                 | lag                              | joukkue                             | tým, štafeta                            |
+| patrull                             | patrol                               | patrulje                         | partio                              | hlídka                                  |
+| masstart                            | mass start                           | fellesstart                      | yhteislähtö                         | hromadný start                          |
+| växling                             | changeover                           | veksling                         | vaihto                              | předávka                                |
+| omstart (i stafett)                 | restart                              | omstart                          | uusintalähtö                        | restart                                 |
+| nummerlapp                          | bib                                  | startnummer                      | numerolappu                         | startovní číslo                         |
 | utsättning (av kontroller)          | control hanging, putting out controls| utsetting av poster              | rastien vienti maastoon             | rozmístění kontrol                      |
 | insamling (av kontroller)           | collecting controls                  | innsamling av poster             | rastien keruu                       | sběr kontrol                            |
 | utskrift                            | print                                | utskrift                         | tulostus                            | tisk                                    |
