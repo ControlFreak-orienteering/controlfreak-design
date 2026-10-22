@@ -74,6 +74,7 @@ OResults, Liveresultat, GoatCounter, Cloudflare.
 | kartbyte                            | map exchange                         | kartbytte                        | kartanvaihto                        | výměna mapy                             |
 | kartvändning                        | map flip                             | vending av kartet                | kartan kääntö                       | otočení mapy                            |
 | gaffling                            | forking                              | gafling                          | hajonta                             | farsta, rozdělení trati                 |
+| gafflingsnyckel (i stafett)         | forking key                          | gaflingsnøkkel                   | hajontaavain                        | klíč farstů                             |
 | vanlig bana (i ordning)             | normal course                        | vanlig løype                     | tavallinen rata                     | klasická trať                           |
 | poängorientering                    | score orienteering                   | poengorientering                 | pistesuunnistus                     | scorelauf                               |
 | sprint                              | sprint                               | sprint                           | sprintti                            | sprint                                  |
