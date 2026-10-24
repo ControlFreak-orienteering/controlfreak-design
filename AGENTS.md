@@ -3,7 +3,8 @@
 This repository is **public**. Never commit secrets, keys or user data.
 
 - It holds the look the ControlFreak family shares: colour tokens, the Tailwind theme, the
-  font, and the logo and icons (`assets/`, drawn by `scripts/gen-app-icons.py`).
+  font, and the logo and icons (`assets/`, drawn by `scripts/gen-app-icons.py`), and the
+  apps' link preview images (`assets/og-*.png`, drawn by `scripts/gen-og-images.py`).
   Components, layouts, texts and app logic stay in the apps.
 - Exceptions, all shared by the apps so they work the same everywhere: the start screen
   (`src/splash/`), the credit with the authors' GitHub links (`src/credits/`), the family
