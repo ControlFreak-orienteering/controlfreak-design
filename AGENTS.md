@@ -14,6 +14,9 @@ This repository is **public**. Never commit secrets, keys or user data.
   for the QR camera) is passed in by the app, so the package gains no dependency.
 - `icons.js` is a dependency-free helper the apps' servers use to serve the
   icons at fixed paths. Keep it plain JavaScript with its types in `icons.d.ts`.
+- `sw-fetch.js` is the page fetch the apps' service workers load with `importScripts`
+  (network first, the cache when the network fails or takes over three seconds). Keep it
+  plain JavaScript with no imports, since it runs in a classic service worker.
 - Both developers (HenrikF and proverhugo) use it from their apps. A change of a colour,
   the font or a token name changes every app, so make it only when the user asks, and say
   which apps it affects.
