@@ -1,14 +1,20 @@
 import { type ReactNode } from "react";
 /**
+ * When the button shows at the latest, in milliseconds after the screen appeared in the
+ * browser (that is, once the app is hydrated): the family's animation takes 3.45 s, and
+ * nobody should have to wait for it to enter an app that is already ready.
+ */
+export declare const START_READY_MS = 1500;
+/**
  * The start screen every app in the family shows when it opens: the start image (the
  * family's `FamilySplash`, or the app's own through `renderImage`) on the app's own
  * background, and under it a row with a caption on the
  * left and the button that enters the app on the right.
  *
- * It never closes by itself. The animation plays to the end, then the row fades in and
- * the button takes focus, so Enter starts the app; the user decides when the app
- * begins, not a timer. With reduced motion the image shows without animation and the
- * row at once. The look comes from `controlfreak-design/splash.css` and the app's tokens.
+ * It never closes by itself. The row fades in and the button takes focus when the
+ * animation is over or after `START_READY_MS`, whichever comes first, while the animation
+ * goes on behind it; Enter starts the app, and the user decides when it begins. With
+ * reduced motion the image shows without animation and the row at once. The look comes from `controlfreak-design/splash.css` and the app's tokens.
  */
 export declare function StartScreen({ app, alt, caption, enterLabel, onDismiss, className, renderImage, }: {
     /** The app's name, the second title line under "ControlFreak", e.g. "Banläggning". */

@@ -121,8 +121,10 @@ import { StartScreen } from "controlfreak-design/splash";
 />;
 ```
 
-- The animation plays to the end, then the row with the caption and the button fades in
-  and the button takes focus. With reduced motion everything shows at once.
+- The row with the caption and the button fades in, and the button takes focus, when the
+  animation is over or 1.5 s after the app is hydrated (`START_READY_MS`), whichever
+  comes first; the animation goes on behind it. With reduced motion everything shows at
+  once.
 - `className` adds classes to the screen, e.g. one that keeps it light in a dark theme.
 - `renderImage` gives the screen the app's own picture. It gets `onDone` (call it when the
   animation is over, at once with reduced motion), `alt` and `className`, and should draw
