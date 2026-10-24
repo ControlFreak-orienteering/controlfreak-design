@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 
 /**
- * The start screen once per session: the first time an app is opened in a tab, and not
- * again after its manual, a change of language or a reload in the same tab. A new tab, or
- * the browser restarted, shows it again. Remembered in `sessionStorage`, per app.
+ * The start screen once per device: the first time an app is opened in the browser, and
+ * not again, in that tab or any other, until the browser's storage for the site is
+ * cleared. Remembered in `localStorage`, per app. (Decided 2026-10-24; until v0.13.0 it
+ * was once per tab, in `sessionStorage`, and a mark left there still counts.)
  *
  * The server cannot know this, so it renders the start screen every time. To keep it
  * from flashing up before the page notices, the app puts `startScreenSeenScript(app)` in
@@ -15,20 +16,25 @@ import { useCallback, useEffect, useState } from "react";
 /** The class `startScreenSeenScript` puts on `<html>`; `splash.css` hides the screen under it. */
 export const START_SEEN_CLASS = "cf-start-seen";
 
-/** Where it is remembered that the app's start screen has been seen in this tab. */
+/** Where it is remembered that the app's start screen has been seen on this device. */
 const keyFor = (app: string) => `cf-start-seen:${app}`;
 
-function seen(app: string): boolean {
+/** Whether one storage says the screen has been seen; blocked storage says no. */
+function seenIn(storage: () => Storage, app: string): boolean {
   try {
-    return window.sessionStorage.getItem(keyFor(app)) === "1";
+    return storage().getItem(keyFor(app)) === "1";
   } catch {
     return false;
   }
 }
 
+function seen(app: string): boolean {
+  return seenIn(() => window.localStorage, app) || seenIn(() => window.sessionStorage, app);
+}
+
 /**
  * Whether the start screen should be open once the page runs in the browser: wanted on
- * this page and not yet seen in this tab.
+ * this page and not yet seen on this device.
  */
 export function startScreenDue(app: string, wanted = true): boolean {
   return wanted && !seen(app);
@@ -36,17 +42,20 @@ export function startScreenDue(app: string, wanted = true): boolean {
 
 /**
  * A small script for the document's `<head>`, run before the first paint: when the start
- * screen has been seen in this tab, it marks `<html>` so the screen is never shown.
+ * screen has been seen on this device, it marks `<html>` so the screen is never shown.
  *
  * @param app - The app's id, the same as given to `useStartScreen`, e.g. "controlfreak".
  */
 export function startScreenSeenScript(app: string): string {
-  return `try{if(sessionStorage.getItem(${JSON.stringify(keyFor(app))})==="1")document.documentElement.classList.add(${JSON.stringify(START_SEEN_CLASS)})}catch(e){}`;
+  const key = JSON.stringify(keyFor(app));
+  const mark = `document.documentElement.classList.add(${JSON.stringify(START_SEEN_CLASS)})`;
+  // Each storage on its own, so that one that is blocked does not hide the other.
+  return `try{if(localStorage.getItem(${key})==="1")${mark}}catch(e){}try{if(sessionStorage.getItem(${key})==="1")${mark}}catch(e){}`;
 }
 
 /**
- * Whether the app should show its start screen, and the function that closes it for the
- * rest of the session (pass it as the start screen's `onDismiss`; it is stable).
+ * Whether the app should show its start screen, and the function that closes it for good
+ * on this device (pass it as the start screen's `onDismiss`; it is stable).
  *
  * @param app - The app's id, the same as given to `startScreenSeenScript`.
  * @param wanted - Whether this page shows a start screen at all (e.g. not on the start
@@ -61,7 +70,7 @@ export function useStartScreen(app: string, wanted = true): { open: boolean; dis
   }, [app, wanted]);
   const dismiss = useCallback(() => {
     try {
-      window.sessionStorage.setItem(keyFor(app), "1");
+      window.localStorage.setItem(keyFor(app), "1");
     } catch {
       // Blocked storage: the start screen shows again next time, as before.
     }
