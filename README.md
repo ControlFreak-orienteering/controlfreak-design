@@ -129,6 +129,44 @@ import { StartScreen } from "controlfreak-design/splash";
 - The source is TypeScript in `src/splash/`; `npm run build` writes `dist/`, which is
   committed, so the apps need no build step for it. React is a peer dependency.
 
+## Service workers
+
+The apps that open without a connection (ControlFreak, ControlFreak Run, ControlFreak Start)
+fetch their pages the same way, with `sw-fetch.js`: from the network first, from the cache
+when the network fails, and also when it has not answered within three seconds, which on
+one bar of coverage in the forest can otherwise take a minute. The late answer still
+refreshes the cache for next time.
+
+It is plain JavaScript for a classic service worker, so the app serves it at a fixed path
+from its own server, like the icons. With TanStack Start, `src/routes/cf-sw-fetch[.]js.ts`:
+
+```ts
+import { createFileRoute } from "@tanstack/react-router";
+import source from "controlfreak-design/sw-fetch.js?raw";
+
+export const Route = createFileRoute("/cf-sw-fetch.js")({
+  server: {
+    handlers: {
+      GET: () =>
+        new Response(source, {
+          headers: { "content-type": "text/javascript; charset=utf-8", "cache-control": "no-cache" },
+        }),
+    },
+  },
+});
+```
+
+and in `public/sw.js`:
+
+```js
+importScripts("/cf-sw-fetch.js");
+// in the fetch handler, for a navigation:
+event.respondWith(self.cfPageFromNetwork(request, { cacheName: PAGES, fallback: "/" }));
+```
+
+The browser keeps an imported script with the worker, so it works offline, and checks it
+for changes when it checks `sw.js`. `timeoutMs` (3000 by default) changes the wait.
+
 ## Changing the package
 
 - Versions follow semver. A changed colour is a minor version; a removed or renamed token

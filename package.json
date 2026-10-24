@@ -15,6 +15,7 @@
     "dist",
     "icons.js",
     "icons.d.ts",
+    "sw-fetch.js",
     "README.md",
     "LICENSE"
   ],
@@ -54,6 +55,7 @@
       "types": "./dist/qr-camera/index.d.ts",
       "default": "./dist/qr-camera/index.js"
     },
+    "./sw-fetch.js": "./sw-fetch.js",
     "./package.json": "./package.json"
   },
   "style": "./css/tokens.css",
