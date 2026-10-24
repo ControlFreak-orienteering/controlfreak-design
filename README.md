@@ -89,6 +89,20 @@ export const Route = createFileRoute("/favicon.ico")({
 `?inline` makes Vite put the file in the server bundle as a data URL, and `iconResponse`
 answers with the bytes, the right content type and a day's caching.
 
+**Link preview images.** `assets/og-<app>.png` is each app's `og:image`, 1200 × 630: the
+mark and the app's name as the family header writes it ("Control" in ink, "Freak" in
+purple, the app's own word in its accent), on the page colour with the paper strip along
+the bottom. The names are never translated, so one image serves every language. There is
+one per app in `FAMILY_APPS` except the hub (`og-controlfreak.png`, `og-event.png`,
+`og-startklocka.png`, `og-run.png`, `og-mcp.png`). Serve it like an icon, e.g.
+`src/routes/og-image[.]png.ts` with `import image from "controlfreak-design/assets/og-run.png?inline"`,
+and use `summary_large_image` for `twitter:card`.
+
+They are drawn by `scripts/gen-og-images.py` (no dependencies), from the words' outlines
+in `scripts/og-glyphs.json`: Nunito Sans 800 as in the header, shaped with its kerning.
+When an app is added or renamed, add its word to `extract-og-glyphs.py` and `gen-og-images.py`,
+run the first (it needs fontTools and uharfbuzz; see its comment), then the second.
+
 ## Start screen
 
 Every app opens the same way, on the same theme: a picture on the app's own background,
