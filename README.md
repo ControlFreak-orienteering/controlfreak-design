@@ -117,9 +117,10 @@ import { StartScreen } from "controlfreak-design/splash";
   `caption`, `course`, `showBackground`, `onDone`, and for ControlFreak MCP `robot` (a robot
   sets out the controls), `prompt` (a request typed into a chat bubble first) and `reply`
   (the assistant's answer when the course is done).
-- Once per session: `useStartScreen(app)` gives `open` and a stable `dismiss` (pass it as
-  `onDismiss`). The screen shows the first time the app is opened in a tab, not again after
-  the manual, a change of language or a reload in that tab. Put
+- Once per device: `useStartScreen(app)` gives `open` and a stable `dismiss` (pass it as
+  `onDismiss`). The screen shows the first time the app is opened in the browser, and not
+  again in any tab until the site's storage is cleared (`localStorage`, per app; until
+  v0.13.0 it was once per tab, and a mark left in `sessionStorage` still counts). Put
   `startScreenSeenScript(app)` in an inline `<script>` in the document's `<head>`, so a
   screen already seen never flashes up while the server-rendered page loads (it marks
   `<html>` with `cf-start-seen`, which `splash.css` hides the screen under).
