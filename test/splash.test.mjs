@@ -91,3 +91,8 @@ test("with a prompt, the chat shows and the course waits for it", () => {
   assert.match(html, />Klart! 7 kontroller</);
   assert.match(html, /animation-delay:1.9s/);
 });
+
+test("the start button shows within 1.5 s, not after the whole animation", async () => {
+  const { START_READY_MS } = await import("../dist/splash/index.js");
+  assert.ok(START_READY_MS <= 1500);
+});
