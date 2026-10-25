@@ -16,8 +16,12 @@ the words are filled from their outlines in scripts/og-glyphs.json (written by
 extract-og-glyphs.py, Nunito Sans 800) with the non-zero rule, everything at 3 x 3
 samples per pixel, and the PNG is written by hand. Run it from the package root:
 
-  python3 scripts/gen-og-images.py"""
-import json, math, struct, zlib
+  python3 scripts/gen-og-images.py
+
+An app with a mark of its own (Event, Start, Run, Diff) gets that mark instead of the
+family's: scripts/og-marks/<app>.png, 236 x 236 RGBA, rendered from `AppMark`
+(src/family/icons.tsx) in a browser. Render it again when an app's mark changes."""
+import json, math, os, struct, zlib
 
 W, H = 1200, 630
 SS = 3
@@ -92,6 +96,49 @@ def draw_mark(pixels, left, top, size):
             blend(pixels, x, y, WHITE, white_cover / n)
 
 
+def read_png(path):
+    """An 8-bit RGBA, non-interlaced PNG as (width, height, rows of bytes)."""
+    data = open(path, "rb").read()
+    pos, idat, width, height = 8, b"", 0, 0
+    while pos < len(data):
+        (length,) = struct.unpack(">I", data[pos:pos + 4])
+        tag, body = data[pos + 4:pos + 8], data[pos + 8:pos + 8 + length]
+        if tag == b"IHDR":
+            width, height, depth, kind = struct.unpack(">IIBB", body[:10])
+            assert depth == 8 and kind == 6, f"{path}: not 8-bit RGBA"
+        elif tag == b"IDAT":
+            idat += body
+        pos += 12 + length
+    raw, stride, rows, prev = zlib.decompress(idat), width * 4, [], bytearray(width * 4)
+    for y in range(height):
+        f, line = raw[y * (stride + 1)], bytearray(raw[y * (stride + 1) + 1:(y + 1) * (stride + 1)])
+        for i in range(stride):
+            a = line[i - 4] if i >= 4 else 0
+            b = prev[i]
+            c = prev[i - 4] if i >= 4 else 0
+            if f == 1:
+                line[i] = (line[i] + a) & 255
+            elif f == 2:
+                line[i] = (line[i] + b) & 255
+            elif f == 3:
+                line[i] = (line[i] + (a + b) // 2) & 255
+            elif f == 4:
+                pa, pb, pc = abs(b - c), abs(a - c), abs(a + b - 2 * c)
+                line[i] = (line[i] + (a if pa <= pb and pa <= pc else b if pb <= pc else c)) & 255
+        rows.append(line)
+        prev = line
+    return width, height, rows
+
+
+def draw_image(pixels, left, top, path):
+    """An RGBA PNG blended over what is there, its top left corner at (left, top)."""
+    width, height, rows = read_png(path)
+    for y in range(height):
+        for x in range(width):
+            r, g, b, a = rows[y][x * 4:x * 4 + 4]
+            blend(pixels, int(left) + x, int(top) + y, (r, g, b), a / 255)
+
+
 def blend(pixels, x, y, color, alpha):
     if alpha <= 0 or not (0 <= x < W and 0 <= y < H):
         return
@@ -160,7 +207,7 @@ def png(pixels):
             + chunk(b"IEND", b""))
 
 
-def render(word):
+def render(app, word):
     pixels = bytearray()
     for y in range(H):
         row = EDGE if PAPER_TOP <= y < PAPER_TOP + 2 else PAPER if y >= PAPER_TOP else PAGE
@@ -171,7 +218,11 @@ def render(word):
     # The block from the first line's cap height to the last baseline, centred.
     block = CAP * size + (lines - 1) * LINE_GAP * size
     first_baseline = MIDDLE - block / 2 + CAP * size
-    draw_mark(pixels, MARK_LEFT, MIDDLE - MARK_SIZE / 2, MARK_SIZE)
+    own = f"scripts/og-marks/{app}.png"
+    if os.path.exists(own):
+        draw_image(pixels, MARK_LEFT, round(MIDDLE - MARK_SIZE / 2), own)
+    else:
+        draw_mark(pixels, MARK_LEFT, MIDDLE - MARK_SIZE / 2, MARK_SIZE)
     fill(pixels, word_contours("ControlFreak", TEXT_LEFT, first_baseline, size, 0, 7), INK)
     fill(pixels, word_contours("ControlFreak", TEXT_LEFT, first_baseline, size, 7), PURPLE)
     if word:
@@ -181,5 +232,5 @@ def render(word):
 
 for app, word in APPS:
     path = f"assets/og-{app}.png"
-    open(path, "wb").write(render(word))
+    open(path, "wb").write(render(app, word))
     print(path)
