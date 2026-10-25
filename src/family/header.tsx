@@ -24,7 +24,6 @@ import {
   CloseIcon,
   FeedbackIcon,
   GlobeIcon,
-  Mark,
   MenuIcon,
   MoonIcon,
   SunIcon,
@@ -280,7 +279,7 @@ export function FamilyHeader({
       className={`cf-family-header${compact ? " cf-family-compact" : ""} ${className}`.trim()}
     >
       <a href={home} className="cf-family-home" aria-label={app === "hub" ? undefined : t.toStart}>
-        <Mark size={compact ? 26 : 28} />
+        <AppMark app={app} size={compact ? 26 : 28} />
         {app === "hub" ? (
           <span className="cf-family-name">controlfreak.se</span>
         ) : (

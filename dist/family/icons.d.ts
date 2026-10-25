@@ -13,8 +13,8 @@ export declare const Mark: ({ size }: {
     size?: number;
 }) => import("react").JSX.Element;
 /**
- * An app's own mark, as its page icon shows it, for the app switcher. ControlFreak, MCP
- * and the hub show the family's mark. The drawings are copies of the apps' icons (Event,
+ * An app's own mark, as its page icon shows it, for the family header, the app switcher
+ * and the start image's title. ControlFreak, MCP and the hub show the family's mark. The drawings are copies of the apps' icons (Event,
  * Run and Diff: `src/brand/`, Start: `public/favicon.svg`).
  */
 export declare const AppMark: ({ app, size }: {

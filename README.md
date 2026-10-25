@@ -63,11 +63,14 @@ In the app's main stylesheet, after Tailwind:
 ## Logo and icons
 
 The family's mark is ControlFreak's logo, a white ring with an upward chevron on a rounded
-purple tile. The family header shows it in every app. Event, Start, Run and Diff have marks
-of their own as page icons, drawn and served by each app (`src/brand/`), and the app
-switcher shows each app's own mark (`AppMark` in `src/family/icons.tsx`, a copy of the
-apps' drawings: change both together). The files below are the family's mark, used by
-ControlFreak, MCP, the hub and any app without a mark of its own.
+purple tile. Event, Start, Run and Diff have marks of their own, drawn and served by each
+app as page icons (`src/brand/`, Start's in `public/`). The package draws each app's own
+mark wherever it shows the app: the family header, the app switcher, the start image's
+title (`FamilyTitle` with `mark`, e.g. `mark="event"`) and the link preview images.
+`AppMark` in `src/family/icons.tsx` holds copies of the apps' drawings; change both
+together, and render `scripts/og-marks/<app>.png` again (see `scripts/gen-og-images.py`).
+The files below are the family's mark, used by ControlFreak, MCP, the hub and any app
+without a mark of its own.
 
 | File                           | What it is                                                       |
 | ------------------------------ | ---------------------------------------------------------------- |
@@ -137,7 +140,7 @@ import { StartScreen } from "controlfreak-design/splash";
 - `className` adds classes to the screen, e.g. one that keeps it light in a dark theme.
 - `renderImage` gives the screen the app's own picture. It gets `onDone` (call it when the
   animation is over, at once with reduced motion), `alt` and `className`, and should draw
-  the title with `FamilyTitle` (`x`, `y`, `scale`, `app`).
+  the title with `FamilyTitle` (`x`, `y`, `scale`, `app`, and `mark` for the app's own mark).
 - `FamilySplash` is the family's picture, a course being set out on a map: `app`,
   `caption`, `course`, `showBackground`, `onDone`, and for ControlFreak MCP `robot` (a robot
   sets out the controls), `prompt` (a request typed into a chat bubble first) and `reply`
