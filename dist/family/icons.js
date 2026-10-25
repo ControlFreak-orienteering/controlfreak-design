@@ -20,8 +20,11 @@ export const FeedbackIcon = () => (_jsx("svg", { ...common, children: _jsx("path
 export const GlobeIcon = () => (_jsxs("svg", { ...common, children: [_jsx("circle", { cx: "12", cy: "12", r: "9" }), _jsx("path", { d: "M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" })] }));
 export const MenuIcon = () => (_jsx("svg", { ...common, children: _jsx("path", { d: "M4 7h16M4 12h16M4 17h16" }) }));
 export const CloseIcon = () => (_jsx("svg", { ...common, children: _jsx("path", { d: "M6 6l12 12M18 6 6 18" }) }));
-/** The family's mark: a white ring with an upward chevron on a rounded purple tile. */
-export const Mark = ({ size = 28 }) => (_jsxs("svg", { viewBox: "0 0 32 32", width: size, height: size, "aria-hidden": "true", children: [_jsx("rect", { width: "32", height: "32", rx: "7", fill: "#a6248f" }), _jsx("circle", { cx: "16", cy: "18", r: "7.5", fill: "none", stroke: "#fdfaf2", strokeWidth: "3" }), _jsx("path", { d: "M11 12.5 16 7.5l5 5", fill: "none", stroke: "#fdfaf2", strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+/**
+ * The family's mark: a white ring with an upward chevron inside it on a rounded purple
+ * tile, `assets/controlfreak-mark.svg` scaled from its 512 grid to 32.
+ */
+export const Mark = ({ size = 28 }) => (_jsxs("svg", { viewBox: "0 0 32 32", width: size, height: size, "aria-hidden": "true", children: [_jsx("rect", { width: "32", height: "32", rx: "7.25", fill: "#a6248f" }), _jsx("circle", { cx: "16", cy: "16", r: "9.375", fill: "none", stroke: "#fff", strokeWidth: "2.375" }), _jsx("path", { d: "M11.3125 17.8125 16 13.125l4.6875 4.6875", fill: "none", stroke: "#fff", strokeWidth: "2.375", strokeLinecap: "round", strokeLinejoin: "round" })] }));
 /**
  * An app's own mark, as its page icon shows it, for the family header, the app switcher
  * and the start image's title. ControlFreak, MCP and the hub show the family's mark. The drawings are copies of the apps' icons (Event,

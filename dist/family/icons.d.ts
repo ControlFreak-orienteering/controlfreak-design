@@ -8,7 +8,10 @@ export declare const FeedbackIcon: () => import("react").JSX.Element;
 export declare const GlobeIcon: () => import("react").JSX.Element;
 export declare const MenuIcon: () => import("react").JSX.Element;
 export declare const CloseIcon: () => import("react").JSX.Element;
-/** The family's mark: a white ring with an upward chevron on a rounded purple tile. */
+/**
+ * The family's mark: a white ring with an upward chevron inside it on a rounded purple
+ * tile, `assets/controlfreak-mark.svg` scaled from its 512 grid to 32.
+ */
 export declare const Mark: ({ size }: {
     size?: number;
 }) => import("react").JSX.Element;
