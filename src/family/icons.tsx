@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 /** The header's icons, drawn in the text colour. All are decorative; the buttons carry the names. */
 
 const common = {
@@ -91,71 +93,37 @@ export const Mark = ({ size = 28 }: { size?: number }) => (
   </svg>
 );
 
+/** Where every app serves its own mark, at its own address. */
+export const APP_MARK_PATH = "/app-mark.svg";
+
 /**
- * An app's own mark, as its page icon shows it, for the family header, the app switcher
- * and the start image's title. ControlFreak, MCP and the hub show the family's mark. The drawings are copies of the apps' icons (Event,
- * Start, Run and Diff: `src/brand/`).
+ * An app's own mark. Each app owns its mark and serves it at `/app-mark.svg`, so a new
+ * mark needs only that app to be published, not every app and not this package.
+ *
+ * `src` is the image to show; left out, the family's mark. When the image cannot be
+ * loaded (offline, or an app that does not serve one yet), the family's mark is shown
+ * instead, so a mark is never a broken image.
  */
-export const AppMark = ({ app, size = 20 }: { app: string; size?: number }) => {
-  if (app === "event")
-    return (
-      <svg viewBox="0 0 32 32" width={size} height={size} aria-hidden="true">
-        <rect width="32" height="32" rx="7" fill="#a6248f" />
-        <polygon
-          points="16.00,4.60 16.88,6.99 19.42,7.09 17.43,8.66 18.12,11.11 16.00,9.70 13.88,11.11 14.57,8.66 12.58,7.09 15.12,6.99"
-          fill="#fdfaf2"
-        />
-        <path d="M5.5 17.5h7V26h-7z M19.5 20h7v6h-7z" fill="#fdfaf2" />
-        <path d="M12.5 13.5h7V26h-7z" fill="#f07f2a" />
-      </svg>
-    );
-  if (app === "run")
-    return (
-      <svg viewBox="0 0 100 100" width={size} height={size} aria-hidden="true">
-        <rect width="100" height="100" rx="22" fill="#a6248f" />
-        <circle
-          cx="50"
-          cy="50"
-          r="30"
-          fill="none"
-          stroke="#fff"
-          strokeWidth="6"
-          strokeDasharray="13.6 10"
-          transform="rotate(-11 50 50)"
-        />
-        <rect x="36" y="36" width="28" height="28" fill="#fff" />
-        <polygon points="64,36 64,64 36,64" fill="#f07f2a" />
-      </svg>
-    );
-  if (app === "diff")
-    return (
-      <svg viewBox="0 0 32 32" width={size} height={size} aria-hidden="true">
-        <rect width="32" height="32" rx="7" fill="#a6248f" />
-        <line
-          x1="19.2"
-          y1="19.2"
-          x2="25.5"
-          y2="25.5"
-          stroke="#f07f2a"
-          strokeWidth="4"
-          strokeLinecap="round"
-        />
-        <circle cx="13.5" cy="13.5" r="7" fill="none" stroke="#fdfaf2" strokeWidth="3" />
-      </svg>
-    );
-  if (app === "startklocka")
-    return (
-      <svg viewBox="0 0 32 32" width={size} height={size} aria-hidden="true">
-        <rect width="32" height="32" rx="7" fill="#a6248f" />
-        <circle cx="16" cy="16" r="10" fill="none" stroke="#fdfaf2" strokeWidth="2.8" />
-        <polygon
-          points="16.00,10.60 21.20,19.60 10.80,19.60"
-          fill="none"
-          stroke="#f07f2a"
-          strokeWidth="2.6"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  return <Mark size={size} />;
-};
+export function FamilyAppMark({ src, size = 20 }: { src?: string; size?: number }) {
+  const [failed, setFailed] = useState(false);
+  const img = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    setFailed(false);
+    // An error before React took over the server's markup fires no onError.
+    const el = img.current;
+    if (el && el.complete && el.naturalWidth === 0) setFailed(true);
+  }, [src]);
+  if (!src || failed) return <Mark size={size} />;
+  return (
+    <img
+      ref={img}
+      src={src}
+      width={size}
+      height={size}
+      alt=""
+      aria-hidden="true"
+      decoding="async"
+      onError={() => setFailed(true)}
+    />
+  );
+}

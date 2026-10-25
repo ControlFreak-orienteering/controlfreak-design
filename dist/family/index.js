@@ -4,6 +4,6 @@
  */
 export { FAMILY_APPS, FAMILY_HUB_URL, familyApp, familyHubUrl, } from "./apps.js";
 export { FamilyFooter } from "./footer.js";
-export { AppMark } from "./icons.js";
+export { APP_MARK_PATH, FamilyAppMark } from "./icons.js";
 export { FamilyHeader, FamilyName } from "./header.js";
 export { TEXTS as FAMILY_TEXTS } from "./texts.js";

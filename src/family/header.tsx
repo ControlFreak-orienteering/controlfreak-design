@@ -17,7 +17,8 @@ import { useEffect, useId, useRef, useState, type MouseEvent, type ReactNode } f
 import { HTML_LANG, LANG_LABELS, LANGS, type Lang } from "../i18n/index.js";
 import { FAMILY_APPS, familyApp, familyHubUrl, type FamilyAccent, type FamilyAppId } from "./apps.js";
 import {
-  AppMark,
+  APP_MARK_PATH,
+  FamilyAppMark,
   AppsIcon,
   BookIcon,
   ChevronIcon,
@@ -86,6 +87,13 @@ export type FamilyHeaderProps = {
   manualNewTab?: boolean;
   /** Opens the app's feedback dialog. Left out, no button. */
   onFeedback?: () => void;
+  /**
+   * This app's own mark as an image address, best a data URL bundled with the app
+   * (`import mark from "@/brand/app-mark.svg?inline"`), so it shows offline and needs no
+   * request. Left out, the family's mark. The switcher shows the other apps' marks from
+   * their own addresses (`https://<app>/app-mark.svg`).
+   */
+  markSrc?: string;
   /** Where the mark and name lead; the app's start page when left out. */
   homeHref?: string;
   /**
@@ -134,6 +142,7 @@ export function FamilyHeader({
   manualNewTab,
   onFeedback,
   homeHref,
+  markSrc,
   name,
   children,
   compact = false,
@@ -200,7 +209,7 @@ export function FamilyHeader({
             className={current ? "cf-family-current" : undefined}
             onClick={close}
           >
-            <AppMark app={a.id} size={20} />
+            <FamilyAppMark src={current ? markSrc : a.url + APP_MARK_PATH} size={20} />
             <span>
               <span className="cf-family-app-title">
                 <FamilyName app={a} />
@@ -279,7 +288,7 @@ export function FamilyHeader({
       className={`cf-family-header${compact ? " cf-family-compact" : ""} ${className}`.trim()}
     >
       <a href={home} className="cf-family-home" aria-label={app === "hub" ? undefined : t.toStart}>
-        <AppMark app={app} size={compact ? 26 : 28} />
+        <FamilyAppMark src={markSrc} size={compact ? 26 : 28} />
         {app === "hub" ? (
           <span className="cf-family-name">controlfreak.se</span>
         ) : (

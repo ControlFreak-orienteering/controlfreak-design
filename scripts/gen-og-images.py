@@ -18,10 +18,14 @@ samples per pixel, and the PNG is written by hand. Run it from the package root:
 
   python3 scripts/gen-og-images.py
 
-An app with a mark of its own (Event, Start, Run, Diff) gets that mark instead of the
-family's: scripts/og-marks/<app>.png, 236 x 236 RGBA, rendered from `AppMark`
-(src/family/icons.tsx) in a browser. Render it again when an app's mark changes."""
-import json, math, os, struct, zlib
+These are drawn with the family's mark. An app with a mark of its own keeps its image in
+its own repo and draws it with that mark, so a new mark needs no release of this package:
+
+  python3 node_modules/controlfreak-design/scripts/gen-og-images.py \
+    --app event --mark src/brand/app-mark-236.png --out src/brand/og-image.png
+
+`--mark` is the app's mark as a 236 x 236 RGBA PNG (render its SVG in a browser)."""
+import json, math, os, struct, sys, zlib
 
 W, H = 1200, 630
 SS = 3
@@ -55,7 +59,7 @@ MAX_FONT_SIZE = 132
 LINE_GAP = 1.12  # baseline to baseline, in font sizes
 MIDDLE = PAPER_TOP / 2
 
-GLYPHS = json.load(open("scripts/og-glyphs.json"))
+GLYPHS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "og-glyphs.json")))
 UPEM = GLYPHS["unitsPerEm"]
 CAP = GLYPHS["capHeight"] / UPEM
 
@@ -207,7 +211,7 @@ def png(pixels):
             + chunk(b"IEND", b""))
 
 
-def render(app, word):
+def render(word, mark=None):
     pixels = bytearray()
     for y in range(H):
         row = EDGE if PAPER_TOP <= y < PAPER_TOP + 2 else PAPER if y >= PAPER_TOP else PAGE
@@ -218,9 +222,8 @@ def render(app, word):
     # The block from the first line's cap height to the last baseline, centred.
     block = CAP * size + (lines - 1) * LINE_GAP * size
     first_baseline = MIDDLE - block / 2 + CAP * size
-    own = f"scripts/og-marks/{app}.png"
-    if os.path.exists(own):
-        draw_image(pixels, MARK_LEFT, round(MIDDLE - MARK_SIZE / 2), own)
+    if mark:
+        draw_image(pixels, MARK_LEFT, round(MIDDLE - MARK_SIZE / 2), mark)
     else:
         draw_mark(pixels, MARK_LEFT, MIDDLE - MARK_SIZE / 2, MARK_SIZE)
     fill(pixels, word_contours("ControlFreak", TEXT_LEFT, first_baseline, size, 0, 7), INK)
@@ -230,7 +233,15 @@ def render(app, word):
     return png(pixels)
 
 
-for app, word in APPS:
-    path = f"assets/og-{app}.png"
-    open(path, "wb").write(render(app, word))
-    print(path)
+args = sys.argv[1:]
+if args:
+    opts = dict(zip(args[::2], args[1::2]))
+    app = opts["--app"]
+    word = dict(APPS)[app]
+    open(opts["--out"], "wb").write(render(word, opts.get("--mark")))
+    print(opts["--out"])
+else:
+    for app, word in APPS:
+        path = f"assets/og-{app}.png"
+        open(path, "wb").write(render(word))
+        print(path)

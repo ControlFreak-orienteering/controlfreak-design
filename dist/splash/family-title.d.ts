@@ -10,13 +10,14 @@
  * @param y - Where the top left corner goes.
  * @param scale - Size relative to ControlFreak's own start image.
  * @param app - The second line; null for none.
- * @param mark - The app whose own mark to draw (an id as in FAMILY_APPS, e.g. "event");
- *   left out, the family's mark.
+ * @param markSrc - The app's own mark as an image address, best the data URL the app
+ *   bundles (`import mark from "@/brand/app-mark.svg?inline"`); left out, the family's
+ *   mark.
  */
-export declare function FamilyTitle({ x, y, scale, app, mark, }: {
+export declare function FamilyTitle({ x, y, scale, app, markSrc, }: {
     x?: number;
     y?: number;
     scale?: number;
     app?: string | null;
-    mark?: string;
+    markSrc?: string;
 }): import("react").JSX.Element;

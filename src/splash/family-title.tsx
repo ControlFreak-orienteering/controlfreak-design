@@ -1,5 +1,3 @@
-import { AppMark } from "../family/icons.js";
-
 /** The brand's own colours for the title, the same in every app and theme. */
 const PURPLE = "#A6248F";
 const INK = "#2C2C2A";
@@ -17,26 +15,27 @@ const MUTED = "#6B6A64";
  * @param y - Where the top left corner goes.
  * @param scale - Size relative to ControlFreak's own start image.
  * @param app - The second line; null for none.
- * @param mark - The app whose own mark to draw (an id as in FAMILY_APPS, e.g. "event");
- *   left out, the family's mark.
+ * @param markSrc - The app's own mark as an image address, best the data URL the app
+ *   bundles (`import mark from "@/brand/app-mark.svg?inline"`); left out, the family's
+ *   mark.
  */
 export function FamilyTitle({
   x = 0,
   y = 0,
   scale = 1,
   app = null,
-  mark,
+  markSrc,
 }: {
   x?: number;
   y?: number;
   scale?: number;
   app?: string | null;
-  mark?: string;
+  markSrc?: string;
 }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
-      {mark ? (
-        <AppMark app={mark} size={52} />
+      {markSrc ? (
+        <image href={markSrc} width="52" height="52" />
       ) : (
         <>
           <rect width="52" height="52" rx="13" fill={PURPLE} />
