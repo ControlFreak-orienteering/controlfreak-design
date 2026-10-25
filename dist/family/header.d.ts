@@ -46,6 +46,13 @@ export type FamilyHeaderProps = {
     manualNewTab?: boolean;
     /** Opens the app's feedback dialog. Left out, no button. */
     onFeedback?: () => void;
+    /**
+     * This app's own mark as an image address, best a data URL bundled with the app
+     * (`import mark from "@/brand/app-mark.svg?inline"`), so it shows offline and needs no
+     * request. Left out, the family's mark. The switcher shows the other apps' marks from
+     * their own addresses (`https://<app>/app-mark.svg`).
+     */
+    markSrc?: string;
     /** Where the mark and name lead; the app's start page when left out. */
     homeHref?: string;
     /**
@@ -65,4 +72,4 @@ export type FamilyHeaderProps = {
     showApps?: boolean;
     className?: string;
 };
-export declare function FamilyHeader({ app, lang, langHref, onLangChange, theme, manualHref, onManual, manualNewTab, onFeedback, homeHref, name, children, compact, showApps, className, }: FamilyHeaderProps): import("react").JSX.Element;
+export declare function FamilyHeader({ app, lang, langHref, onLangChange, theme, manualHref, onManual, manualNewTab, onFeedback, homeHref, markSrc, name, children, compact, showApps, className, }: FamilyHeaderProps): import("react").JSX.Element;

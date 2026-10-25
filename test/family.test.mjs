@@ -92,3 +92,17 @@ test("the footer has the credit, the hub, the licences and the version", () => {
   const bare = renderToStaticMarkup(createElement(FamilyFooter, { lang: "sv" }));
   assert.doesNotMatch(bare, /Licenser|Version/);
 });
+
+test("the header shows the app's own mark when given, and the switcher the others' from their addresses", () => {
+  const html = renderToStaticMarkup(
+    createElement(FamilyHeader, { app: "event", lang: "sv", markSrc: "data:image/svg+xml,own" }),
+  );
+  // The app's own mark, bundled with the app: in the header and on its own row.
+  assert.equal(html.split('src="data:image/svg+xml,own"').length - 1, 2);
+  for (const app of FAMILY_APPS.filter((a) => a.id !== "event")) {
+    assert.ok(html.includes(`src="${app.url}/app-mark.svg"`), app.id);
+  }
+  // Without one, the family's mark is drawn inline.
+  const plain = renderToStaticMarkup(createElement(FamilyHeader, { app: "controlfreak", lang: "sv" }));
+  assert.match(plain, /cf-family-home"[^>]*><svg viewBox="0 0 32 32"/);
+});

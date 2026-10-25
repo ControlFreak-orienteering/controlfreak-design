@@ -30,7 +30,8 @@
   text-decoration: none;
   flex: none;
 }
-.cf-family-home svg {
+.cf-family-home svg,
+.cf-family-home img {
   flex: none;
 }
 .cf-family-name {
@@ -176,7 +177,8 @@
   margin-left: auto;
   color: var(--primary);
 }
-.cf-family-pop svg {
+.cf-family-pop svg,
+.cf-family-pop img {
   flex: none;
 }
 .cf-family-app-title {

@@ -63,16 +63,26 @@ In the app's main stylesheet, after Tailwind:
 ## Logo and icons
 
 The family's mark is ControlFreak's logo, a white ring with an upward chevron on a rounded
-purple tile. Event, Start, Run and Diff have marks of their own, drawn and served by each
-app as page icons (`src/brand/`). The package draws each app's own
-mark wherever it shows the app: the family header, the app switcher, the start image's
-title (`FamilyTitle` with `mark`, e.g. `mark="event"`) and the link preview images.
-Apps draw it themselves with `AppMark` from `controlfreak-design/family`, e.g.
-`<AppMark app="run" size={24} />`, as the hub does on its cards.
-`AppMark` in `src/family/icons.tsx` holds copies of the apps' drawings; change both
-together, and render `scripts/og-marks/<app>.png` again (see `scripts/gen-og-images.py`).
-The files below are the family's mark, used by ControlFreak, MCP, the hub and any app
-without a mark of its own.
+purple tile. The files below are the family's mark, used by ControlFreak, MCP, the hub and
+any app without a mark of its own.
+
+**An app's own mark belongs to the app, not to this package.** Event, Start, Run and Diff
+have marks of their own in `src/brand/`. So that a new mark needs only that app to be
+published, never every app or a release of this package:
+
+- **Every app serves its mark at `/app-mark.svg`** (`APP_MARK_PATH`), the family's mark
+  when it has none of its own.
+- **The family header and the start image's title** take the app's own mark as
+  `markSrc`, best bundled as a data URL so it shows offline without a request:
+  `import mark from "@/brand/app-mark.svg?inline"`, then `<FamilyHeader markSrc={mark} …>`
+  and `<FamilyTitle markSrc={mark} …>`. Left out, the family's mark.
+- **The app switcher and the hub's cards** show the other apps' marks from their own
+  addresses (`https://<app>/app-mark.svg`, `FamilyAppMark`). When one cannot be loaded,
+  offline for instance, the family's mark is shown instead. These are the only requests
+  the package makes to another address: images, with nothing about the user (decided by
+  Henrik 2026-10-25).
+- **Its link preview image** is drawn in the app with this package's generator, see
+  "Link preview images".
 
 | File                           | What it is                                                       |
 | ------------------------------ | ---------------------------------------------------------------- |
@@ -112,6 +122,10 @@ one per app in `FAMILY_APPS` except the hub (`og-controlfreak.png`, `og-event.pn
 `src/routes/og-image[.]png.ts` with `import image from "controlfreak-design/assets/og-run.png?inline"`,
 and use `summary_large_image` for `twitter:card`.
 
+An app with a mark of its own draws its image with its mark and keeps it in its own repo
+(e.g. `src/brand/og-image.png`): `python3 node_modules/controlfreak-design/scripts/gen-og-images.py
+--app event --mark <the mark as a 236 px PNG> --out src/brand/og-image.png`.
+
 They are drawn by `scripts/gen-og-images.py` (no dependencies), from the words' outlines
 in `scripts/og-glyphs.json`: Nunito Sans 800 as in the header, shaped with its kerning.
 When an app is added or renamed, add its word to `extract-og-glyphs.py` and `gen-og-images.py`,
@@ -142,7 +156,7 @@ import { StartScreen } from "controlfreak-design/splash";
 - `className` adds classes to the screen, e.g. one that keeps it light in a dark theme.
 - `renderImage` gives the screen the app's own picture. It gets `onDone` (call it when the
   animation is over, at once with reduced motion), `alt` and `className`, and should draw
-  the title with `FamilyTitle` (`x`, `y`, `scale`, `app`, and `mark` for the app's own mark).
+  the title with `FamilyTitle` (`x`, `y`, `scale`, `app`, and `markSrc` for the app's own mark).
 - `FamilySplash` is the family's picture, a course being set out on a map: `app`,
   `caption`, `course`, `showBackground`, `onDone`, and for ControlFreak MCP `robot` (a robot
   sets out the controls), `prompt` (a request typed into a chat bubble first) and `reply`

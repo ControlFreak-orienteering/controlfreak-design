@@ -1,4 +1,3 @@
-/** The header's icons, drawn in the text colour. All are decorative; the buttons carry the names. */
 export declare const AppsIcon: () => import("react").JSX.Element;
 export declare const ChevronIcon: () => import("react").JSX.Element;
 export declare const MoonIcon: () => import("react").JSX.Element;
@@ -15,12 +14,17 @@ export declare const CloseIcon: () => import("react").JSX.Element;
 export declare const Mark: ({ size }: {
     size?: number;
 }) => import("react").JSX.Element;
+/** Where every app serves its own mark, at its own address. */
+export declare const APP_MARK_PATH = "/app-mark.svg";
 /**
- * An app's own mark, as its page icon shows it, for the family header, the app switcher
- * and the start image's title. ControlFreak, MCP and the hub show the family's mark. The drawings are copies of the apps' icons (Event,
- * Start, Run and Diff: `src/brand/`).
+ * An app's own mark. Each app owns its mark and serves it at `/app-mark.svg`, so a new
+ * mark needs only that app to be published, not every app and not this package.
+ *
+ * `src` is the image to show; left out, the family's mark. When the image cannot be
+ * loaded (offline, or an app that does not serve one yet), the family's mark is shown
+ * instead, so a mark is never a broken image.
  */
-export declare const AppMark: ({ app, size }: {
-    app: string;
+export declare function FamilyAppMark({ src, size }: {
+    src?: string;
     size?: number;
-}) => import("react").JSX.Element;
+}): import("react").JSX.Element;
