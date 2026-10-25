@@ -72,16 +72,19 @@ export const CloseIcon = () => (
   </svg>
 );
 
-/** The family's mark: a white ring with an upward chevron on a rounded purple tile. */
+/**
+ * The family's mark: a white ring with an upward chevron inside it on a rounded purple
+ * tile, `assets/controlfreak-mark.svg` scaled from its 512 grid to 32.
+ */
 export const Mark = ({ size = 28 }: { size?: number }) => (
   <svg viewBox="0 0 32 32" width={size} height={size} aria-hidden="true">
-    <rect width="32" height="32" rx="7" fill="#a6248f" />
-    <circle cx="16" cy="18" r="7.5" fill="none" stroke="#fdfaf2" strokeWidth="3" />
+    <rect width="32" height="32" rx="7.25" fill="#a6248f" />
+    <circle cx="16" cy="16" r="9.375" fill="none" stroke="#fff" strokeWidth="2.375" />
     <path
-      d="M11 12.5 16 7.5l5 5"
+      d="M11.3125 17.8125 16 13.125l4.6875 4.6875"
       fill="none"
-      stroke="#fdfaf2"
-      strokeWidth="3"
+      stroke="#fff"
+      strokeWidth="2.375"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
