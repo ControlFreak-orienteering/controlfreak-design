@@ -72,7 +72,7 @@ test("an app can give the header another name than the family list's", () => {
 test("the switcher lists every app and the hub", () => {
   assert.deepEqual(
     FAMILY_APPS.map((a) => a.id),
-    ["controlfreak", "event", "startklocka", "run", "mcp"],
+    ["controlfreak", "event", "startklocka", "run", "mcp", "diff"],
   );
   for (const app of FAMILY_APPS) {
     for (const lang of ["sv", "en", "no", "fi", "cs"]) assert.equal(typeof app.what[lang], "string");
