@@ -82,6 +82,21 @@ export const FAMILY_APPS = [
             cs: "Nechte AI asistenta umístit kontroly a tratě v aplikaci ControlFreak.",
         },
     },
+    {
+        id: "diff",
+        url: "https://diff.controlfreak.se",
+        name: "ControlFreak Diff",
+        base: "ControlFreak",
+        word: "Diff",
+        accent: "orange",
+        what: {
+            sv: "Jämför två versioner av en orienteringskarta och se vad som har ändrats.",
+            en: "Compare two versions of an orienteering map and see what has changed.",
+            no: "Sammenlign to versjoner av et orienteringskart og se hva som er endret.",
+            fi: "Vertaile suunnistuskartan kahta versiota ja katso, mikä on muuttunut.",
+            cs: "Porovnejte dvě verze orientační mapy a zjistěte, co se změnilo.",
+        },
+    },
 ];
 /** The hub, controlfreak.se, with all the apps. */
 export const FAMILY_HUB_URL = "https://controlfreak.se";

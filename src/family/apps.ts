@@ -9,7 +9,7 @@
 import { langPath, type Lang } from "../i18n/index.js";
 
 /** Which app a page belongs to. `hub` is controlfreak.se itself. */
-export type FamilyAppId = "controlfreak" | "event" | "startklocka" | "run" | "mcp" | "hub";
+export type FamilyAppId = "controlfreak" | "event" | "startklocka" | "run" | "mcp" | "diff" | "hub";
 
 /** The colour of the app's own word in its name. */
 export type FamilyAccent = "purple" | "orange";
@@ -104,6 +104,21 @@ export const FAMILY_APPS: readonly FamilyApp[] = [
       no: "La en AI-assistent legge poster og løyper i ControlFreak.",
       fi: "Anna tekoälyavustajan sijoittaa rastit ja radat ControlFreakissa.",
       cs: "Nechte AI asistenta umístit kontroly a tratě v aplikaci ControlFreak.",
+    },
+  },
+  {
+    id: "diff",
+    url: "https://diff.controlfreak.se",
+    name: "ControlFreak Diff",
+    base: "ControlFreak",
+    word: "Diff",
+    accent: "orange",
+    what: {
+      sv: "Jämför två versioner av en orienteringskarta och se vad som har ändrats.",
+      en: "Compare two versions of an orienteering map and see what has changed.",
+      no: "Sammenlign to versjoner av et orienteringskart og se hva som er endret.",
+      fi: "Vertaile suunnistuskartan kahta versiota ja katso, mikä on muuttunut.",
+      cs: "Porovnejte dvě verze orientační mapy a zjistěte, co se změnilo.",
     },
   },
 ];

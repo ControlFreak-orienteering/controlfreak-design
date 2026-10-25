@@ -5,6 +5,7 @@
   assets/og-startklocka.png    ... "Start"
   assets/og-run.png            ... "Run"
   assets/og-mcp.png            ... "MCP"
+  assets/og-diff.png           ... "Diff"
 
 The name is written as in the family header: "Control" in ink, "Freak" in the logo's
 purple and the app's own word in its accent colour (FAMILY_APPS in src/family/apps.ts).
@@ -36,6 +37,7 @@ APPS = [
     ("startklocka", "Start"),
     ("run", "Run"),
     ("mcp", "MCP"),
+    ("diff", "Diff"),
 ]
 
 # Layout: the paper strip along the bottom, as on the apps' start screens; the mark on
