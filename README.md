@@ -62,8 +62,12 @@ In the app's main stylesheet, after Tailwind:
 
 ## Logo and icons
 
-All apps show the same mark: ControlFreak's logo, a white ring with an upward chevron on a
-rounded purple tile.
+The family's mark is ControlFreak's logo, a white ring with an upward chevron on a rounded
+purple tile. The family header shows it in every app. Event, Start, Run and Diff have marks
+of their own as page icons, drawn and served by each app (`src/brand/`), and the app
+switcher shows each app's own mark (`AppMark` in `src/family/icons.tsx`, a copy of the
+apps' drawings: change both together). The files below are the family's mark, used by
+ControlFreak, MCP, the hub and any app without a mark of its own.
 
 | File                           | What it is                                                       |
 | ------------------------------ | ---------------------------------------------------------------- |

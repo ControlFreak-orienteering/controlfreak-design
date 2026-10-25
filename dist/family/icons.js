@@ -22,3 +22,19 @@ export const MenuIcon = () => (_jsx("svg", { ...common, children: _jsx("path", {
 export const CloseIcon = () => (_jsx("svg", { ...common, children: _jsx("path", { d: "M6 6l12 12M18 6 6 18" }) }));
 /** The family's mark: a white ring with an upward chevron on a rounded purple tile. */
 export const Mark = ({ size = 28 }) => (_jsxs("svg", { viewBox: "0 0 32 32", width: size, height: size, "aria-hidden": "true", children: [_jsx("rect", { width: "32", height: "32", rx: "7", fill: "#a6248f" }), _jsx("circle", { cx: "16", cy: "18", r: "7.5", fill: "none", stroke: "#fdfaf2", strokeWidth: "3" }), _jsx("path", { d: "M11 12.5 16 7.5l5 5", fill: "none", stroke: "#fdfaf2", strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round" })] }));
+/**
+ * An app's own mark, as its page icon shows it, for the app switcher. ControlFreak, MCP
+ * and the hub show the family's mark. The drawings are copies of the apps' icons (Event,
+ * Run and Diff: `src/brand/`, Start: `public/favicon.svg`).
+ */
+export const AppMark = ({ app, size = 20 }) => {
+    if (app === "event")
+        return (_jsxs("svg", { viewBox: "0 0 32 32", width: size, height: size, "aria-hidden": "true", children: [_jsx("rect", { width: "32", height: "32", rx: "7", fill: "#a6248f" }), _jsx("polygon", { points: "16.00,4.60 16.88,6.99 19.42,7.09 17.43,8.66 18.12,11.11 16.00,9.70 13.88,11.11 14.57,8.66 12.58,7.09 15.12,6.99", fill: "#fdfaf2" }), _jsx("path", { d: "M5.5 17.5h7V26h-7z M19.5 20h7v6h-7z", fill: "#fdfaf2" }), _jsx("path", { d: "M12.5 13.5h7V26h-7z", fill: "#f07f2a" })] }));
+    if (app === "run")
+        return (_jsxs("svg", { viewBox: "0 0 100 100", width: size, height: size, "aria-hidden": "true", children: [_jsx("rect", { width: "100", height: "100", rx: "22", fill: "#a6248f" }), _jsx("circle", { cx: "50", cy: "50", r: "30", fill: "none", stroke: "#fff", strokeWidth: "6", strokeDasharray: "13.6 10", transform: "rotate(-11 50 50)" }), _jsx("rect", { x: "36", y: "36", width: "28", height: "28", fill: "#fff" }), _jsx("polygon", { points: "64,36 64,64 36,64", fill: "#f07f2a" })] }));
+    if (app === "diff")
+        return (_jsxs("svg", { viewBox: "0 0 32 32", width: size, height: size, "aria-hidden": "true", children: [_jsx("rect", { width: "32", height: "32", rx: "7", fill: "#a6248f" }), _jsx("line", { x1: "19.2", y1: "19.2", x2: "25.5", y2: "25.5", stroke: "#f07f2a", strokeWidth: "4", strokeLinecap: "round" }), _jsx("circle", { cx: "13.5", cy: "13.5", r: "7", fill: "none", stroke: "#fdfaf2", strokeWidth: "3" })] }));
+    if (app === "startklocka")
+        return (_jsxs("svg", { viewBox: "0 0 400 400", width: size, height: size, "aria-hidden": "true", children: [_jsx("rect", { width: "400", height: "400", rx: "88", fill: "#1f3a5f" }), _jsx("circle", { cx: "200", cy: "200", r: "144", fill: "none", stroke: "#f4efe4", strokeWidth: "10" }), _jsxs("g", { fill: "none", stroke: "#f4efe4", strokeWidth: "14", strokeLinecap: "round", strokeLinejoin: "round", children: [_jsx("circle", { cx: "132", cy: "132", r: "16", fill: "#f4efe4", stroke: "none" }), _jsx("line", { x1: "196", y1: "98", x2: "196", y2: "310" }), _jsx("path", { d: "M 96,214 L 296,224" }), _jsx("path", { d: "M 296,224 C 312,258 288,300 236,310" }), _jsx("path", { d: "M 250,310 L 250,236 L 244,168" }), _jsx("path", { d: "M 262,308 L 256,236 L 288,184" })] })] }));
+    return _jsx(Mark, { size: size });
+};

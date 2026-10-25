@@ -17,6 +17,7 @@ import { useEffect, useId, useRef, useState, type MouseEvent, type ReactNode } f
 import { HTML_LANG, LANG_LABELS, LANGS, type Lang } from "../i18n/index.js";
 import { FAMILY_APPS, familyApp, familyHubUrl, type FamilyAccent, type FamilyAppId } from "./apps.js";
 import {
+  AppMark,
   AppsIcon,
   BookIcon,
   ChevronIcon,
@@ -200,7 +201,7 @@ export function FamilyHeader({
             className={current ? "cf-family-current" : undefined}
             onClick={close}
           >
-            <Mark size={20} />
+            <AppMark app={a.id} size={20} />
             <span>
               <span className="cf-family-app-title">
                 <FamilyName app={a} />
