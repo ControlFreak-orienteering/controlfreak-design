@@ -25,7 +25,7 @@ export const Mark = ({ size = 28 }) => (_jsxs("svg", { viewBox: "0 0 32 32", wid
 /**
  * An app's own mark, as its page icon shows it, for the family header, the app switcher
  * and the start image's title. ControlFreak, MCP and the hub show the family's mark. The drawings are copies of the apps' icons (Event,
- * Run and Diff: `src/brand/`, Start: `public/favicon.svg`).
+ * Start, Run and Diff: `src/brand/`).
  */
 export const AppMark = ({ app, size = 20 }) => {
     if (app === "event")

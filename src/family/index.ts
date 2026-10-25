@@ -12,5 +12,6 @@ export {
   type FamilyAppId,
 } from "./apps.js";
 export { FamilyFooter, type FamilyFooterProps } from "./footer.js";
+export { AppMark } from "./icons.js";
 export { FamilyHeader, FamilyName, type FamilyHeaderProps } from "./header.js";
 export { TEXTS as FAMILY_TEXTS, type FamilyTexts } from "./texts.js";

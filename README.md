@@ -64,9 +64,11 @@ In the app's main stylesheet, after Tailwind:
 
 The family's mark is ControlFreak's logo, a white ring with an upward chevron on a rounded
 purple tile. Event, Start, Run and Diff have marks of their own, drawn and served by each
-app as page icons (`src/brand/`, Start's in `public/`). The package draws each app's own
+app as page icons (`src/brand/`). The package draws each app's own
 mark wherever it shows the app: the family header, the app switcher, the start image's
 title (`FamilyTitle` with `mark`, e.g. `mark="event"`) and the link preview images.
+Apps draw it themselves with `AppMark` from `controlfreak-design/family`, e.g.
+`<AppMark app="run" size={24} />`, as the hub does on its cards.
 `AppMark` in `src/family/icons.tsx` holds copies of the apps' drawings; change both
 together, and render `scripts/og-marks/<app>.png` again (see `scripts/gen-og-images.py`).
 The files below are the family's mark, used by ControlFreak, MCP, the hub and any app
