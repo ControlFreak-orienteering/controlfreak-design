@@ -89,9 +89,9 @@ export const Mark = ({ size = 28 }: { size?: number }) => (
 );
 
 /**
- * An app's own mark, as its page icon shows it, for the app switcher. ControlFreak and the
- * hub show the family's mark. The drawings are copies of the apps' icons (Event, Run, MCP
- * and Diff: `src/brand/`, Start: `public/favicon.svg`).
+ * An app's own mark, as its page icon shows it, for the app switcher. ControlFreak, MCP
+ * and the hub show the family's mark. The drawings are copies of the apps' icons (Event,
+ * Run and Diff: `src/brand/`, Start: `public/favicon.svg`).
  */
 export const AppMark = ({ app, size = 20 }: { app: string; size?: number }) => {
   if (app === "event")
@@ -104,20 +104,6 @@ export const AppMark = ({ app, size = 20 }: { app: string; size?: number }) => {
         />
         <path d="M5.5 17.5h7V26h-7z M19.5 20h7v6h-7z" fill="#fdfaf2" />
         <path d="M12.5 13.5h7V26h-7z" fill="#f07f2a" />
-      </svg>
-    );
-  if (app === "mcp")
-    return (
-      <svg viewBox="0 0 32 32" width={size} height={size} aria-hidden="true">
-        <rect width="32" height="32" rx="7" fill="#a6248f" />
-        <path
-          d="M9 7.5h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-8l-5.5 4v-4H9a3 3 0 0 1-3-3v-8a3 3 0 0 1 3-3z"
-          fill="none"
-          stroke="#fdfaf2"
-          strokeWidth="2.6"
-          strokeLinejoin="round"
-        />
-        <circle cx="16" cy="14.5" r="3.2" fill="none" stroke="#f07f2a" strokeWidth="2.4" />
       </svg>
     );
   if (app === "run")
