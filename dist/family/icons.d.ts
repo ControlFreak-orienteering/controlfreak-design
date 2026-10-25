@@ -12,3 +12,12 @@ export declare const CloseIcon: () => import("react").JSX.Element;
 export declare const Mark: ({ size }: {
     size?: number;
 }) => import("react").JSX.Element;
+/**
+ * An app's own mark, as its page icon shows it, for the app switcher. Run, Diff and Start
+ * have their own; the others show the family's mark. The drawings are copies of the
+ * apps' icons (Run and Diff: `src/brand/`, Start: `public/favicon.svg`).
+ */
+export declare const AppMark: ({ app, size }: {
+    app: string;
+    size?: number;
+}) => import("react").JSX.Element;
