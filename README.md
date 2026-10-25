@@ -8,6 +8,10 @@ The shared look of the ControlFreak family of orienteering apps under controlfre
 - **ControlFreak MCP** (the AI assistant's connection to ControlFreak)
 - **ControlFreak Diff** (what changed between two versions of a map)
 
+**A new app** is made the family's way with the Lovable skill `new-controlfreak-app` in the
+private repo `ControlFreak-orienteering/controlfreak-skills` (uploaded to the Lovable workspace
+as a zip; see its README). Keep it current when the family's shape changes.
+
 **App names** are written the same way in every app: in Nunito Sans, bold, "Control" in
 the text colour and "Freak" in the brand's purple, as in the logo, then the app's own word
 in the orienteering orange (Event, Start, Run, MCP, Diff),
