@@ -6,7 +6,6 @@ The shared look of the ControlFreak family of orienteering apps under controlfre
 - **ControlFreak Event** (competition administration)
 - **ControlFreak Live** (live results from Event and Run)
 - **ControlFreak Run** (virtual controls)
-- **ControlFreak MCP** (the AI assistant's connection to ControlFreak)
 - **ControlFreak Diff** (what changed between two versions of a map)
 
 **A new app** is made the family's way with the Lovable skill `new-controlfreak-app` in the
@@ -15,7 +14,7 @@ as a zip; see its README). Keep it current when the family's shape changes.
 
 **App names** are written the same way in every app: in Nunito Sans, bold, "Control" in
 the text colour and "Freak" in the brand's purple, as in the logo, then the app's own word
-in the orienteering orange (Event, Start, Live, Run, MCP, Diff),
+in the orienteering orange (Event, Start, Live, Run, Diff),
 kept as one text so screen readers read the whole name. ControlFreak itself is just
 "ControlFreak". The names are never translated.
 
@@ -64,7 +63,7 @@ In the app's main stylesheet, after Tailwind:
 ## Logo and icons
 
 The family's mark is ControlFreak's logo, a white ring with an upward chevron on a rounded
-purple tile. The files below are the family's mark, used by ControlFreak, MCP, the hub and
+purple tile. The files below are the family's mark, used by ControlFreak, the hub and
 any app without a mark of its own.
 
 **An app's own mark belongs to the app, not to this package.** Event, Start, Run and Diff
@@ -119,7 +118,7 @@ mark and the app's name as the family header writes it ("Control" in ink, "Freak
 purple, the app's own word in its accent), on the page colour with the paper strip along
 the bottom. The names are never translated, so one image serves every language. There is
 one per app in `FAMILY_APPS` except the hub (`og-controlfreak.png`, `og-event.png`,
-`og-startklocka.png`, `og-live.png`, `og-run.png`, `og-mcp.png`, `og-diff.png`). Serve it like an icon, e.g.
+`og-startklocka.png`, `og-live.png`, `og-run.png`, `og-diff.png`; `og-mcp.png` is kept from ControlFreak MCP, which moved into ControlFreak in 2026-10). Serve it like an icon, e.g.
 `src/routes/og-image[.]png.ts` with `import image from "controlfreak-design/assets/og-run.png?inline"`,
 and use `summary_large_image` for `twitter:card`.
 
@@ -159,7 +158,7 @@ import { StartScreen } from "controlfreak-design/splash";
   animation is over, at once with reduced motion), `alt` and `className`, and should draw
   the title with `FamilyTitle` (`x`, `y`, `scale`, `app`, and `markSrc` for the app's own mark).
 - `FamilySplash` is the family's picture, a course being set out on a map: `app`,
-  `caption`, `course`, `showBackground`, `onDone`, and for ControlFreak MCP `robot` (a robot
+  `caption`, `course`, `showBackground`, `onDone`, and `robot` (a robot
   sets out the controls), `prompt` (a request typed into a chat bubble first) and `reply`
   (the assistant's answer when the course is done).
 - Once per device: `useStartScreen(app)` gives `open` and a stable `dismiss` (pass it as
@@ -318,7 +317,7 @@ import { FamilyFooter, FamilyHeader, FamilyName } from "controlfreak-design/fami
 <FamilyFooter lang={lang} licensesHref="/THIRD-PARTY-NOTICES.md" version="2026-10-20" />
 ```
 
-- `app` is `controlfreak`, `event`, `startklocka`, `live`, `run`, `mcp`, `diff` or `hub`; the name is
+- `app` is `controlfreak`, `event`, `startklocka`, `live`, `run`, `diff` or `hub`; the name is
   drawn from it, and the switcher marks it. `name` gives the header another name than
   the list's, for an app whose name depends on its address. `FamilyName` draws a name
   on its own.

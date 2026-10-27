@@ -22,7 +22,6 @@ export const APPS = [
   { host: "run.controlfreak.se", repo: "virtual-orienteering-controls" },
   { host: "event.controlfreak.se", repo: "orienteer-joy-hub" },
   { host: "start.controlfreak.se", repo: "ticking-reminder" },
-  { host: "mcp.controlfreak.se", repo: "freak-mcp-pal" },
   { host: "diff.controlfreak.se", repo: "controlfreak-diff" },
   { host: "review.controlfreak.se", repo: "controlfreak-review" },
   { host: "live.controlfreak.se", repo: "controlfreak-live" },
