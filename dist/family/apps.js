@@ -53,6 +53,21 @@ export const FAMILY_APPS = [
         },
     },
     {
+        id: "live",
+        url: "https://live.controlfreak.se",
+        name: "ControlFreak Live",
+        base: "ControlFreak",
+        word: "Live",
+        accent: "orange",
+        what: {
+            sv: "Liveresultat med sträcktider, passeringar och löpare i skogen, från Event och Run.",
+            en: "Live results with split times, passings and runners out on the course, from Event and Run.",
+            no: "Liveresultater med mellomtider, passeringer og løpere i skogen, fra Event og Run.",
+            fi: "Live-tulokset väliaikoineen, ohituksineen ja metsässä olevine suunnistajineen, Eventistä ja Runista.",
+            cs: "Online výsledky s mezičasy, průchody a závodníky v lese, z Event a Run.",
+        },
+    },
+    {
         id: "run",
         url: "https://run.controlfreak.se",
         name: "ControlFreak Run",

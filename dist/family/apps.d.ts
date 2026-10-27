@@ -7,7 +7,7 @@
  */
 import { type Lang } from "../i18n/index.js";
 /** Which app a page belongs to. `hub` is controlfreak.se itself. */
-export type FamilyAppId = "controlfreak" | "event" | "startklocka" | "run" | "mcp" | "diff" | "hub";
+export type FamilyAppId = "controlfreak" | "event" | "startklocka" | "live" | "run" | "mcp" | "diff" | "hub";
 /** The colour of the app's own word in its name. */
 export type FamilyAccent = "purple" | "orange";
 /** An app in the family. */
