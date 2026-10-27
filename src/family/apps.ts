@@ -15,7 +15,6 @@ export type FamilyAppId =
   | "startklocka"
   | "live"
   | "run"
-  | "mcp"
   | "diff"
   | "hub";
 
@@ -112,21 +111,6 @@ export const FAMILY_APPS: readonly FamilyApp[] = [
       no: "Trening med virtuelle poster: skann QR-koden på kartet, så stempler telefonen med GPS.",
       fi: "Harjoittelu virtuaalirasteilla: skannaa kartan QR-koodi, niin puhelin leimaa GPS:llä.",
       cs: "Trénink s virtuálními kontrolami: naskenujte QR kód na mapě a telefon razí pomocí GPS.",
-    },
-  },
-  {
-    id: "mcp",
-    url: "https://mcp.controlfreak.se",
-    name: "ControlFreak MCP",
-    base: "ControlFreak",
-    word: "MCP",
-    accent: "orange",
-    what: {
-      sv: "Låt en AI-assistent lägga kontroller och banor i ControlFreak.",
-      en: "Let an AI assistant place controls and courses in ControlFreak.",
-      no: "La en AI-assistent legge poster og løyper i ControlFreak.",
-      fi: "Anna tekoälyavustajan sijoittaa rastit ja radat ControlFreakissa.",
-      cs: "Nechte AI asistenta umístit kontroly a tratě v aplikaci ControlFreak.",
     },
   },
   {

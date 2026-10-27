@@ -83,21 +83,6 @@ export const FAMILY_APPS = [
         },
     },
     {
-        id: "mcp",
-        url: "https://mcp.controlfreak.se",
-        name: "ControlFreak MCP",
-        base: "ControlFreak",
-        word: "MCP",
-        accent: "orange",
-        what: {
-            sv: "Låt en AI-assistent lägga kontroller och banor i ControlFreak.",
-            en: "Let an AI assistant place controls and courses in ControlFreak.",
-            no: "La en AI-assistent legge poster og løyper i ControlFreak.",
-            fi: "Anna tekoälyavustajan sijoittaa rastit ja radat ControlFreakissa.",
-            cs: "Nechte AI asistenta umístit kontroly a tratě v aplikaci ControlFreak.",
-        },
-    },
-    {
         id: "diff",
         url: "https://diff.controlfreak.se",
         name: "ControlFreak Diff",

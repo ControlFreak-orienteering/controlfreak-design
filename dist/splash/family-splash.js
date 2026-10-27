@@ -26,7 +26,7 @@ export const DEFAULT_COURSE = [
     { x: -180, y: 10, kind: "finish" },
 ];
 /**
- * ControlFreak MCP's course: seven controls, matching the reply "Klart! 7 kontroller" and the
+ * The AI assistant's course: seven controls, matching the reply "Klart! 7 kontroller" and the
  * caption "7 kontroller utsatta". The default when the robot is shown.
  */
 export const MCP_COURSE = [
@@ -113,7 +113,7 @@ function robotCss(course, total, start) {
 }
 /**
  * A small robot standing on the map, its feet at (0, 0): the AI assistant setting out the
- * course (ControlFreak MCP). Drawn upright, like the flags, and in the brand's colours.
+ * course (the AI assistant in ControlFreak). Drawn upright, like the flags, and in the brand's colours.
  */
 function Robot() {
     return (
@@ -133,7 +133,7 @@ function chatCss(replyAt) {
 }
 /**
  * A chat with the AI assistant, above the map's right corner: the user's prompt, typed
- * out at the start, and the assistant's reply when the course is done (ControlFreak MCP).
+ * out at the start, and the assistant's reply when the course is done (the AI assistant in ControlFreak).
  */
 function Chat({ prompt, reply }) {
     // Wide enough for the text at 13 units per letter-ish, but never past the image.
