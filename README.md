@@ -211,6 +211,35 @@ event.respondWith(self.cfPageFromNetwork(request, { cacheName: PAGES, fallback: 
 The browser keeps an imported script with the worker, so it works offline, and checks it
 for changes when it checks `sw.js`. `timeoutMs` (3000 by default) changes the wait.
 
+## Which version is live
+
+Every app says which commit its site was built from at `https://<app>/version.json`:
+
+```json
+{ "commit": "5e6c6e5…", "committed": "2026-10-27T07:00:52+01:00", "built": "2026-10-27T06:05:11.204Z" }
+```
+
+The app writes it first in its build, and keeps the generated file out of git:
+
+```json
+"prebuild": "node node_modules/controlfreak-design/scripts/write-version.mjs"
+```
+
+```gitignore
+public/version.json
+```
+
+To see whether every site runs the latest `main`, run this from the package's root, with
+the GitHub CLI signed in:
+
+```sh
+node scripts/check-deploys.mjs
+```
+
+It prints one line per app, ✓ or ✗. A site counts as current when the newer commits on
+`main` only change files that are not built, such as `.github/` and `WORK_IN_PROGRESS.md`.
+The apps and their repositories are listed in `APPS` at the top of the script.
+
 ## Changing the package
 
 - Versions follow semver. A changed colour is a minor version; a removed or renamed token
