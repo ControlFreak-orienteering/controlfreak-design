@@ -211,6 +211,26 @@ event.respondWith(self.cfPageFromNetwork(request, { cacheName: PAGES, fallback: 
 The browser keeps an imported script with the worker, so it works offline, and checks it
 for changes when it checks `sw.js`. `timeoutMs` (3000 by default) changes the wait.
 
+Pages fetched ahead at install are fetched in the visitor's language only:
+`cfPrecachePages(paths, lang)` keeps `/` and the paths in that language (`/en`,
+`/en/manual`; a path without a language prefix is Swedish). Every fetched page is a
+rendering on the server, so this makes a new visitor cost one or two instead of five or ten.
+The app registers the worker with its language, and the worker reads it from its own
+address when `lang` is left out:
+
+```ts
+navigator.serviceWorker.register(`/sw.js?lang=${lang}`, { scope: "/" });
+```
+
+```js
+// in the install handler; pages that belong to no language are added after the call
+const pages = [...self.cfPrecachePages(PRECACHE_PAGES), "/utsattning"];
+```
+
+A new address is a new worker to the browser, so changing language installs the worker
+again and fetches that language's pages. Without a language, or with an unknown one, every
+path is kept. Pages in other languages are still saved the first time they are visited.
+
 ## Which version is live
 
 Every app says which commit its site was built from at `https://<app>/version.json`:

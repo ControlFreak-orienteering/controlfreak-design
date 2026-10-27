@@ -9,6 +9,7 @@
  *
  *   importScripts("/cf-sw-fetch.js");
  *   event.respondWith(self.cfPageFromNetwork(request, { cacheName: PAGES, fallback: "/" }));
+ *   const pages = self.cfPrecachePages(PRECACHE_PAGES); // at install
  *
  * The app serves this file at that path from its own server (see "Service workers" in the
  * README), so the browser keeps it with the worker and it works offline too.
@@ -67,4 +68,34 @@ async function cfPageFromNetwork(request, options) {
   }
 }
 
+/** The family's languages with their own address prefix; Swedish, the source, has none. */
+const CF_PREFIXED_LANGS = ["en", "no", "fi", "cs"];
+
+/**
+ * The pages of `paths` worth fetching ahead for one visitor: `/` (every worker's fallback)
+ * and the pages in the visitor's language. Fetching all five languages costs the server
+ * five renderings or more per new visitor, where one is used (controlfreak-plans
+ * 2026-10-27 D1).
+ *
+ * A path is in the language its first segment names (`/en`, `/en/manual`); a path without
+ * one is Swedish. Pages that belong to no language (e.g. a field mode) are added by the
+ * app after the call. The language is `lang`, or else the `lang` the app registered the
+ * worker with (`/sw.js?lang=en`); with neither, or an unknown one, every path is kept, as
+ * before.
+ *
+ * @param {string[]} paths - Every page the app can fetch ahead, in all languages.
+ * @param {string} [lang] - The visitor's language, e.g. "en".
+ * @returns {string[]}
+ */
+function cfPrecachePages(paths, lang) {
+  const wanted = lang ?? new URL(self.location.href).searchParams.get("lang");
+  if (wanted !== "sv" && !CF_PREFIXED_LANGS.includes(wanted)) return [...paths];
+  const langOf = (path) => {
+    const first = path.split("/")[1] ?? "";
+    return CF_PREFIXED_LANGS.includes(first) ? first : "sv";
+  };
+  return paths.filter((path) => path === "/" || langOf(path) === wanted);
+}
+
 self.cfPageFromNetwork = cfPageFromNetwork;
+self.cfPrecachePages = cfPrecachePages;

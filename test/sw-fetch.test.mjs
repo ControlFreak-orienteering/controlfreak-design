@@ -10,11 +10,12 @@ const SOURCE = readFileSync(new URL("../sw-fetch.js", import.meta.url), "utf8");
  * Loads sw-fetch.js in a fake service worker. `network(url)` gives the network's answer as
  * a promise; `saved` holds the cache's pages by URL.
  */
-function worker({ network, saved = {} }) {
+function worker({ network, saved = {}, script = "https://run.controlfreak.se/sw.js" }) {
   const cache = new Map(Object.entries(saved));
-  const self = {};
+  const self = { location: { href: script } };
   const context = {
     self,
+    URL,
     setTimeout,
     clearTimeout,
     fetch: (request) => network(request.url ?? request),
@@ -24,7 +25,9 @@ function worker({ network, saved = {} }) {
     },
   };
   vm.runInNewContext(SOURCE, context);
-  return { page: self.cfPageFromNetwork, cache };
+  // Arrays from the worker's realm compare unequal to the test's under strict deepEqual.
+  const precache = (...args) => Array.from(self.cfPrecachePages(...args));
+  return { page: self.cfPageFromNetwork, precache, cache };
 }
 
 const page = (body, status = 200) => new Response(body, { status });
@@ -81,4 +84,24 @@ test("does not save an error page", async () => {
   const response = await w.page(req, { cacheName: "pages" });
   assert.equal(response.status, 500);
   assert.equal(w.cache.has(URL_A), false);
+});
+
+const RUN_PAGES = ["/", "/en", "/no", "/fi", "/cs", "/manual", "/en/manual", "/no/manual", "/fi/manual", "/cs/manual"];
+
+test("fetches ahead only the start page and the pages in the visitor's language", () => {
+  const { precache } = worker({ network: async () => page("") });
+  assert.deepEqual(precache(RUN_PAGES, "en"), ["/", "/en", "/en/manual"]);
+  assert.deepEqual(precache(RUN_PAGES, "sv"), ["/", "/manual"]);
+  assert.deepEqual(precache(["/", "/fi", "/fi/manual"], "fi"), ["/", "/fi", "/fi/manual"]);
+});
+
+test("reads the language the worker was registered with", () => {
+  const w = worker({ network: async () => page(""), script: "https://run.controlfreak.se/sw.js?lang=cs" });
+  assert.deepEqual(w.precache(RUN_PAGES), ["/", "/cs", "/cs/manual"]);
+});
+
+test("keeps every page when the language is missing or unknown", () => {
+  const { precache } = worker({ network: async () => page("") });
+  assert.deepEqual(precache(RUN_PAGES), RUN_PAGES);
+  assert.deepEqual(precache(RUN_PAGES, "de"), RUN_PAGES);
 });
