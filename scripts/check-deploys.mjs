@@ -5,6 +5,9 @@
 //
 //   node scripts/check-deploys.mjs
 //
+// Sites published before they had version.json are read from Lovable's own script in the
+// start page instead, which names the published commit in `data-commit-sha`.
+//
 // A site counts as current when the newer commits on `main` only touch files that are not
 // part of the build (see NOT_BUILT), such as the work-in-progress table the bot updates.
 import { execFileSync } from "node:child_process";
@@ -47,7 +50,7 @@ export function isBuilt(path) {
  * @returns {{ ok: boolean, text: string }}
  */
 export function deployStatus(deployed, main, compare) {
-  if (!deployed) return { ok: false, text: "no version.json" };
+  if (!deployed) return { ok: false, text: "no version.json and no commit in the page" };
   if (!deployed.commit) return { ok: false, text: "built without git, commit unknown" };
   if (deployed.commit === main) return { ok: true, text: "latest" };
   if (!compare) return { ok: false, text: `runs ${deployed.commit.slice(0, 7)}, not on main` };
@@ -61,19 +64,30 @@ export function deployStatus(deployed, main, compare) {
   };
 }
 
+/** The commit Lovable's injected script names in a page, or null. */
+export function lovableCommit(html) {
+  return html.match(/data-commit-sha="([0-9a-f]{40})"/)?.[1] ?? null;
+}
+
 function gh(...args) {
   return JSON.parse(execFileSync("gh", ["api", ...args], { stdio: ["ignore", "pipe", "pipe"] }));
+}
+
+/** Fetches a path from a site, past any cache on the way (fresh query string, no-cache). */
+function fetchFresh(host, path) {
+  return fetch(`https://${host}${path}?t=${Date.now()}`, { headers: { "cache-control": "no-cache" } });
 }
 
 async function checkApp({ host, repo }) {
   let deployed = null;
   try {
-    // A fresh query string and no-cache, so no cache on the way answers for the site.
-    const response = await fetch(`https://${host}/version.json?t=${Date.now()}`, {
-      headers: { "cache-control": "no-cache" },
-    });
+    const response = await fetchFresh(host, "/version.json");
     const type = response.headers.get("content-type") ?? "";
     if (response.ok && type.includes("json")) deployed = await response.json();
+    if (!deployed) {
+      const commit = lovableCommit(await (await fetchFresh(host, "/")).text());
+      if (commit) deployed = { commit, source: "Lovable" };
+    }
   } catch {
     // Unreachable: reported below as no version.json.
   }
@@ -92,7 +106,11 @@ async function checkApp({ host, repo }) {
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const results = await Promise.all(APPS.map(checkApp));
   for (const r of results) {
-    const when = r.deployed?.built ? ` (built ${r.deployed.built.slice(0, 16).replace("T", " ")} UTC)` : "";
+    const when = r.deployed?.built
+      ? ` (built ${r.deployed.built.slice(0, 16).replace("T", " ")} UTC)`
+      : r.deployed?.source
+        ? ` (from ${r.deployed.source}'s script)`
+        : "";
     console.log(`${r.ok ? "✓" : "✗"} ${r.host.padEnd(24)} ${r.text}${when}`);
   }
   process.exitCode = results.every((r) => r.ok) ? 0 : 1;
