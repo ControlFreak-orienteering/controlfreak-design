@@ -7,7 +7,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 import { versionInfo, writeVersion } from "../scripts/write-version.mjs";
-import { deployStatus, isBuilt } from "../scripts/check-deploys.mjs";
+import { deployStatus, isBuilt, lovableCommit } from "../scripts/check-deploys.mjs";
 
 const MAIN = "a".repeat(40);
 const OLD = "b".repeat(40);
@@ -57,4 +57,10 @@ test("a site without version.json or without a commit is not counted as current"
   assert.equal(deployStatus(null, MAIN, null).ok, false);
   assert.equal(deployStatus({ commit: null }, MAIN, null).ok, false);
   assert.equal(deployStatus({ commit: OLD }, MAIN, null).ok, false);
+});
+
+test("the published commit can be read from Lovable's script in the page", () => {
+  const page = `<script defer src="/__l5e/events.js" data-commit-sha="${MAIN}" data-x="1"></script>`;
+  assert.equal(lovableCommit(page), MAIN);
+  assert.equal(lovableCommit("<html></html>"), null);
 });
