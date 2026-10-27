@@ -4,6 +4,7 @@ The shared look of the ControlFreak family of orienteering apps under controlfre
 
 - **ControlFreak** (course setting)
 - **ControlFreak Event** (competition administration)
+- **ControlFreak Live** (live results from Event and Run)
 - **ControlFreak Run** (virtual controls)
 - **ControlFreak MCP** (the AI assistant's connection to ControlFreak)
 - **ControlFreak Diff** (what changed between two versions of a map)
@@ -14,7 +15,7 @@ as a zip; see its README). Keep it current when the family's shape changes.
 
 **App names** are written the same way in every app: in Nunito Sans, bold, "Control" in
 the text colour and "Freak" in the brand's purple, as in the logo, then the app's own word
-in the orienteering orange (Event, Start, Run, MCP, Diff),
+in the orienteering orange (Event, Start, Live, Run, MCP, Diff),
 kept as one text so screen readers read the whole name. ControlFreak itself is just
 "ControlFreak". The names are never translated.
 
@@ -118,7 +119,7 @@ mark and the app's name as the family header writes it ("Control" in ink, "Freak
 purple, the app's own word in its accent), on the page colour with the paper strip along
 the bottom. The names are never translated, so one image serves every language. There is
 one per app in `FAMILY_APPS` except the hub (`og-controlfreak.png`, `og-event.png`,
-`og-startklocka.png`, `og-run.png`, `og-mcp.png`, `og-diff.png`). Serve it like an icon, e.g.
+`og-startklocka.png`, `og-live.png`, `og-run.png`, `og-mcp.png`, `og-diff.png`). Serve it like an icon, e.g.
 `src/routes/og-image[.]png.ts` with `import image from "controlfreak-design/assets/og-run.png?inline"`,
 and use `summary_large_image` for `twitter:card`.
 
@@ -317,7 +318,7 @@ import { FamilyFooter, FamilyHeader, FamilyName } from "controlfreak-design/fami
 <FamilyFooter lang={lang} licensesHref="/THIRD-PARTY-NOTICES.md" version="2026-10-20" />
 ```
 
-- `app` is `controlfreak`, `event`, `startklocka`, `run`, `mcp`, `diff` or `hub`; the name is
+- `app` is `controlfreak`, `event`, `startklocka`, `live`, `run`, `mcp`, `diff` or `hub`; the name is
   drawn from it, and the switcher marks it. `name` gives the header another name than
   the list's, for an app whose name depends on its address. `FamilyName` draws a name
   on its own.
@@ -339,7 +340,7 @@ button, with `controlfreak-design/feedback.css` for its look (on the app's token
   email, send and cancel, then a thank-you. Only the form: put it in the app's own dialog,
   titled `FEEDBACK_TEXTS[lang].title`, so it looks like the app's other dialogs. `app` is
   the app's id at the feedback page (`controlfreak`, `competitionfreak`, `run`,
-  `startklocka`, `mcpfreak`, `diff`), an identifier that stays when the app is renamed. `intro`
+  `startklocka`, `live`, `mcpfreak`, `diff`), an identifier that stays when the app is renamed. `intro`
   replaces the default text, e.g. to say what the app never sends.
 - `sendFeedback(app, feedback)` posts to the family's feedback page
   (`FEEDBACK_ENDPOINT`); `feedbackBody` is the request body.

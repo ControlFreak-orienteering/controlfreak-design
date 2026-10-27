@@ -9,7 +9,15 @@
 import { langPath, type Lang } from "../i18n/index.js";
 
 /** Which app a page belongs to. `hub` is controlfreak.se itself. */
-export type FamilyAppId = "controlfreak" | "event" | "startklocka" | "run" | "mcp" | "diff" | "hub";
+export type FamilyAppId =
+  | "controlfreak"
+  | "event"
+  | "startklocka"
+  | "live"
+  | "run"
+  | "mcp"
+  | "diff"
+  | "hub";
 
 /** The colour of the app's own word in its name. */
 export type FamilyAccent = "purple" | "orange";
@@ -74,6 +82,21 @@ export const FAMILY_APPS: readonly FamilyApp[] = [
       no: "Startklokke: viser starttiden, piper før hver start og leser opp hvem som starter.",
       fi: "Lähtökello: näyttää lähtöajan, piippaa ennen jokaista lähtöä ja lukee lähtijät ääneen.",
       cs: "Startovní hodiny: ukazují čas startu, pípají před každým startem a čtou, kdo startuje.",
+    },
+  },
+  {
+    id: "live",
+    url: "https://live.controlfreak.se",
+    name: "ControlFreak Live",
+    base: "ControlFreak",
+    word: "Live",
+    accent: "orange",
+    what: {
+      sv: "Liveresultat med sträcktider, passeringar och löpare i skogen, från Event och Run.",
+      en: "Live results with split times, passings and runners out on the course, from Event and Run.",
+      no: "Liveresultater med mellomtider, passeringer og løpere i skogen, fra Event og Run.",
+      fi: "Live-tulokset väliaikoineen, ohituksineen ja metsässä olevine suunnistajineen, Eventistä ja Runista.",
+      cs: "Online výsledky s mezičasy, průchody a závodníky v lese, z Event a Run.",
     },
   },
   {

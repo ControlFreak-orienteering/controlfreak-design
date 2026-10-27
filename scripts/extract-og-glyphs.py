@@ -22,7 +22,7 @@ FONT = "node_modules/@fontsource-variable/nunito-sans/files/nunito-sans-latin-wg
 WEIGHT = 800
 LETTER_SPACING_EM = -0.01
 # "ControlFreak" and every app's own word (FAMILY_APPS in src/family/apps.ts).
-WORDS = ["ControlFreak", "Event", "Start", "Run", "MCP", "Diff"]
+WORDS = ["ControlFreak", "Event", "Start", "Run", "MCP", "Diff", "Live"]
 # Straight segments per curve: plenty at the images' sizes.
 STEPS = 12
 
