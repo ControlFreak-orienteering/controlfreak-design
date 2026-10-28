@@ -47,6 +47,11 @@ OResults, Liveresultat, GoatCounter, Cloudflare.
 | sänka                               | reentrant                            | søkk                             | notko, painanne (IOF 1.3)           | údolíčko (vhloubenina)                  |
 | stig                                | path                                 | sti                              | polku                               | pěšina                                  |
 | förbjudet område                    | out-of-bounds area                   | forbudt område                   | kielletty alue                      | zakázaný prostor                        |
+| skalstock                           | scale bar                            | målestokklinjal                  | mittakaavajana                      | grafické měřítko                        |
+| nordpil                             | north arrow                          | nordpil                          | pohjoisnuoli                        | severka                                 |
+| träningskarta                       | training map                         | treningskart                     | harjoituskartta                     | tréninková mapa                         |
+| kurvbild (bara brunt)               | contour-only map                     | kurvekart                        | käyräkartta                         | vrstevnicová mapa                       |
+| kartyta (i ControlFreak)            | map area                             | kartflate                        | kartta-alue                         | oblast mapy                             |
 
 ## The course
 
@@ -90,6 +95,9 @@ OResults, Liveresultat, GoatCounter, Cloudflare.
 | insamling (av kontroller)           | collecting controls                  | innsamling av poster             | rastien keruu                       | sběr kontrol                            |
 | utskrift                            | print                                | utskrift                         | tulostus                            | tisk                                    |
 | bankort (banans uppgifter)          | course card                          | løypekort                        | ratakortti                          | karta trati (údaje o trati)             |
+| korridor, korridorbana              | corridor, corridor course            | korridor, korridorløype          | käytävä, käytäväharjoitus           | koridor, koridorová trať                |
+| momentövning                        | technique exercise                   | teknikkøvelse                    | tekniikkaharjoitus                  | technický trénink                       |
+| kontrollbelastning                  | control load                         | postbelastning                   | rastikuormitus                      | zatížení kontrol                        |
 
 ## Punching and timing
 
