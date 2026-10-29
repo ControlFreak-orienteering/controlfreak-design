@@ -1,5 +1,6 @@
 /**
- * The family footer: who makes the apps, the hub, the licences and the version. Shown
+ * The family footer: who makes the apps, the hub, the Facebook page, the licences and the
+ * version. Shown
  * at the bottom of a page or a sidebar; the header above does the navigation.
  */
 import type { MouseEvent } from "react";

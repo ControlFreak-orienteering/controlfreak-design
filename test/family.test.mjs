@@ -81,16 +81,18 @@ test("the switcher lists every app and the hub", () => {
   assert.equal(familyHubUrl("cs"), "https://controlfreak.se/cs");
 });
 
-test("the footer has the credit, the hub, the licences and the version", () => {
+test("the footer has the credit, the hub, Facebook, the licences and the version", () => {
   const html = renderToStaticMarkup(
     createElement(FamilyFooter, { lang: "no", licensesHref: "/licenser", version: "2026-10-20" }),
   );
   assert.match(html, />Laget av</);
   assert.match(html, /href="https:\/\/controlfreak.se\/no">controlfreak.se</);
+  assert.match(html, /href="https:\/\/www.facebook.com\/controlfreak.se"[^>]*title="ControlFreak på Facebook"[^>]*>Facebook</);
   assert.match(html, /href="\/licenser">Lisenser</);
   assert.match(html, /Versjon 2026-10-20/);
   const bare = renderToStaticMarkup(createElement(FamilyFooter, { lang: "sv" }));
   assert.doesNotMatch(bare, /Licenser|Version/);
+  assert.match(bare, />Facebook</);
 });
 
 test("the header shows the app's own mark when given, and the switcher the others' from their addresses", () => {

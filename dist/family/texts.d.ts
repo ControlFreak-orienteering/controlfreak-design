@@ -14,6 +14,8 @@ export type FamilyTexts = {
     close: string;
     licenses: string;
     version: string;
+    /** The Facebook link's tooltip. */
+    onFacebook: string;
     /** The mark's link. */
     toStart: string;
     /** Marks the app one is in. */

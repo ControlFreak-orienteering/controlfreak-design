@@ -1,5 +1,6 @@
 /**
- * The family footer: who makes the apps, the hub, the licences and the version. Shown
+ * The family footer: who makes the apps, the hub, the Facebook page, the licences and the
+ * version. Shown
  * at the bottom of a page or a sidebar; the header above does the navigation.
  */
 
@@ -7,7 +8,7 @@ import type { MouseEvent } from "react";
 
 import { MadeBy } from "../credits/made-by.js";
 import type { Lang } from "../i18n/index.js";
-import { familyHubUrl } from "./apps.js";
+import { FAMILY_FACEBOOK_URL, familyHubUrl } from "./apps.js";
 import { TEXTS } from "./texts.js";
 
 export type FamilyFooterProps = {
@@ -47,6 +48,9 @@ export function FamilyFooter({
       <MadeBy lang={lang} />
       <span className="cf-family-footer-links">
         <a href={familyHubUrl(lang)}>controlfreak.se</a>
+        <a href={FAMILY_FACEBOOK_URL} target="_blank" rel="noreferrer" title={t.onFacebook}>
+          Facebook
+        </a>
         {licenses}
         {version && (
           <span>

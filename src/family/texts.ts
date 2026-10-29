@@ -16,6 +16,8 @@ export type FamilyTexts = {
   close: string;
   licenses: string;
   version: string;
+  /** The Facebook link's tooltip. */
+  onFacebook: string;
   /** The mark's link. */
   toStart: string;
   /** Marks the app one is in. */
@@ -35,6 +37,7 @@ export const TEXTS: Record<Lang, FamilyTexts> = {
     close: "Stäng",
     licenses: "Licenser",
     version: "Version",
+    onFacebook: "ControlFreak på Facebook",
     toStart: "Till startsidan",
     thisApp: "Den här appen",
   },
@@ -50,6 +53,7 @@ export const TEXTS: Record<Lang, FamilyTexts> = {
     close: "Close",
     licenses: "Licenses",
     version: "Version",
+    onFacebook: "ControlFreak on Facebook",
     toStart: "To the start page",
     thisApp: "This app",
   },
@@ -65,6 +69,7 @@ export const TEXTS: Record<Lang, FamilyTexts> = {
     close: "Lukk",
     licenses: "Lisenser",
     version: "Versjon",
+    onFacebook: "ControlFreak på Facebook",
     toStart: "Til startsiden",
     thisApp: "Denne appen",
   },
@@ -80,6 +85,7 @@ export const TEXTS: Record<Lang, FamilyTexts> = {
     close: "Sulje",
     licenses: "Lisenssit",
     version: "Versio",
+    onFacebook: "ControlFreak Facebookissa",
     toStart: "Etusivulle",
     thisApp: "Tämä sovellus",
   },
@@ -95,6 +101,7 @@ export const TEXTS: Record<Lang, FamilyTexts> = {
     close: "Zavřít",
     licenses: "Licence",
     version: "Verze",
+    onFacebook: "ControlFreak na Facebooku",
     toStart: "Na úvodní stránku",
     thisApp: "Tato aplikace",
   },

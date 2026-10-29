@@ -4,6 +4,7 @@
  */
 export {
   FAMILY_APPS,
+  FAMILY_FACEBOOK_URL,
   FAMILY_HUB_URL,
   familyApp,
   familyHubUrl,
