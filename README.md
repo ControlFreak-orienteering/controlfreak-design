@@ -274,8 +274,8 @@ The apps and their repositories are listed in `APPS` at the top of the script.
 
 ## Credit
 
-Every app shows who makes it: "Gjord av" and a GitHub mark for each author, linking to
-their profile, with the name in the link's label and tooltip.
+Every app shows who makes it: "Gjord av", then each author's name with GitHub's mark,
+linking to their profile ("Gjord av Henrik Flordal och Hugo Flordal").
 
 ```tsx
 import { MadeBy } from "controlfreak-design/credits";
@@ -337,6 +337,8 @@ import { FamilyFooter, FamilyHeader, FamilyName } from "controlfreak-design/fami
 <FamilyFooter lang={lang} licensesHref="/THIRD-PARTY-NOTICES.md" version="2026-10-20" />
 ```
 
+- The footer has the credit, links to controlfreak.se and the family's Facebook page
+  (`FAMILY_FACEBOOK_URL`), and the licences and version when given.
 - `app` is `controlfreak`, `event`, `startklocka`, `live`, `run`, `diff` or `hub`; the name is
   drawn from it, and the switcher marks it. `name` gives the header another name than
   the list's, for an app whose name depends on its address. `FamilyName` draws a name

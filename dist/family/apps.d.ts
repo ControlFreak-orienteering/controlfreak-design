@@ -29,6 +29,8 @@ export type FamilyApp = {
 export declare const FAMILY_APPS: readonly FamilyApp[];
 /** The hub, controlfreak.se, with all the apps. */
 export declare const FAMILY_HUB_URL = "https://controlfreak.se";
+/** The family's Facebook page, linked from every footer. */
+export declare const FAMILY_FACEBOOK_URL = "https://www.facebook.com/controlfreak.se";
 /** The hub's page in a language, e.g. `https://controlfreak.se/en`. */
 export declare function familyHubUrl(lang: Lang): string;
 /** The app with a given id; the hub is not among the apps. */

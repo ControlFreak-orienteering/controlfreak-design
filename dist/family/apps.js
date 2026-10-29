@@ -100,6 +100,8 @@ export const FAMILY_APPS = [
 ];
 /** The hub, controlfreak.se, with all the apps. */
 export const FAMILY_HUB_URL = "https://controlfreak.se";
+/** The family's Facebook page, linked from every footer. */
+export const FAMILY_FACEBOOK_URL = "https://www.facebook.com/controlfreak.se";
 /** The hub's page in a language, e.g. `https://controlfreak.se/en`. */
 export function familyHubUrl(lang) {
     return `${FAMILY_HUB_URL}${langPath(lang) === "/" ? "" : langPath(lang)}`;

@@ -9,8 +9,9 @@ export declare const AUTHORS: readonly [{
     readonly github: "hugoflordal";
 }];
 /**
- * Who makes the apps: "Made by" and a GitHub mark for each author, linking to their
- * profile. The mark has no visible name, so its name is in the link's label and tooltip.
+ * Who makes the apps: "Made by" and each author's name with GitHub's mark, linking to
+ * their profile ("Gjord av Henrik Flordal och Hugo Flordal"). The link's tooltip says it
+ * goes to GitHub.
  *
  * It takes the colour and size of the surrounding text, so the app decides how it looks
  * through `className` (e.g. `text-xs text-muted-foreground`). An app's Tailwind does not
