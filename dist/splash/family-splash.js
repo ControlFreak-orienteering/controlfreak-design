@@ -153,7 +153,7 @@ function Terrain() {
 /**
  * The start image. See the module comment.
  */
-export function FamilySplash({ app = null, robot = false, prompt = null, reply = null, course: courseProp, caption = "7 kontroller utsatta · 4,3 km", showBackground = true, alt = "ControlFreak — kontroller sätts ut i terrängen", onDone, className, style, }) {
+export function FamilySplash({ app = null, markSrc, robot = false, prompt = null, reply = null, course: courseProp, caption = "7 kontroller utsatta · 4,3 km", showBackground = true, alt = "ControlFreak — kontroller sätts ut i terrängen", onDone, className, style, }) {
     const course = courseProp ?? (robot ? MCP_COURSE : DEFAULT_COURSE);
     // With a prompt, everything waits for it to be typed.
     const start = prompt ? PROMPT_TIME : 0;
@@ -188,5 +188,5 @@ export function FamilySplash({ app = null, robot = false, prompt = null, reply =
                     (robot ? robotCss(course, lastDelay, start) : "") +
                     (prompt ? chatCss(lastDelay - 0.4) : "") }), showBackground && (_jsx("rect", { x: "0", y: view.top, width: "680", height: view.height, fill: COLORS.page })), _jsx(Terrain, {}), _jsx("path", { className: "cf-course", 
                 // The course is drawn as the controls drop, so it waits for a prompt too.
-                style: start ? { animationDelay: `${0.5 + start}s` } : undefined, d: path, fill: "none", stroke: COLORS.purple, strokeWidth: "3", strokeLinejoin: "round", strokeLinecap: "round" }), course.map((p, i) => (_jsx(Marker, { point: p, delay: start + FIRST_DELAY + i * STEP }, i))), robot && (_jsx("g", { className: "cf-robot", children: _jsx(Robot, {}) })), _jsx(FamilyTitle, { x: 100, y: 82, app: app }), prompt && _jsx(Chat, { prompt: prompt, reply: reply }), caption && (_jsx("text", { className: "cf-fade", style: { animationDelay: `${lastDelay - 0.3}s` }, x: "340", y: "474", textAnchor: "middle", fontSize: "14", fill: COLORS.muted, children: caption }))] }));
+                style: start ? { animationDelay: `${0.5 + start}s` } : undefined, d: path, fill: "none", stroke: COLORS.purple, strokeWidth: "3", strokeLinejoin: "round", strokeLinecap: "round" }), course.map((p, i) => (_jsx(Marker, { point: p, delay: start + FIRST_DELAY + i * STEP }, i))), robot && (_jsx("g", { className: "cf-robot", children: _jsx(Robot, {}) })), _jsx(FamilyTitle, { x: 100, y: 82, app: app, markSrc: markSrc }), prompt && _jsx(Chat, { prompt: prompt, reply: reply }), caption && (_jsx("text", { className: "cf-fade", style: { animationDelay: `${lastDelay - 0.3}s` }, x: "340", y: "474", textAnchor: "middle", fontSize: "14", fill: COLORS.muted, children: caption }))] }));
 }

@@ -16,9 +16,14 @@ export declare const START_READY_MS = 1500;
  * goes on behind it; Enter starts the app, and the user decides when it begins. With
  * reduced motion the image shows without animation and the row at once. The look comes from `controlfreak-design/splash.css` and the app's tokens.
  */
-export declare function StartScreen({ app, alt, caption, enterLabel, onDismiss, className, renderImage, }: {
+export declare function StartScreen({ app, markSrc, alt, caption, enterLabel, onDismiss, className, renderImage, }: {
     /** The app's name, the second title line under "ControlFreak", e.g. "Banläggning". */
     app: string | null;
+    /**
+     * The app's own mark in the family's image, as an image address (see `FamilyTitle`);
+     * left out, the family's mark. An app's own `renderImage` passes it to `FamilyTitle` itself.
+     */
+    markSrc?: string;
     /** The image's alternative text, in the app's language. */
     alt: string;
     /** The text on the left of the row, e.g. how many projects are stored; "" for none. */

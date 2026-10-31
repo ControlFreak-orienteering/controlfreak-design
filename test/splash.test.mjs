@@ -40,6 +40,15 @@ test("the start screen has the image, the caption and the button, hidden until r
   assert.match(html, /<button[^>]*tabindex="-1"[^>]*>Kom igång<\/button>/);
 });
 
+test("the start screen shows the app's own mark in the title when given one", () => {
+  const mark = "data:image/svg+xml,%3Csvg%2F%3E";
+  const props = { app: "Live", alt: "ControlFreak Live", caption: "", enterLabel: "Kom igång", onDismiss: () => {} };
+  const own = renderToStaticMarkup(createElement(StartScreen, { ...props, markSrc: mark }));
+  assert.match(own, /<image href="data:image\/svg\+xml,%3Csvg%2F%3E"/);
+  const family = renderToStaticMarkup(createElement(StartScreen, props));
+  assert.doesNotMatch(family, /<image /);
+});
+
 test("the robot walks the course only when asked for", () => {
   const withRobot = renderToStaticMarkup(
     createElement(FamilySplash, { app: "MCP", robot: true }),
