@@ -20,7 +20,7 @@ Suomi, Čeština.
 ## Names that are never translated
 
 ControlFreak, ControlFreak Event, ControlFreak Run, ControlFreak Start, ControlFreak MCP, Eventor, ORIS, IRMA, SportIdent
-(SI), Emit, IOF, IOF XML, ISOM, ISSprOM, OCAD, Open Orienteering Mapper, Purple Pen,
+(SI), Emit, IOF, IOF XML, ISOM, ISSprOM, ISMTBOM, OCAD, Open Orienteering Mapper, Purple Pen,
 Condes, Hittaut (a Swedish recreational event; stays "Hittaut" in every language), Swish,
 OResults, Liveresultat, GoatCounter, Cloudflare.
 
@@ -83,6 +83,7 @@ OResults, Liveresultat, GoatCounter, Cloudflare.
 | vanlig bana (i ordning)             | normal course                        | vanlig løype                     | tavallinen rata                     | klasická trať                           |
 | poängorientering                    | score orienteering                   | poengorientering                 | pistesuunnistus                     | scorelauf                               |
 | sprint                              | sprint                               | sprint                           | sprintti                            | sprint                                  |
+| mountainbikeorientering (MTBO)      | mountain bike orienteering (MTBO)    | sykkelorientering (MTBO)         | pyöräsuunnistus (MTBO)              | orientační závod na kole (MTBO)         |
 | stafett                             | relay                                | stafett                          | viesti                              | štafeta                                 |
 | sträcka (i stafett)                 | leg (relay)                          | etappe                           | osuus                               | úsek                                    |
 | lag (i stafett eller patrull)       | team                                 | lag                              | joukkue                             | tým, štafeta                            |
