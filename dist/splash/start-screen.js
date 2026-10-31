@@ -20,7 +20,7 @@ export const START_READY_MS = 1500;
  * goes on behind it; Enter starts the app, and the user decides when it begins. With
  * reduced motion the image shows without animation and the row at once. The look comes from `controlfreak-design/splash.css` and the app's tokens.
  */
-export function StartScreen({ app, alt, caption, enterLabel, onDismiss, className = "", renderImage, }) {
+export function StartScreen({ app, markSrc, alt, caption, enterLabel, onDismiss, className = "", renderImage, }) {
     const [ready, setReady] = useState(false);
     const [leaving, setLeaving] = useState(false);
     const enterRef = useRef(null);
@@ -45,5 +45,5 @@ export function StartScreen({ app, alt, caption, enterLabel, onDismiss, classNam
         const timer = setTimeout(() => dismissRef.current(), FADE_MS);
         return () => clearTimeout(timer);
     }, [leaving]);
-    return (_jsx("div", { role: "dialog", "aria-modal": "true", "aria-label": alt, className: `cf-start ${leaving ? "cf-start--leaving" : ""} ${className}`, children: _jsxs("div", { className: "cf-start__inner", children: [renderImage ? (renderImage({ onDone: handleDone, alt, className: "cf-start__image" })) : (_jsx(FamilySplash, { app: app, showBackground: false, caption: null, alt: alt, onDone: handleDone, className: "cf-start__image" })), _jsxs("div", { className: `cf-start__row ${ready ? "" : "cf-start__row--hidden"}`, children: [_jsx("p", { className: "cf-start__caption", children: caption }), _jsx("button", { ref: enterRef, type: "button", className: "cf-start__enter", "aria-hidden": !ready, tabIndex: ready ? undefined : -1, onClick: () => setLeaving(true), children: enterLabel })] })] }) }));
+    return (_jsx("div", { role: "dialog", "aria-modal": "true", "aria-label": alt, className: `cf-start ${leaving ? "cf-start--leaving" : ""} ${className}`, children: _jsxs("div", { className: "cf-start__inner", children: [renderImage ? (renderImage({ onDone: handleDone, alt, className: "cf-start__image" })) : (_jsx(FamilySplash, { app: app, markSrc: markSrc, showBackground: false, caption: null, alt: alt, onDone: handleDone, className: "cf-start__image" })), _jsxs("div", { className: `cf-start__row ${ready ? "" : "cf-start__row--hidden"}`, children: [_jsx("p", { className: "cf-start__caption", children: caption }), _jsx("button", { ref: enterRef, type: "button", className: "cf-start__enter", "aria-hidden": !ready, tabIndex: ready ? undefined : -1, onClick: () => setLeaving(true), children: enterLabel })] })] }) }));
 }

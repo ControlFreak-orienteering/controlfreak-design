@@ -527,6 +527,7 @@ function Terrain() {
  */
 export function FamilySplash({
   app = null,
+  markSrc,
   robot = false,
   prompt = null,
   reply = null,
@@ -540,6 +541,8 @@ export function FamilySplash({
 }: {
   /** The app's name, the second title line under "ControlFreak"; null for none. */
   app?: string | null;
+  /** The app's own mark as an image address (see `FamilyTitle`); left out, the family's mark. */
+  markSrc?: string;
   /** Shows a robot walking the course and setting out the controls (the AI assistant in ControlFreak). */
   robot?: boolean;
   /**
@@ -657,7 +660,7 @@ export function FamilySplash({
           (20, 215) to (489, 130), a slope of -10.3 degrees. Moved down and left, the whole
           lockup stays inside the edge, the space narrowing to the right along the
           diagonal. The app's name is the second line, under the wordmark. */}
-      <FamilyTitle x={100} y={82} app={app} />
+      <FamilyTitle x={100} y={82} app={app} markSrc={markSrc} />
 
       {prompt && <Chat prompt={prompt} reply={reply} />}
 

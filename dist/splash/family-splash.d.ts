@@ -16,9 +16,11 @@ export declare const MCP_COURSE: CoursePoint[];
 /**
  * The start image. See the module comment.
  */
-export declare function FamilySplash({ app, robot, prompt, reply, course: courseProp, caption, showBackground, alt, onDone, className, style, }: {
+export declare function FamilySplash({ app, markSrc, robot, prompt, reply, course: courseProp, caption, showBackground, alt, onDone, className, style, }: {
     /** The app's name, the second title line under "ControlFreak"; null for none. */
     app?: string | null;
+    /** The app's own mark as an image address (see `FamilyTitle`); left out, the family's mark. */
+    markSrc?: string;
     /** Shows a robot walking the course and setting out the controls (the AI assistant in ControlFreak). */
     robot?: boolean;
     /**

@@ -74,8 +74,9 @@ published, never every app or a release of this package:
   when it has none of its own.
 - **The family header and the start image's title** take the app's own mark as
   `markSrc`, best bundled as a data URL so it shows offline without a request:
-  `import mark from "@/brand/app-mark.svg?inline"`, then `<FamilyHeader markSrc={mark} …>`
-  and `<FamilyTitle markSrc={mark} …>`. Left out, the family's mark.
+  `import mark from "@/brand/app-mark.svg?inline"`, then `<FamilyHeader markSrc={mark} …>`,
+  `<StartScreen markSrc={mark} …>` (or `FamilySplash`) and `<FamilyTitle markSrc={mark} …>`.
+  Left out, the family's mark.
 - **The app switcher and the hub's cards** show the other apps' marks from their own
   addresses (`https://<app>/app-mark.svg`, `FamilyAppMark`). When one cannot be loaded,
   offline for instance, the family's mark is shown instead. These are the only requests

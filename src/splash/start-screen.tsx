@@ -31,6 +31,7 @@ export const START_READY_MS = 1500;
  */
 export function StartScreen({
   app,
+  markSrc,
   alt,
   caption,
   enterLabel,
@@ -40,6 +41,11 @@ export function StartScreen({
 }: {
   /** The app's name, the second title line under "ControlFreak", e.g. "Banläggning". */
   app: string | null;
+  /**
+   * The app's own mark in the family's image, as an image address (see `FamilyTitle`);
+   * left out, the family's mark. An app's own `renderImage` passes it to `FamilyTitle` itself.
+   */
+  markSrc?: string;
   /** The image's alternative text, in the app's language. */
   alt: string;
   /** The text on the left of the row, e.g. how many projects are stored; "" for none. */
@@ -104,6 +110,7 @@ export function StartScreen({
         ) : (
           <FamilySplash
             app={app}
+            markSrc={markSrc}
             showBackground={false}
             caption={null}
             alt={alt}
