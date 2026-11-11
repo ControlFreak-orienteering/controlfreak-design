@@ -16,6 +16,7 @@ export type FamilyAppId =
   | "live"
   | "run"
   | "diff"
+  | "convert"
   | "hub";
 
 /** The colour of the app's own word in its name. */
@@ -126,6 +127,21 @@ export const FAMILY_APPS: readonly FamilyApp[] = [
       no: "Sammenlign to versjoner av et orienteringskart og se hva som er endret.",
       fi: "Vertaile suunnistuskartan kahta versiota ja katso, mikä on muuttunut.",
       cs: "Porovnejte dvě verze orientační mapy a zjistěte, co se změnilo.",
+    },
+  },
+  {
+    id: "convert",
+    url: "https://convert.controlfreak.se",
+    name: "ControlFreak Convert",
+    base: "ControlFreak",
+    word: "Convert",
+    accent: "orange",
+    what: {
+      sv: "Konvertera banfiler mellan OCAD, Purple Pen, IOF XML och ControlFreak.",
+      en: "Convert course files between OCAD, Purple Pen, IOF XML and ControlFreak.",
+      no: "Konverter løypefiler mellom OCAD, Purple Pen, IOF XML og ControlFreak.",
+      fi: "Muunna ratatiedostoja OCADin, Purple Penin, IOF XML:n ja ControlFreakin välillä.",
+      cs: "Převádějte soubory tratí mezi OCAD, Purple Pen, IOF XML a ControlFreak.",
     },
   },
 ];
