@@ -15,7 +15,7 @@
 import { useEffect, useId, useRef, useState, type MouseEvent, type ReactNode } from "react";
 
 import { HTML_LANG, LANG_LABELS, LANGS, type Lang } from "../i18n/index.js";
-import { FAMILY_APPS, familyApp, familyHubUrl, type FamilyAccent, type FamilyAppId } from "./apps.js";
+import { FAMILY_APPS, familyApp, familyAppUrl, familyHubUrl, type FamilyAccent, type FamilyAppId } from "./apps.js";
 import {
   APP_MARK_PATH,
   FamilyAppMark,
@@ -203,13 +203,13 @@ export function FamilyHeader({
         return (
           <a
             key={a.id}
-            href={a.url}
+            href={familyAppUrl(a, lang)}
             role="menuitem"
             aria-current={current ? "true" : undefined}
             className={current ? "cf-family-current" : undefined}
             onClick={close}
           >
-            <FamilyAppMark src={current ? markSrc : a.url + APP_MARK_PATH} size={20} />
+            <FamilyAppMark src={current ? markSrc : a.url + APP_MARK_PATH} size={20} lazy />
             <span>
               <span className="cf-family-app-title">
                 <FamilyName app={a} />

@@ -351,7 +351,9 @@ import { FamilyFooter, FamilyHeader, FamilyName } from "controlfreak-design/fami
 - The look is plain CSS on the apps' own tokens (`--card`, `--foreground`, `--border`,
   `--muted`, `--primary`, `--accent`), so it follows the app's palette, light or dark.
 - `FAMILY_APPS` is the list the switcher shows, with each app's address and one-line
-  description in the five languages; `familyHubUrl(lang)` is the hub's page.
+  description in the five languages; `familyHubUrl(lang)` is the hub's page and
+  `familyAppUrl(app, lang)` an app's start page in that language (the app menu links there, so
+  the chosen language follows between the apps).
 
 ## Feedback
 

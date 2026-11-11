@@ -141,6 +141,16 @@ export function familyHubUrl(lang: Lang): string {
   return `${FAMILY_HUB_URL}${langPath(lang) === "/" ? "" : langPath(lang)}`;
 }
 
+/**
+ * An app's start page in a language, e.g. `https://run.controlfreak.se/en`, so that the
+ * language chosen in one app follows to the next: each app remembers its own choice per
+ * subdomain, and without the language in the address the visitor lands in another one.
+ * Every app in the family serves `/en`, `/no`, `/fi` and `/cs`.
+ */
+export function familyAppUrl(app: FamilyApp, lang: Lang): string {
+  return `${app.url}${langPath(lang) === "/" ? "" : langPath(lang)}`;
+}
+
 /** The app with a given id; the hub is not among the apps. */
 export function familyApp(id: Exclude<FamilyAppId, "hub">): FamilyApp {
   return FAMILY_APPS.find((app) => app.id === id)!;

@@ -54,6 +54,12 @@ test("the links to the apps and the languages are in the page even with the menu
   assert.match(html, /href="https:\/\/run.controlfreak.se"/);
   // React writes the attribute as hrefLang; browsers read it case-insensitively.
   assert.match(html, /href="\/fi" hrefLang="fi" lang="fi"/);
+  // The marks in the closed menu are fetched when it opens, not preloaded from the other apps.
+  assert.match(html, /<img[^>]*src="https:\/\/run.controlfreak.se\/app-mark.svg"[^>]*loading="lazy"/);
+  // The language follows into the other apps.
+  const english = renderToStaticMarkup(createElement(FamilyHeader, { app: "event", lang: "en" }));
+  assert.match(english, /href="https:\/\/run.controlfreak.se\/en"/);
+  assert.match(english, /href="https:\/\/live.controlfreak.se\/en"/);
   // The hub lists the apps itself and gets no switcher.
   const hub = renderToStaticMarkup(createElement(FamilyHeader, { app: "hub", lang: "sv" }));
   assert.doesNotMatch(hub, /cf-family-apps/);

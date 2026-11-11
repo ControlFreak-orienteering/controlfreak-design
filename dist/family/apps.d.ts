@@ -33,5 +33,12 @@ export declare const FAMILY_HUB_URL = "https://controlfreak.se";
 export declare const FAMILY_FACEBOOK_URL = "https://www.facebook.com/controlfreak.se";
 /** The hub's page in a language, e.g. `https://controlfreak.se/en`. */
 export declare function familyHubUrl(lang: Lang): string;
+/**
+ * An app's start page in a language, e.g. `https://run.controlfreak.se/en`, so that the
+ * language chosen in one app follows to the next: each app remembers its own choice per
+ * subdomain, and without the language in the address the visitor lands in another one.
+ * Every app in the family serves `/en`, `/no`, `/fi` and `/cs`.
+ */
+export declare function familyAppUrl(app: FamilyApp, lang: Lang): string;
 /** The app with a given id; the hub is not among the apps. */
 export declare function familyApp(id: Exclude<FamilyAppId, "hub">): FamilyApp;

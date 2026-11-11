@@ -103,8 +103,20 @@ export const APP_MARK_PATH = "/app-mark.svg";
  * `src` is the image to show; left out, the family's mark. When the image cannot be
  * loaded (offline, or an app that does not serve one yet), the family's mark is shown
  * instead, so a mark is never a broken image.
+ *
+ * `lazy` is for marks that are not visible from the start, such as those in the closed app
+ * menu: the image is then fetched when the menu opens. Without it React preloads every
+ * mark in the page head, and each visit fetches the other apps' marks from their servers.
  */
-export function FamilyAppMark({ src, size = 20 }: { src?: string; size?: number }) {
+export function FamilyAppMark({
+  src,
+  size = 20,
+  lazy = false,
+}: {
+  src?: string;
+  size?: number;
+  lazy?: boolean;
+}) {
   const [failed, setFailed] = useState(false);
   const img = useRef<HTMLImageElement>(null);
   useEffect(() => {
@@ -123,6 +135,7 @@ export function FamilyAppMark({ src, size = 20 }: { src?: string; size?: number 
       alt=""
       aria-hidden="true"
       decoding="async"
+      loading={lazy ? "lazy" : undefined}
       onError={() => setFailed(true)}
     />
   );

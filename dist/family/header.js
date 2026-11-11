@@ -14,7 +14,7 @@ import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-run
  */
 import { useEffect, useId, useRef, useState } from "react";
 import { HTML_LANG, LANG_LABELS, LANGS } from "../i18n/index.js";
-import { FAMILY_APPS, familyApp, familyHubUrl } from "./apps.js";
+import { FAMILY_APPS, familyApp, familyAppUrl, familyHubUrl } from "./apps.js";
 import { APP_MARK_PATH, FamilyAppMark, AppsIcon, BookIcon, ChevronIcon, CloseIcon, FeedbackIcon, GlobeIcon, MenuIcon, MoonIcon, SunIcon, } from "./icons.js";
 import { TEXTS } from "./texts.js";
 /**
@@ -76,7 +76,7 @@ export function FamilyHeader({ app, lang, langHref, onLangChange, theme, manualH
     });
     const appItems = (_jsxs(_Fragment, { children: [FAMILY_APPS.map((a) => {
                 const current = a.id === app;
-                return (_jsxs("a", { href: a.url, role: "menuitem", "aria-current": current ? "true" : undefined, className: current ? "cf-family-current" : undefined, onClick: close, children: [_jsx(FamilyAppMark, { src: current ? markSrc : a.url + APP_MARK_PATH, size: 20 }), _jsxs("span", { children: [_jsxs("span", { className: "cf-family-app-title", children: [_jsx(FamilyName, { app: a }), current && _jsx("span", { className: "cf-family-sr", children: ` (${t.thisApp})` })] }), _jsx("span", { className: "cf-family-app-what", children: a.what[lang] })] })] }, a.id));
+                return (_jsxs("a", { href: familyAppUrl(a, lang), role: "menuitem", "aria-current": current ? "true" : undefined, className: current ? "cf-family-current" : undefined, onClick: close, children: [_jsx(FamilyAppMark, { src: current ? markSrc : a.url + APP_MARK_PATH, size: 20, lazy: true }), _jsxs("span", { children: [_jsxs("span", { className: "cf-family-app-title", children: [_jsx(FamilyName, { app: a }), current && _jsx("span", { className: "cf-family-sr", children: ` (${t.thisApp})` })] }), _jsx("span", { className: "cf-family-app-what", children: a.what[lang] })] })] }, a.id));
             }), _jsxs("a", { href: familyHubUrl(lang), role: "menuitem", className: `cf-family-hub${app === "hub" ? " cf-family-current" : ""}`, "aria-current": app === "hub" ? "true" : undefined, onClick: close, children: [_jsx("span", { className: "cf-family-app-title", children: "controlfreak.se" }), _jsx("span", { className: "cf-family-app-what", children: t.allApps })] })] }));
     const manualLink = hasManual && (_jsxs("a", { href: manualHref ?? "#", onClick: (e) => {
             close();
