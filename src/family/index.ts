@@ -7,6 +7,7 @@ export {
   FAMILY_FACEBOOK_URL,
   FAMILY_HUB_URL,
   familyApp,
+  familyAppUrl,
   familyHubUrl,
   type FamilyAccent,
   type FamilyApp,
