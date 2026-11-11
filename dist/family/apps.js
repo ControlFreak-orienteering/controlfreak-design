@@ -97,6 +97,21 @@ export const FAMILY_APPS = [
             cs: "Porovnejte dvě verze orientační mapy a zjistěte, co se změnilo.",
         },
     },
+    {
+        id: "convert",
+        url: "https://convert.controlfreak.se",
+        name: "ControlFreak Convert",
+        base: "ControlFreak",
+        word: "Convert",
+        accent: "orange",
+        what: {
+            sv: "Konvertera banfiler mellan OCAD, Purple Pen, IOF XML och ControlFreak.",
+            en: "Convert course files between OCAD, Purple Pen, IOF XML and ControlFreak.",
+            no: "Konverter løypefiler mellom OCAD, Purple Pen, IOF XML og ControlFreak.",
+            fi: "Muunna ratatiedostoja OCADin, Purple Penin, IOF XML:n ja ControlFreakin välillä.",
+            cs: "Převádějte soubory tratí mezi OCAD, Purple Pen, IOF XML a ControlFreak.",
+        },
+    },
 ];
 /** The hub, controlfreak.se, with all the apps. */
 export const FAMILY_HUB_URL = "https://controlfreak.se";

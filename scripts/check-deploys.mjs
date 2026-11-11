@@ -23,6 +23,7 @@ export const APPS = [
   { host: "event.controlfreak.se", repo: "orienteer-joy-hub" },
   { host: "start.controlfreak.se", repo: "ticking-reminder" },
   { host: "diff.controlfreak.se", repo: "controlfreak-diff" },
+  { host: "convert.controlfreak.se", repo: "controlfreak-convert" },
   { host: "review.controlfreak.se", repo: "controlfreak-review" },
   { host: "live.controlfreak.se", repo: "controlfreak-live" },
 ];

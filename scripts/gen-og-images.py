@@ -7,6 +7,7 @@
   assets/og-mcp.png            ... "MCP"
   assets/og-diff.png           ... "Diff"
   assets/og-live.png           ... "Live"
+  assets/og-convert.png        ... "Convert"
 
 The name is written as in the family header: "Control" in ink, "Freak" in the logo's
 purple and the app's own word in its accent colour (FAMILY_APPS in src/family/apps.ts).
@@ -48,6 +49,7 @@ APPS = [
     ("mcp", "MCP"),
     ("diff", "Diff"),
     ("live", "Live"),
+    ("convert", "Convert"),
 ]
 
 # Layout: the paper strip along the bottom, as on the apps' start screens; the mark on
