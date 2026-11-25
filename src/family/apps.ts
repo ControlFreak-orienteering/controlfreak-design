@@ -137,11 +137,11 @@ export const FAMILY_APPS: readonly FamilyApp[] = [
     word: "Convert",
     accent: "orange",
     what: {
-      sv: "Konvertera banfiler mellan OCAD, Purple Pen, IOF XML och ControlFreak.",
-      en: "Convert course files between OCAD, Purple Pen, IOF XML and ControlFreak.",
-      no: "Konverter løypefiler mellom OCAD, Purple Pen, IOF XML og ControlFreak.",
-      fi: "Muunna ratatiedostoja OCADin, Purple Penin, IOF XML:n ja ControlFreakin välillä.",
-      cs: "Převádějte soubory tratí mezi OCAD, Purple Pen, IOF XML a ControlFreak.",
+      sv: "Konvertera banfiler mellan OCAD, Purple Pen, IOF XML och ControlFreak, och gör kartor till bilder.",
+      en: "Convert course files between OCAD, Purple Pen, IOF XML and ControlFreak, and turn maps into images.",
+      no: "Konverter løypefiler mellom OCAD, Purple Pen, IOF XML og ControlFreak, og gjør kart om til bilder.",
+      fi: "Muunna ratatiedostoja OCADin, Purple Penin, IOF XML:n ja ControlFreakin välillä ja karttoja kuviksi.",
+      cs: "Převádějte soubory tratí mezi OCAD, Purple Pen, IOF XML a ControlFreak a mapy na obrázky.",
     },
   },
 ];

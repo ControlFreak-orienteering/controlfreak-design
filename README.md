@@ -7,7 +7,7 @@ The shared look of the ControlFreak family of orienteering apps under controlfre
 - **ControlFreak Live** (live results from Event and Run)
 - **ControlFreak Run** (virtual controls)
 - **ControlFreak Diff** (what changed between two versions of a map)
-- **ControlFreak Convert** (course files from one format to another)
+- **ControlFreak Convert** (course files from one format to another, and maps to images)
 
 **A new app** is made the family's way with the Lovable skill `new-controlfreak-app` in the
 private repo `ControlFreak-orienteering/controlfreak-skills` (uploaded to the Lovable workspace
